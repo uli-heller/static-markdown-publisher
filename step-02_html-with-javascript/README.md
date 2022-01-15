@@ -51,4 +51,37 @@ index 3597455..fe87776 100644
  </html>
 ```
 
+Der Platzhalter ist dieser Teil: `<span id="placeholder">placeholder</span>`.
+
+Javascript
+----------
+
+Jetzt kommt noch ein wenig Javascript hinzu, welches den Platzhalter
+mit Text "placeholder" ersetzt durch den Text "greeting from javascript":
+
+```diff
+diff --git a/step-02_html-with-javascript/index.html b/step-02_html-with-javascript/index.html
+index fe87776..3a6151f 100644
+--- a/step-02_html-with-javascript/index.html
++++ b/step-02_html-with-javascript/index.html
+@@ -2,11 +2,16 @@
+ <html>
+   <head>
+   </head>
+-  <body>
++  <body onload="greetings();">
+     <h1>Headline</h1>
+     <p>First paragraph. This is a paragraph of text!</p>
+     <p>
+       Second paragraph with a <span id="placeholder">placeholder</span>
+     </p>
+   </body>
++  <script>
++    function greetings () {
++       document.getElementById('placeholder').innerText = 'greeting from javascript';
++    }
++  </script>
+ </html>
+```
+
 [MAIN]: ../README.md
