@@ -41,6 +41,16 @@ Die Anzahl der Rahmendateien sollte sich dabei "in Grenzen" halten - maximal
 10 Stück oder so. Der Inhalt und die Anzahl der MD-Dateien sollen komplett
 variabel sein.
 
+Implementierungs- und Aufbau-Schritte
+-------------------------------------
+
+* [Schritt 1 - Grundlegendes HTML-Dokument](step-01_basic-html/README.md)
+
+Endergebnis
+-----------
+
+TBD
+
 [MDWIKI]: http://www.mdwiki.info/
 [RAITO]: https://github.com/arnaudsm/raito/
 [LICENSE]: LICENSE.md
