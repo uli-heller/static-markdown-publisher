@@ -3,19 +3,24 @@
   <head>
   </head>
   <body onload="greetings();">
-    <h1>Headline</h1>
+    <h1>Step 03 - Headline</h1>
     <p>First paragraph. This is a paragraph of text!</p>
     <p>
       Second paragraph with a <span id="placeholder-id">placeholder</span>
     </p>
   </body>
   <script>
+    async function load(element, filename) {
+	const contentFetcher = await fetch(filename);
+	const contentText = await contentFetcher.text();
+        element.innerText = contentText;
+    }
+    
     function greetings () {
-        <!-- a?.b does not work in firefox as of 2022-01-15 -->
         const placeholder = document.getElementById('placeholder-id');
         if (placeholder) {
-            placeholder.innerText = 'greeting from javascript';
-        }
+	    load(placeholder, 'index.md');
+	}
     }
   </script>
 </html>
