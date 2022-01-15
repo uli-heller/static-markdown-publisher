@@ -29,5 +29,5 @@ Im Browser erscheint das grob wie unten dargestellt!
 
 Paragraph. This is a paragraph of text!
 
-[MAIN] ../README.md
-[LMGTFY] https://lmgtfy.app/?q=basic+html+file
+[MAIN]: ../README.md
+[LMGTFY]: https://lmgtfy.app/?q=basic+html+file
