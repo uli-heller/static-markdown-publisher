@@ -46,6 +46,7 @@ Implementierungs- und Aufbau-Schritte
 
 * [Schritt 1 - Grundlegendes HTML-Dokument](step-01_basic-html/README.md)
 * [Schritt 2 - HTML-Dokument mit Javascript](step-02_html-with-javascript/README.md)
+* [Schritt 3 - Zusatzdaten von externer Datei](step-03_external-file/README.md)
 
 Endergebnis
 -----------

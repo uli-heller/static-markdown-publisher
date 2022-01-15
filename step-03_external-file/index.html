@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body onload="greetings();">
+    <h1>Headline</h1>
+    <p>First paragraph. This is a paragraph of text!</p>
+    <p>
+      Second paragraph with a <span id="placeholder-id">placeholder</span>
+    </p>
+  </body>
+  <script>
+    function greetings () {
+        <!-- a?.b does not work in firefox as of 2022-01-15 -->
+        const placeholder = document.getElementById('placeholder-id');
+        if (placeholder) {
+            placeholder.innerText = 'greeting from javascript';
+        }
+    }
+  </script>
+</html>
