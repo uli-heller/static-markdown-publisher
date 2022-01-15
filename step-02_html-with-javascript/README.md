@@ -51,5 +51,4 @@ index 3597455..fe87776 100644
  </html>
 ```
 
-
-[LMGTFY]: https://lmgtfy.app/?q=basic+html+file
+[MAIN]: ../README.md
