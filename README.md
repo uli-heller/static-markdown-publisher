@@ -24,6 +24,20 @@ es auch nicht dauerhaft verwenden und muß was eigenes entwickeln.
 Ich möchte die [Apache 2.0 License][LICENSE] verwenden, habe aber
 noch nicht 100%ig geprüft, ob das rechtlich zulässig ist.
 
+Ziele
+-----
+
+Grob betrachtet möchte ich sowas ähnliches wie MDWIKI nachbauen, also
+
+- ich erstelle ein paar Rahmendateien wie "index.html", "config.js" etc
+- ... und dazu eine Reihe von MD-Dateien
+- ... und all das kann auf einem Webserver hinterlegt und dann direkt
+  per Browser gesichtet werden
+
+Die Anzahl der Rahmendateien sollte sich dabei "in Grenzen" halten - maximal
+10 Stück oder so. Der Inhalt und die Anzahl der MD-Dateien sollen komplett
+variabel sein.
+
 [MDWIKI]: http://www.mdwiki.info/
 [RAITO]: https://github.com/arnaudsm/raito/
 [LICENSE]: LICENSE.md
