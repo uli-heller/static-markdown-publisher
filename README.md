@@ -24,6 +24,9 @@ es auch nicht dauerhaft verwenden und muß was eigenes entwickeln.
 Ich möchte die [Apache 2.0 License][LICENSE] verwenden, habe aber
 noch nicht 100%ig geprüft, ob das rechtlich zulässig ist.
 
+Eine [Tabelle der Lizenzen von Drittsoftware][LICENSE-OTHERS]
+findet sich [hier][LICENSE-OTHERS].
+
 Ziele
 -----
 
@@ -41,3 +44,4 @@ variabel sein.
 [MDWIKI]: http://www.mdwiki.info/
 [RAITO]: https://github.com/arnaudsm/raito/
 [LICENSE]: LICENSE.md
+[LICENSE-OTHERS]: LICENSE-OTHERS.md
