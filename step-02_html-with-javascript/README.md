@@ -6,7 +6,7 @@
 Ausgangslage
 ------------
 
-Das einfache HTML-Dokument von Schritt 1 sieht so aus:
+Das einfache [HTML-Dokument von Schritt 1][BASE] sieht so aus:
 
 ```html
 <!DOCTYPE html>
@@ -93,6 +93,7 @@ HTML-Dokument mit Javascript
 ----------------------------
 
 Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
+Es enthält noch eine leicht verbesserte Fehlerhandhabung.
 Dargestellt wird es wie nachfolgend gezeigt!
 
 ---
@@ -105,5 +106,5 @@ First paragraph. This is a paragraph of text!</p>
 Second paragraph with a greeting from javascript
 
 [MAIN]: ../README.md
+[BASE]: ../step-01_basic-html/index.html
 [RESULT]: index.html
-

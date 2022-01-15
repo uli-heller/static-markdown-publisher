@@ -11,7 +11,11 @@
   </body>
   <script>
     function greetings () {
-	document.getElementById('placeholder-id').innerText = 'greeting from javascript';
+        <!-- a?.b does not work in firefox as of 2022-01-15 -->
+        const placeholder = document.getElementById('placeholder-id');
+        if (placeholder) {
+            placeholder.innerText = 'greeting from javascript';
+        }
     }
   </script>
 </html>
