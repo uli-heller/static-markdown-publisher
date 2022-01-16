@@ -74,7 +74,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 6 - Mehrere Markdown-Dateien](step-06_multi-markdown/README.md)
 * Schritt 7 - Links zwischen Markdown-Dateien
 * Schritt 8 - Kopf und Fuß
-* Schritt 9 - Bilder in Markwon-Dateien
+* Schritt 9 - Bilder in Markdown-Dateien
 
 Endergebnis
 -----------
