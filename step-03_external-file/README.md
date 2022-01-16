@@ -25,14 +25,9 @@ einfach direkt im Webbrowser sichten, bspw. mittels dem
 Aufruf `firefox step-02_html-with-javascript`. Leider funktioniert
 dies nicht, sobald zusätzliche Dateien nachgeladen werden sollen.
 
-Tests erfolgen deshalb wie folgt:
-
-- Dummy-HTTP-Server starten
-
-    - `python -m http.server 8000 -d step-03_external-file`
-    - `python3 -m http.server 8000 -d step-03_external-file`
-
-- Browser starten mit [http://localhost:8000][LOCALHOST]
+Ab diesem Schritt klappt die Sichtung nur noch mit
+Dummy-HTTP-Server oder Github-Pages. Für Details: Siehe
+[Übersichtsdokument][MAIN], ganz unten!
 
 Zusatzdatei
 -----------
@@ -74,7 +69,9 @@ werden:
 HTML-Dokument mit Javascript
 ----------------------------
 
-Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
+Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
+
+[Ansicht via Github Pages][RESULT]
 
 ---
 
@@ -87,6 +84,7 @@ Second paragraph with a greeting from "index.md"
 
 [MAIN]: ../README.md
 [BASE]: ../step-02_html-with-javascript/index.html
-[RESULT]: index.html
-[LOCALHOST]: http://localhost:8000
+[INDEXHTML]: index.html
 [INDEXMD]: index.md
+[LOCALHOST]: http://localhost:8000
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-02_html-with-javascript/index.html
