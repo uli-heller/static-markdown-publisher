@@ -1,5 +1,5 @@
-06 - Multi Markdown
-====================
+07 - Markdown Links
+===================
 
 [Zurück zur Übersicht][MAIN]
 
@@ -7,25 +7,26 @@ Ausgangslage
 ------------
 
 Das [HTML-Dokument vom vorigen Schritt][BASE] ist Grundlage.
-Dort wird die komplette angezeigte Seite als Markdown-Datei via Javascript eingelesen.
+Dort werden potentiell mehrere Markdown-Datei via Javascript eingelesen.
+Die gewünschte Markdown-Datei gibt man an via "#(datei).md" in der URL.
 
 Ziel
 ----
 
 Ich möchte die Möglichkeit haben, mehrere verschiedene Markdown-Dateien
-anzuzeigen.
+anzuzeigen inklusive funktionierenden Links zwischen diesen!
 
 Markdown-Datei
 --------------
 
-Ich lege eine [Zusatzdatei "another-page.md"][AOPMD] an mit dem Text, der
-im Browser angezeigt werden soll:
+Ich lege eine [Zusatzdatei "index.md"][INDEXMD] an mit
+Links auf alle anderen Dateien:
 
 ```
-# Step 06 - Another Markdown File
+# Step 07 - index.md
 
-* First markdown file: page.md
-* Second markdown file: another-page.md
+* First markdown file: [page.md](page.md)
+* Second markdown file: [another-page.md](another-page.md)
 ```
 
 Mehrere Markdown-Dateien laden und anzeigen
