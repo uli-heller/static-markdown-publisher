@@ -41,7 +41,7 @@ index 3597455..fe87776 100644
 @@ -4,6 +4,9 @@
    </head>
    <body>
-     <h1>Headline</h1>
+     <h1>Step 02 - Headline</h1>
 -    <p>Paragraph. This is a paragraph of text!</p>
 +    <p>First paragraph. This is a paragraph of text!</p>
 +    <p>
