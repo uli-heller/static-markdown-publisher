@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  </head>
+  <body onload="initPage();" onhashchange="hashChanged();">
+    <span id="page-id"></span>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const renderer = new marked.Renderer();
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        href = "#" + href;
+        return originalRendererLink(href, title, text);
+    };
+
+    async function load(element, filename) {
+	const contentFetcher = await fetch(filename, {cache: "no-store"});
+	const contentText = await contentFetcher.text();
+        element.innerHTML = marked.parse(contentText, { renderer: renderer });
+    }
+
+    function removeHash (windowLocationHash) {
+	return windowLocationHash.replace(/^#/, "");
+    }
+
+    function hashChanged () {
+	initPage();
+    }
+
+    function initPage () {
+        const page = document.getElementById('page-id');
+        if (page) {
+	    var filename=removeHash(window.location.hash);
+	    if (! filename) {
+		filename = 'index.md';
+	    }
+	    load(page, filename);
+	}
+    }
+  </script>
+</html>
