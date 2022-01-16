@@ -10,8 +10,10 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     const additionalElements = [
-	{ filename: "header.md", elementId: "top-id" },
-	{ filename: "footer.md", elementId: "bottom-id" },
+        { filename: "header.md",    elementId: "top-id" },
+        { filename: "header-02.md", elementId: "top-id" },
+        { filename: "footer.md",    elementId: "bottom-id" },
+        { filename: "footer-02.md", elementId: "bottom-id" },
     ];
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
@@ -21,35 +23,39 @@
     };
 
     async function load(element, filename) {
-	const contentFetcher = await fetch(filename, {cache: "no-store"});
-	const contentText = await contentFetcher.text();
+        const contentFetcher = await fetch(filename, {cache: "no-store"});
+        const contentText = await contentFetcher.text();
         element.innerHTML = marked.parse(contentText, { renderer: renderer });
     }
 
     function removeHash (windowLocationHash) {
-	return windowLocationHash.replace(/^#/, "");
+        return windowLocationHash.replace(/^#/, "");
     }
 
     function hashChanged () {
-	initPage();
+        initPage();
     }
 
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
-	    var filename=removeHash(window.location.hash);
-	    if (! filename) {
-		filename = 'index.md';
-	    }
-	    load(page, filename);
-	}
-	additionalElements.forEach((ae) => {
-	    const element = document.getElementById(ae.elementId);
-	    if (element) {
-		load(element, ae.filename);
-	    }
-	    return true;
-	});
+            var filename=removeHash(window.location.hash);
+            if (! filename) {
+                filename = 'index.md';
+            }
+            load(page, filename);
+        }
+        additionalElements.forEach((ae) => {
+            const element = document.getElementById(ae.elementId);
+            if (element) {
+                if (! document.getElementById(ae.filename)) {
+                    const newElement = document.createElement('div');
+                    newElement.id = ae.filename;
+                    element.append(newElement)
+                    load(newElement, ae.filename);
+                }
+            }
+        });
     }
   </script>
 </html>

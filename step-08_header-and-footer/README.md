@@ -19,24 +19,28 @@ angezeigt werden.
 Markdown-Dateien
 ----------------
 
-Ich lege zusätzliche Dateien an ["header.md"][HEADERMD]
-und ["footer.md"][FOOTERMD].
+Ich lege zusätzliche Dateien an
+
+- <header.md>
+- <header-02.md>
+- <footer.md>
+- <footer-02.md>
 
 Kopf- und Fußzeile einblenden
 -----------------------------
 
 Die Datei [index.html][INDEXHTML] muß wie folgt ergänzt und überarbeitet werden:
 
-- TBD
+- Platzhalter für oben (top) und unten (bottom) einfügen
+- Array mit Zusatzelementen: Name der Datei -> Platzhalter zum Einfügen
+- Schleife über das Array: Datei laden, wandeln und einfügen
 
 Hier die Unterschiede im Detail:
 
 ```diff
-diff --git a/step-08_header-and-footer/index.html b/step-08_header-and-footer/index.html
-index 8add719..74dd00b 100644
---- a/step-08_header-and-footer/index.html
-+++ b/step-08_header-and-footer/index.html
-@@ -3,10 +3,16 @@
+--- step-07_markdown-links/index.html	2022-01-16 23:08:11.333719626 +0100
++++ step-08_header-and-footer/index.html	2022-01-16 23:22:59.406544000 +0100
+@@ -3,10 +3,18 @@
    <head>
    </head>
    <body onload="initPage();" onhashchange="hashChanged();">
@@ -47,23 +51,29 @@ index 8add719..74dd00b 100644
    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
    <script>
 +    const additionalElements = [
-+       { filename: "header.md", elementId: "top-id" },
-+       { filename: "footer.md", elementId: "bottom-id" },
++	{ filename: "header.md",    elementId: "top-id" },
++	{ filename: "header-02.md", elementId: "top-id" },
++	{ filename: "footer.md",    elementId: "bottom-id" },
++	{ filename: "footer-02.md", elementId: "bottom-id" },
 +    ];
      const renderer = new marked.Renderer();
      const originalRendererLink = renderer.link.bind(renderer);
      renderer.link = (href, title, text) => {
-@@ -37,6 +43,13 @@
-            }
-            load(page, filename);
-        }
-+       additionalElements.forEach((ae) => {
-+           const element = document.getElementById(ae.elementId);
-+           if (element) {
-+               load(element, ae.filename);
-+           }
-+           return true;
-+       });
+@@ -37,6 +45,17 @@
+ 	    }
+ 	    load(page, filename);
+ 	}
++	additionalElements.forEach((ae) => {
++	    const element = document.getElementById(ae.elementId);
++	    if (element) {
++		if (! document.getElementById(ae.filename)) {
++		    const newElement = document.createElement('div');
++		    newElement.id = ae.filename;
++		    element.append(newElement)
++		    load(newElement, ae.filename);
++		}
++	    }
++	});
      }
    </script>
  </html>
@@ -85,5 +95,3 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 [PAGEMD]:    page.md
 [AOPMD]:     another-page.md
 [INDEXMD]:   index.md
-[HEADERMD]:  header.md
-[FOOTERMD]:  footer.md
