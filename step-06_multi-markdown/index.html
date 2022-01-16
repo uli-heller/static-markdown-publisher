@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  </head>
+  <body onload="initPage();">
+    <span id="page-id"></span>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    async function load(element, filename) {
+	const contentFetcher = await fetch(filename);
+	const contentText = await contentFetcher.text();
+        element.innerHTML = marked.parse(contentText);
+    }
+    
+    function initPage () {
+        const page = document.getElementById('page-id');
+        if (page) {
+	    load(page, 'page.md');
+	}
+    }
+  </script>
+</html>
