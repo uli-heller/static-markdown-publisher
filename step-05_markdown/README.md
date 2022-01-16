@@ -69,4 +69,4 @@ markdown to html!
 [LOCALHOST]: http://localhost:8000
 [RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-05_markdown/index.html
 [PAGEMD]: page.md
-[INDEXHTML]: index.html
+
