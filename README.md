@@ -75,6 +75,10 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 7 - Links zwischen Markdown-Dateien](step-07_markdown-links/README.md)
 * Schritt 8 - Kopf und Fuß
 * Schritt 9 - Bilder in Markdown-Dateien
+* Schritt 10 - Absolute Links und Links zu externen Resourcen
+* Schritt 11 - Unterverzeichnisse
+* Schritt 12 - Mermaid
+* Schritt 13 - Mehrspachigkeit
 
 Endergebnis
 -----------
