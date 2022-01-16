@@ -44,6 +44,19 @@ variabel sein.
 Abgrenzung zu "Static Site Generatoren"
 ---------------------------------------
 
+Bei "Static Site Generatoren" ist der Ausgangspunkt der Quelltext
+der Website. Er besteht aus:
+
+- HTML-Dateien
+- CSS-Dateien
+- Markdown-Dateien
+- uvm.
+
+Der "Static Site Generator" verarbeitet all diese Dateien und
+erzeugt daraus einen neuen Satz an Dateien, die dann auf einem
+Webserver ausgerollt werden können. Oftmals werden bei der
+Verarbeitung u.a. die Markdown-Dateien gewandelt in HTML-Dateien.
+
 ![no-static-site-generator](images/no-static-site-generator.svg)
 
 
