@@ -1,11 +1,11 @@
 LIZENZEN von Drittsoftware
 ==========================
 
-Name             | Datum      | Version | Lizenz            | Bemerkung
------------------|------------|---------|-------------------|---------------------------------
-[MARKED][MARKED] | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
-[MDWIKI][MDWIKI] | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
-[RAITO][RAITO]   | 2022-01-15 | -       | [MIT][RAITOL]     | Keinerlei Inhalte übernommen
+Name                | Datum      | Version | Lizenz            | Bemerkung
+--------------------|------------|---------|-------------------|---------------------------------
+[MARKED.JS][MARKED] | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
+[MDWIKI][MDWIKI]    | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
+[RAITO][RAITO]      | 2022-01-15 | -       | [MIT][RAITOL]     | Keinerlei Inhalte übernommen
 
 [MARKED]:  https://marked.js.org
 [MARKEDL]: https://marked.js.org/license
