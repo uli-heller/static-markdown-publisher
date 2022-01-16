@@ -20,7 +20,7 @@ werden, wobei der Inhalt aus einer Datei geladen wird.
 Einschränkungen
 ---------------
 
-Die Dokuemente von den vorangegangenen Schritten kann man
+Die Dokumente von den vorangegangenen Schritten kann man
 einfach direkt im Webbrowser sichten, bspw. mittels dem
 Aufruf `firefox step-02_html-with-javascript`. Leider funktioniert
 dies nicht, sobald zusätzliche Dateien nachgeladen werden sollen.
