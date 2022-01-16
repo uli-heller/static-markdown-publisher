@@ -1,5 +1,5 @@
-04 - Komplette Seite von Datei laden
-====================================
+05 - Markdown
+=============
 
 [Zurück zur Übersicht][MAIN]
 
@@ -7,42 +7,40 @@ Ausgangslage
 ------------
 
 Das [HTML-Dokument vom vorigen Schritt][BASE] ist Grundlage.
-Dort wird ein Textteil via Javascript in das Dokuemt
-eigepflegt.
+Dort wird die komplette angezeigte Seite via Javascript eingelesen.
 
 Ziel
 ----
 
-Ich möchte das angezeigte Dokument komplett "selbst" laden.
-Die Datei "index.html" enthält nur einen (unsichtbaren)
-Rahmen und den Javascript-Code zum Laden des Rests.
+Ich möchte statt der HTML-Datei eine Markdown-Datei laden,
+diese in HTML wandeln und dann anzeigen.
 
-HTML-Datei
-----------
+Markdown-Datei
+--------------
 
-Ich lege eine [Zusatzdatei "page.html"][PAGEHTML] an mit dem Text, der
+Ich lege eine [Zusatzdatei "page.mdl"][PAGEMD] an mit dem Text, der
 im Browser angezeigt werden soll:
 
 ```
-<h1>Step 04 - Complete Page From File</h1>
-<p>
-  Everything shown is stored in an external file
-  and loaded via javascript!
-</p>
+# Step 05 - Markdown
+
+Everything shown is stored in an external file
+and loaded via javascript and transformed from
+markdown to html!
+
+1. Load the "index.html"
+2. Load the "page.md"
+3. Transform to html
+4. Show html
 ```
 
-Komplette Seite laden
----------------------
+Markdown laden und anzeigen
+---------------------------
 
 Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
 
-- DOCTYPE korrigiert gemäß [Empfehlung von w3.org][DOCTYPE] ("Fleissarbeit", nicht notwendig)
-- Die meisten HTML-Tags fliegen raus aus der [index.html][INDEXHTML]
-- Übrig bleibt nur ein Platzhalter `<span>`
-- Der Javascript-Code wird etwas überarbeitet
-    - innerText -> innerHTML
-    - greetings -> initPage
-    - placeholder -> page
+- Markdown-Parser "marked.min.js" laden
+- Inhalt der geladenen Datei mittels "marked.parse()" wandeln von Markdown nach HTML
 
 HTML-Dokument mit Javascript
 ----------------------------
@@ -53,16 +51,22 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 
 ---
 
-# Step 04 - Complete Page From File
+# Step 05 - Markdown
+
 
 Everything shown is stored in an external file
-and loaded via javascript!
+and loaded via javascript and transformed from
+markdown to html!
+
+1. Load the "index.html"
+2. Load the "page.md"
+3. Transform to html
+4. Show html
 
 [MAIN]: ../README.md
-[BASE]: ../step-03_external-file/index.html
+[BASE]: ../step-04_complete-page/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
-[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-04_complete-page/index.html
-[PAGEHTML]: page.html
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-05_markdown/index.html
+[PAGEMD]: page.md
 [INDEXHTML]: index.html
-[DOCTYPE]: https://www.w3.org/wiki/Choosing_the_right_doctype_for_your_HTML_documents

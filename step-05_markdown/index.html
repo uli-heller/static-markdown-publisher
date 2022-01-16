@@ -5,17 +5,18 @@
   <body onload="initPage();">
     <span id="page-id"></span>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     async function load(element, filename) {
 	const contentFetcher = await fetch(filename);
 	const contentText = await contentFetcher.text();
-        element.innerHTML = contentText;
+        element.innerHTML = marked.parse(contentText);
     }
     
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
-	    load(page, 'page.html');
+	    load(page, 'page.md');
 	}
     }
   </script>
