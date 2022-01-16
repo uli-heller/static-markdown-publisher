@@ -3,10 +3,16 @@
   <head>
   </head>
   <body onload="initPage();" onhashchange="hashChanged();">
+    <span id="top-id"></span>
     <span id="page-id"></span>
+    <span id="bottom-id"></span>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    const additionalElements = [
+	{ filename: "header.md", elementId: "top-id" },
+	{ filename: "footer.md", elementId: "bottom-id" },
+    ];
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
@@ -37,6 +43,13 @@
 	    }
 	    load(page, filename);
 	}
+	additionalElements.forEach((ae) => {
+	    const element = document.getElementById(ae.elementId);
+	    if (element) {
+		load(element, ae.filename);
+	    }
+	    return true;
+	});
     }
   </script>
 </html>
