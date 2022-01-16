@@ -12,11 +12,19 @@
 	const contentText = await contentFetcher.text();
         element.innerHTML = marked.parse(contentText);
     }
-    
+
+    function removeHash (windowLocationHash) {
+	return windowLocationHash.replace(/^#/, "");
+    }
+
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
-	    load(page, 'page.md');
+	    var filename=removeHash(window.location.hash);
+	    if (! filename) {
+		filename = 'page.md';
+	    }
+	    load(page, filename);
 	}
     }
   </script>
