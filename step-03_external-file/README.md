@@ -78,9 +78,9 @@ Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
 
 ---
 
-# Headline
+# Step 03 - Headline
 
-First paragraph. This is a paragraph of text!</p>
+First paragraph. This is a paragraph of text!
 
 
 Second paragraph with a greeting from "index.md"
