@@ -13,63 +13,36 @@ eigepflegt.
 Ziel
 ----
 
-Ich möchte ein HTML-Dokument haben, in welchem Teile
-durch ein kleines Javascript-Programm dynamisch ersetzt
-werden, wobei der Inhalt aus einer Datei geladen wird.
+Ich möchte das angezeigte Dokument komplett "selbst" laden.
+Die Datei "index.html" enthält nur einen (unsichtbaren)
+Rahmen und den Javascript-Code zum Laden des Rests.
 
-Einschränkungen
----------------
+HTML-Datei
+----------
 
-Die Dokuemente von den vorangegangenen Schritten kann man
-einfach direkt im Webbrowser sichten, bspw. mittels dem
-Aufruf `firefox step-02_html-with-javascript`. Leider funktioniert
-dies nicht, sobald zusätzliche Dateien nachgeladen werden sollen.
-
-Tests erfolgen deshalb wie folgt:
-
-- Dummy-HTTP-Server starten
-
-    - `python -m http.server 8000 -d step-03_external-file`
-    - `python3 -m http.server 8000 -d step-03_external-file`
-
-- Browser starten mit [http://localhost:8000][LOCALHOST]
-
-Zusatzdatei
------------
-
-Ich lege eine [Zusatzdatei "index.md"][INDEXMD] an mit dem Text, der
+Ich lege eine [Zusatzdatei "page.html"][PAGEHTML] an mit dem Text, der
 im Browser angezeigt werden soll:
 
 ```
-greeting from "index.md"
+<h1>Step 04 - Complete Page From File</h1>
+<p>
+  Everything shown is stored in an external file
+  and loaded via javascript!
+</p>
 ```
 
-Datei laden
------------
+Komplette Seite laden
+---------------------
 
-Zum Laden der Datei wollen wir das FETCH-API verwenden.
-Das ist ein asynchroner Mechanismus, wir können nicht
-einfach "text = fetch()" aufrufen und dann mit "text"
-weiterarbeiten. Stattdessen definieren wir Aktionen,
-die nach der Ermittlung von "text" ausgeführt werden sollen,
-in unserem Fall soll der Text des Elementes getauscht
-werden:
+Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
 
-```javascript
-    async function load(element, filename) {
-	const contentFetcher = await fetch(filename);
-	const contentText = await contentFetcher.text();
-        element.innerText = contentText;
-    }
-
-    function greetings () {
-        const placeholder = document.getElementById('placeholder-id');
-        if (placeholder) {
-	    load(placeholder, 'index.md');
-	}
-    }
-```
-
+- DOCTYPE korrigiert gemäß [Empfehlung von w3.org][DOCTYPE] ("Fleissarbeit", nicht notwendig)
+- Die meisten HTML-Tags fliegen raus aus der [index.html][INDEXHTML]
+- Übrig bleibt nur ein Platzhalter `<span>`
+- Der Javascript-Code wird etwas überarbeitet
+    - innerText -> innerHTML
+    - greetings -> initPage
+    - placeholder -> page
 
 HTML-Dokument mit Javascript
 ----------------------------
@@ -78,17 +51,15 @@ Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
 
 ---
 
-# Headline
+# Step 04 - Complete Page From File
 
-First paragraph. This is a paragraph of text!</p>
-
-
-Second paragraph with a greeting from "index.md"
+Everything shown is stored in an external file
+and loaded via javascript!
 
 [MAIN]: ../README.md
 [BASE]: ../step-03_external-file/index.html
 [RESULT]: index.html
 [LOCALHOST]: http://localhost:8000
-[INDEXMD]: index.md
-
+[PAGEHTML]: page.html
+[INDEXHTML]: index.html
 [DOCTYPE]: https://www.w3.org/wiki/Choosing_the_right_doctype_for_your_HTML_documents
