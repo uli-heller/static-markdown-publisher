@@ -14,7 +14,7 @@ Das einfache [HTML-Dokument von Schritt 1][BASE] sieht so aus:
   <head>
   </head>
   <body>
-    <h1>Headline</h1>
+    <h1>Step 01 - Headline</h1>
     <p>Paragraph. This is a paragraph of text!</p>
   </body>
 </html>
@@ -70,7 +70,7 @@ index fe87776..3a6151f 100644
    </head>
 -  <body>
 +  <body onload="greetings();">
-     <h1>Headline</h1>
+     <h1>Step 02 - Headline</h1>
      <p>First paragraph. This is a paragraph of text!</p>
      <p>
        Second paragraph with a <span id="placeholder-id">placeholder</span>
@@ -92,13 +92,15 @@ wird.
 HTML-Dokument mit Javascript
 ----------------------------
 
-Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
+Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 Es enthält noch eine leicht verbesserte Fehlerhandhabung.
 Dargestellt wird es wie nachfolgend gezeigt!
 
+[Anzeige via Github Pages][RESULT]
+
 ---
 
-# Headline
+# Step 02 - Headline
 
 First paragraph. This is a paragraph of text!</p>
 
@@ -107,4 +109,5 @@ Second paragraph with a greeting from javascript
 
 [MAIN]: ../README.md
 [BASE]: ../step-01_basic-html/index.html
-[RESULT]: index.html
+[INDEXHTML]: index.html
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-02_html-with-javascript/index.html
