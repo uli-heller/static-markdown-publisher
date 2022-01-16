@@ -41,6 +41,12 @@ Die Anzahl der Rahmendateien sollte sich dabei "in Grenzen" halten - maximal
 10 Stück oder so. Der Inhalt und die Anzahl der MD-Dateien sollen komplett
 variabel sein.
 
+Abgrenzung zu "Static Site Generatoren"
+---------------------------------------
+
+![no-static-site-generator](images/no-static-site-generator.svg)
+
+
 Implementierungs- und Aufbau-Schritte
 -------------------------------------
 
