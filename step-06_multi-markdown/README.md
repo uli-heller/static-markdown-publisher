@@ -1,5 +1,5 @@
-05 - Markdown
-=============
+06 - Multi Markdown
+====================
 
 [Zurück zur Übersicht][MAIN]
 
@@ -7,35 +7,29 @@ Ausgangslage
 ------------
 
 Das [HTML-Dokument vom vorigen Schritt][BASE] ist Grundlage.
-Dort wird die komplette angezeigte Seite via Javascript eingelesen.
+Dort wird die komplette angezeigte Seite als Markdown-Datei via Javascript eingelesen.
 
 Ziel
 ----
 
-Ich möchte statt der HTML-Datei eine Markdown-Datei laden,
-diese in HTML wandeln und dann anzeigen.
+Ich möchte die Möglichkeit haben, mehrere verschiedene Markdown-Dateien
+anzuzeigen.
 
 Markdown-Datei
 --------------
 
-Ich lege eine [Zusatzdatei "page.md"][PAGEMD] an mit dem Text, der
+Ich lege eine [Zusatzdatei "another-page.md"][PAGEMD] an mit dem Text, der
 im Browser angezeigt werden soll:
 
 ```
-# Step 05 - Markdown
+# Step 06 - Another Markdown File
 
-Everything shown is stored in an external file
-and loaded via javascript and transformed from
-markdown to html!
-
-1. Load the "index.html"
-2. Load the "page.md"
-3. Transform to html
-4. Show html
+* First markdown file: page.md
+* Second markdown file: another-page.md
 ```
 
-Markdown laden und anzeigen
----------------------------
+Mehrere Markdown-Dateien laden und anzeigen
+-------------------------------------------
 
 Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
 
@@ -64,9 +58,8 @@ markdown to html!
 4. Show html
 
 [MAIN]: ../README.md
-[BASE]: ../step-04_complete-page/index.html
+[BASE]: ../step-05_markdown/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
-[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-05_markdown/index.html
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-06_multi-markdown/index.html
 [PAGEMD]: page.md
-[INDEXHTML]: index.html

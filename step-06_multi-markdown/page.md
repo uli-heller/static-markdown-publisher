@@ -1,4 +1,4 @@
-# Step 05 - Markdown
+# Step 06 - Markdown
 
 Everything shown is stored in an external file
 and loaded via javascript and transformed from
