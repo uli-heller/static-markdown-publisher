@@ -87,4 +87,4 @@ Second paragraph with a greeting from "index.md"
 [INDEXHTML]: index.html
 [INDEXMD]: index.md
 [LOCALHOST]: http://localhost:8000
-[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-02_html-with-javascript/index.html
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-03_external-file/index.html

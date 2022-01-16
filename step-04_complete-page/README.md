@@ -6,7 +6,7 @@
 Ausgangslage
 ------------
 
-Das [HTML-Dokument vom vorigen Schritt ][BASE] ist Grundlage.
+Das [HTML-Dokument vom vorigen Schritt][BASE] ist Grundlage.
 Dort wird ein Textteil via Javascript in das Dokuemt
 eigepflegt.
 
@@ -47,7 +47,9 @@ Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
 HTML-Dokument mit Javascript
 ----------------------------
 
-Das [komplette Dokument][RESULT] ist [hier][RESULT] einsichtbar.
+Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
+
+[Ansicht via Github Pages][RESULT]
 
 ---
 
@@ -58,8 +60,9 @@ and loaded via javascript!
 
 [MAIN]: ../README.md
 [BASE]: ../step-03_external-file/index.html
-[RESULT]: index.html
+[INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
+[RESULT]: https://uli-heller.github.io/static-markdown-publisher/step-04_complete-page/index.html
 [PAGEHTML]: page.html
 [INDEXHTML]: index.html
 [DOCTYPE]: https://www.w3.org/wiki/Choosing_the_right_doctype_for_your_HTML_documents
