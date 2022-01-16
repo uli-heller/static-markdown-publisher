@@ -59,6 +59,9 @@ Verarbeitung u.a. die Markdown-Dateien gewandelt in HTML-Dateien.
 
 ![no-static-site-generator](images/no-static-site-generator.svg)
 
+Mein "static-markdown-publisher" kommt ohne diesen Verarbeitungsschritt
+aus. Der Quelltext der Website kann direkt auf dem Webserver ausgerollt
+werden.
 
 Implementierungs- und Aufbau-Schritte
 -------------------------------------
