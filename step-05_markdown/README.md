@@ -42,6 +42,34 @@ Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
 - Markdown-Parser "marked.min.js" laden
 - Inhalt der geladenen Datei mittels "marked.parse()" wandeln von Markdown nach HTML
 
+Hier die Änderungen im Detail:
+
+```diff
+--- step-04_complete-page/index.html	2022-01-16 16:36:02.872054768 +0100
++++ step-05_markdown/index.html	2022-01-16 16:36:02.872054768 +0100
+@@ -5,17 +5,18 @@
+   <body onload="initPage();">
+     <span id="page-id"></span>
+   </body>
++  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+   <script>
+     async function load(element, filename) {
+ 	const contentFetcher = await fetch(filename);
+ 	const contentText = await contentFetcher.text();
+-        element.innerHTML = contentText;
++        element.innerHTML = marked.parse(contentText);
+     }
+     
+     function initPage () {
+         const page = document.getElementById('page-id');
+         if (page) {
+-	    load(page, 'page.html');
++	    load(page, 'page.md');
+ 	}
+     }
+   </script>
+```
+
 HTML-Dokument mit Javascript
 ----------------------------
 

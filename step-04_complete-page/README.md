@@ -44,6 +44,47 @@ Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
     - greetings -> initPage
     - placeholder -> page
 
+Hier die Änderungen im Detail:
+
+```diff
+--- step-03_external-file/index.html	2022-01-16 16:36:02.872054768 +0100
++++ step-04_complete-page/index.html	2022-01-16 16:36:02.872054768 +0100
+@@ -1,25 +1,21 @@
+-<!DOCTYPE html>
++<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+ <html>
+   <head>
+   </head>
+-  <body onload="greetings();">
+-    <h1>Step 03 - Headline</h1>
+-    <p>First paragraph. This is a paragraph of text!</p>
+-    <p>
+-      Second paragraph with a <span id="placeholder-id">placeholder</span>
+-    </p>
++  <body onload="initPage();">
++    <span id="page-id"></span>
+   </body>
+   <script>
+     async function load(element, filename) {
+ 	const contentFetcher = await fetch(filename);
+ 	const contentText = await contentFetcher.text();
+-        element.innerText = contentText;
++        element.innerHTML = contentText;
+     }
+     
+-    function greetings () {
+-        const placeholder = document.getElementById('placeholder-id');
+-        if (placeholder) {
+-	    load(placeholder, 'index.md');
++    function initPage () {
++        const page = document.getElementById('page-id');
++        if (page) {
++	    load(page, 'page.html');
+ 	}
+     }
+   </script>
+```
+
 HTML-Dokument mit Javascript
 ----------------------------
 
