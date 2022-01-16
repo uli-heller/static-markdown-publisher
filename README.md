@@ -72,7 +72,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 4 - Komplette Seite von externer Datei](step-04_complete-page/README.md)
 * [Schritt 5 - Markdown](step-05_markdown/README.md)
 * [Schritt 6 - Mehrere Markdown-Dateien](step-06_multi-markdown/README.md)
-* Schritt 7 - Links zwischen Markdown-Dateien
+* [Schritt 7 - Links zwischen Markdown-Dateien](step-07_markdown-links/README.md)
 * Schritt 8 - Kopf und Fuß
 * Schritt 9 - Bilder in Markdown-Dateien
 
