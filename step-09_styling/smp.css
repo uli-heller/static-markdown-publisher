@@ -9,6 +9,10 @@
     --bottom-02-foreground-color: var(--top-02-foreground-color);
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #headermd {
     background: var(--top-background-color);
     color:      var(--top-foreground-color);
