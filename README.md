@@ -54,7 +54,35 @@ Endergebnis
 
 TBD
 
+Test und Github-Pages
+---------------------
+
+"Normale" HTML-Dateien kann man
+einfach direkt im Webbrowser sichten, bspw. mittels dem
+Aufruf `firefox index.html`. Leider funktioniert
+dies nicht, sobald zusätzliche Dateien nachgeladen werden sollen.
+
+### Lokale Tests ohne externe Abhängigkeiten
+
+- Dummy-HTTP-Server starten
+
+    - `python -m http.server 8000 -d step-03_external-file`
+    - `python3 -m http.server 8000 -d step-03_external-file`
+
+- Browser starten mit [http://localhost:8000][LOCALHOST]
+
+- Nachteil: Man muß den Dummy-HTTP-Server im Auge behalten
+
+### Tests mittels Github-Pages
+
+- Browser starten mit <https://uli-heller.github.io/static-markdown-publisher/step-03_external-file/index.html>
+- Nachteile:
+    - Geht nur mit Internet-Zugriff
+    - Geht nur, wenn ich den Zweig "gh-pages" synchron zu "main" halte
+    - Für Github-Forks oder bei Umzug des Repos laufen die Links in's Leere
+
 [MDWIKI]: http://www.mdwiki.info/
 [RAITO]: https://github.com/arnaudsm/raito/
 [LICENSE]: LICENSE.md
 [LICENSE-OTHERS]: LICENSE-OTHERS.md
+[LOCALHOST]: http://localhost:8000
