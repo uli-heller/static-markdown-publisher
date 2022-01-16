@@ -29,40 +29,67 @@ Links auf alle anderen Dateien:
 * Second markdown file: [another-page.md](another-page.md)
 ```
 
-Mehrere Markdown-Dateien laden und anzeigen
--------------------------------------------
+Links zwischen Markdown-Dateien
+-------------------------------
 
-Relativ zum vorigen Stand ändert sich nicht sonderlich viel:
+Die Datei [index.html][INDEXHTML] muß wie folgt ergänzt und überarbeitet werden:
 
-- Der Name der zu ladenden Markdown-Datei wird ermittelt via `window.location.hash`; von diesem Namen entfernen wir noch den führenden Hash
-- Falls dort kein Name gefunden wird, so nehmen wir den bisherigen Namen "page.md"
+- Als Standard-Datei laden wir "index.md", falls kein Dateiname angegeben ist
+- Wir definieren einen eigenen Renderer für Marked.js, der die Links in solche mittels "Hash" umformt
+    - index.md -> #index.md
+    - page.md -> #page.md
+    - another-page.md -> #another-page.md
+- Wir schalten das Caching für das Laden der MD-Dateien ab (streng genommen nicht notwendig)
+- Wir sorgen über einen "hashChange"-Handler dafür, dass die Seite neu geladen wird, wenn sich die Hash-Links ändern
 
 Hier die Unterschiede im Detail:
 
 ```diff
-diff --git a/step-06_multi-markdown.md/index.html b/step-06_multi-markdown.md/index.html
-index 5dc1ef9..e7c1b22 100644
---- a/step-06_multi-markdown.md/index.html
-+++ b/step-06_multi-markdown.md/index.html
-@@ -12,11 +12,19 @@
-        const contentText = await contentFetcher.text();
-         element.innerHTML = marked.parse(contentText);
-     }
+--- step-06_multi-markdown/index.html	2022-01-16 19:34:38.283320807 +0100
++++ step-07_markdown-links/index.html	2022-01-16 20:27:55.538188223 +0100
+@@ -2,27 +2,38 @@
+ <html>
+   <head>
+   </head>
+-  <body onload="initPage();">
++  <body onload="initPage();" onhashchange="hashChanged();">
+     <span id="page-id"></span>
+   </body>
+   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+   <script>
++    const renderer = new marked.Renderer();
++    const originalRendererLink = renderer.link.bind(renderer);
++    renderer.link = (href, title, text) => {
++        href = "#" + href;
++        return originalRendererLink(href, title, text);
++    };
 +
-+    function removeHash (windowLocationHash) {
-+       return windowLocationHash.replace(/^#/, "");
+     async function load(element, filename) {
+-	const contentFetcher = await fetch(filename);
++	const contentFetcher = await fetch(filename, {cache: "no-store"});
+ 	const contentText = await contentFetcher.text();
+-        element.innerHTML = marked.parse(contentText);
++        element.innerHTML = marked.parse(contentText, { renderer: renderer });
+     }
+ 
+     function removeHash (windowLocationHash) {
+ 	return windowLocationHash.replace(/^#/, "");
+     }
+ 
++    function hashChanged () {
++	initPage();
 +    }
-     
++
      function initPage () {
          const page = document.getElementById('page-id');
          if (page) {
--           load(page, 'page.md');
-+           var filename=removeHash(window.location.hash);
-+           if (! filename) {
-+               filename = 'page.md';
-+           }
-+           load(page, filename);
-        }
+ 	    var filename=removeHash(window.location.hash);
+ 	    if (! filename) {
+-		filename = 'page.md';
++		filename = 'index.md';
+ 	    }
+ 	    load(page, filename);
+ 	}
 ```
 
 HTML-Dokument mit Javascript
@@ -71,15 +98,18 @@ HTML-Dokument mit Javascript
 Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 
 - [Ansicht via Github Pages][RESULT]
-- [Ansicht via Github Pages - Datei 1][RESULT-1]
-- [Ansicht via Github Pages - Datei 2][RESULT-2]
 - [Ansicht via Dummy-HTTP-Server][LOCALHOST]
-- [Ansicht via Dummy-HTTP-Server - Datei 1][LOCALHOST-1]
-- [Ansicht via Dummy-HTTP-Server - Datei 2][LOCALHOST-2]
 
 ---
 
-# Step 06 - Markdown
+# Step 07 - index.md
+
+* First markdown file: [page.md](page.md)
+* Second markdown file: [another-page.md](another-page.md)
+
+---
+
+# Step 07 - Markdown
 
 Everything shown is stored in an external file
 and loaded via javascript and transformed from
@@ -92,20 +122,17 @@ markdown to html!
 
 ---
 
-# Step 06 - Another Markdown File
+# Step 07 - Another Markdown File
 
 * First markdown file: page.md
 * Second markdown file: another-page.md
 
 
 [MAIN]:      ../README.md
-[BASE]:      ../step-05_markdown/index.html
+[BASE]:      ../step-06_multi-markdown/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
-[LOCALHOST-1]: http://localhost:8000/#page.md
-[LOCALHOST-2]: http://localhost:8000/#another-page.md
-[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-06_multi-markdown/index.html
-[RESULT-1]:  https://uli-heller.github.io/static-markdown-publisher/step-06_multi-markdown/index.html#page.md
-[RESULT-2]:  https://uli-heller.github.io/static-markdown-publisher/step-06_multi-markdown/index.html#another-page.md
+[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-07_markdown-links/index.html
 [PAGEMD]:    page.md
 [AOPMD]:     another-page.md
+[INDEXMD]:   index.md

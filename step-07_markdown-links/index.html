@@ -2,19 +2,30 @@
 <html>
   <head>
   </head>
-  <body onload="initPage();">
+  <body onload="initPage();" onhashchange="hashChanged();">
     <span id="page-id"></span>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    const renderer = new marked.Renderer();
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        href = "#" + href;
+        return originalRendererLink(href, title, text);
+    };
+
     async function load(element, filename) {
-	const contentFetcher = await fetch(filename);
+	const contentFetcher = await fetch(filename, {cache: "no-store"});
 	const contentText = await contentFetcher.text();
-        element.innerHTML = marked.parse(contentText);
+        element.innerHTML = marked.parse(contentText, { renderer: renderer });
     }
 
     function removeHash (windowLocationHash) {
 	return windowLocationHash.replace(/^#/, "");
+    }
+
+    function hashChanged () {
+	initPage();
     }
 
     function initPage () {
