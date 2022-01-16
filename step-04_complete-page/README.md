@@ -1,5 +1,5 @@
-02 - Externe Datei laden
-========================
+04 - Komplette Seite von Datei laden
+====================================
 
 [Zurück zur Übersicht][MAIN]
 
@@ -7,7 +7,7 @@ Ausgangslage
 ------------
 
 Das [HTML-Dokument vom vorigen Schritt ][BASE] ist Grundlage.
-Dort wird ein konstanter Text via Javascript in das Dokuemt
+Dort wird ein Textteil via Javascript in das Dokuemt
 eigepflegt.
 
 Ziel
@@ -86,7 +86,9 @@ First paragraph. This is a paragraph of text!</p>
 Second paragraph with a greeting from "index.md"
 
 [MAIN]: ../README.md
-[BASE]: ../step-02_html-with-javascript/index.html
+[BASE]: ../step-03_external-file/index.html
 [RESULT]: index.html
 [LOCALHOST]: http://localhost:8000
 [INDEXMD]: index.md
+
+[DOCTYPE]: https://www.w3.org/wiki/Choosing_the_right_doctype_for_your_HTML_documents
