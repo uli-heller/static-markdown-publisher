@@ -2,6 +2,7 @@
 <html>
   <head>
   </head>
+  <link rel="stylesheet" type="text/css" href="smp.css">
   <body onload="initPage();" onhashchange="hashChanged();">
     <span id="top-id"></span>
     <span id="page-id"></span>
@@ -36,6 +37,10 @@
         initPage();
     }
 
+    function filenameToId (filename) {
+	return filename.replaceAll(/[.-]/g, '');
+    }
+    
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
@@ -48,9 +53,10 @@
         additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.elementId);
             if (element) {
-                if (! document.getElementById(ae.filename)) {
+		const id = filenameToId(ae.filename)
+                if (! document.getElementById(id)) {
                     const newElement = document.createElement('div');
-                    newElement.id = ae.filename;
+                    newElement.id = id;
                     element.append(newElement)
                     load(newElement, ae.filename);
                 }

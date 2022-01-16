@@ -1,0 +1,30 @@
+:root {
+    --top-background-color:    #224422;
+    --top-02-background-color: #447744;
+    --top-foreground-color:    #ffffff;
+    --top-02-foreground-color: #dddddd;
+    --bottom-background-color:    var(--top-background-color);
+    --bottom-02-background-color: var(--top-02-background-color);
+    --bottom-foreground-color:    var(--top-foreground-color);
+    --bottom-02-foreground-color: var(--top-02-foreground-color);
+}
+
+#headermd {
+    background: var(--top-background-color);
+    color:      var(--top-foreground-color);
+}
+
+#header02md {
+    background: var(--top-02-background-color);
+    color:      var(--top-02-foreground-color);
+}
+
+#footermd {
+    background: var(--bottom-background-color);
+    color:      var(--bottom-foreground-color);
+}
+
+#footer02md {
+    background: var(--bottom-02-background-color);
+    color:      var(--bottom-02-foreground-color);
+}
