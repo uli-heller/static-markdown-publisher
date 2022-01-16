@@ -18,7 +18,7 @@ diese in HTML wandeln und dann anzeigen.
 Markdown-Datei
 --------------
 
-Ich lege eine [Zusatzdatei "page.mdl"][PAGEMD] an mit dem Text, der
+Ich lege eine [Zusatzdatei "page.md"][PAGEMD] an mit dem Text, der
 im Browser angezeigt werden soll:
 
 ```
