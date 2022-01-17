@@ -29,6 +29,7 @@
     };
 
     async function load(element, filename) {
+	alert(filename);
         const contentFetcher = await fetch(filename, {cache: "no-store"});
         const contentText = await contentFetcher.text();
         element.innerHTML = marked.parse(contentText, { renderer: renderer });
@@ -74,9 +75,15 @@
         if (! filename.startsWith('/')) {
             filename = '/' + filename;
         }
-        return filename;
+        return normalizePath(window.location.pathname + '/..' + filename);
     }
 
+    function filenameToHash (filename) {
+	var nPathname = normalizePath(window.location.pathname+'/..');
+	var nFilename = normalizePath(filename);
+	return '#'+filename.replace(nPathname, '');
+    }
+    
     /*
      * normalizePath
      * Removes various unwanted parts from a path
@@ -133,7 +140,7 @@
         const page = document.getElementById('page-id');
         if (page) {
             var filename=hashToFilename(window.location.hash);
-            window.location.hash = "#" + filename;
+            window.location.hash = filenameToHash(filename);
             load(page, filename);
         }
         additionalElements.forEach((ae) => {
