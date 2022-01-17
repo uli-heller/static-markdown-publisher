@@ -7,4 +7,5 @@ Notizen
   navigator.languages
   ? navigator.languages[0]
   : (navigator.language || navigator.userLanguage)
-  
+- Directory listings - ohne index.md
+  http://localhost:8000/index.html#subfolder/
