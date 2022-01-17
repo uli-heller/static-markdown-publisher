@@ -77,10 +77,11 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 9 - Styling](step-09_styling/README.md)
 * [Schritt 10 - Unterordner](step-10_subfolders/README.md)
 * [Schritt 11 - Bilder in Markdown-Dateien](step-11_images/README.md)
-* Schritt 12 - Absolute Links und Links zu externen Resourcen
-* Schritt 13 - Javascript in Markdown-Dateien
-* Schritt 14 - Mermaid
-* Schritt 15 - Mehrspachigkeit
+* [Schritt 12 - Kontextpfad /smp](step-12_smp/README.md)
+* Schritt 13 - Absolute Links und Links zu externen Resourcen
+* Schritt 14 - Javascript in Markdown-Dateien
+* Schritt 15 - Mermaid
+* Schritt 16 - Mehrspachigkeit
 
 Endergebnis
 -----------
