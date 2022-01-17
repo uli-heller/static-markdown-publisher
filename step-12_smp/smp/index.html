@@ -29,7 +29,6 @@
     };
 
     async function load(element, filename) {
-	alert(filename);
         const contentFetcher = await fetch(filename, {cache: "no-store"});
         const contentText = await contentFetcher.text();
         element.innerHTML = marked.parse(contentText, { renderer: renderer });
@@ -54,6 +53,10 @@
         return filename.replaceAll(/[.-]/g, '');
     }
 
+    function dirname (path) {
+        return path.replace(/\/[^\/]*$/, '');
+    }
+
     /*
      * hashToFilename
      * Transforms the hash value to a filename
@@ -75,13 +78,13 @@
         if (! filename.startsWith('/')) {
             filename = '/' + filename;
         }
-        return normalizePath(window.location.pathname + '/..' + filename);
+        return normalizePath(dirname(window.location.pathname) + filename);
     }
 
     function filenameToHash (filename) {
-	var nPathname = normalizePath(window.location.pathname+'/..');
-	var nFilename = normalizePath(filename);
-	return '#'+filename.replace(nPathname, '');
+        var nPathname = normalizePath(dirname(window.location.pathname));
+        var nFilename = normalizePath(filename);
+        return '#'+filename.replace(nPathname, '');
     }
     
     /*

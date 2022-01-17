@@ -1,89 +1,78 @@
-11 - Bilder
-===========
+12 - /smp
+=========
 
 [Zurück zur Übersicht][MAIN]
-
-Ausgangslage
-------------
-
-Das [HTML-Dokument vom vorigen Schritt][BASE] ist Grundlage.
 
 Ziel
 ----
 
-Ich möchte nun Bilder in die Markdown-Dateien einfügen,
-und zwar sowohl im Hauptverzeichnis als auch in einem Unterverzeichnis.
+Ich möchte, dass die Webseiten unter einem Kontext-Pfad
+abgerufen werden können. Also:
 
-Hierarchie von Markdown- und SVG-Dateien
-----------------------------------------
+- bislang: http://localhost:8000/index.html#/index.md
+- künftig: http://localhost:8000/smp/index.html#/index.md
 
-- index.md
-- stuttgart.svg
-- subfolder/index.md
-- subvolder/boy.svg
+Idealerweise muß dazu keinerlei Änderung an den
+Webseiten gemacht werden, also eine "index.html"
+ist in beiden Varianten einsetzbar.
 
-Handhabung der Links mit Pfadangaben
-------------------------------------
+Änderungen
+----------
 
-Die Datei [index.html][INDEXHTML] muß wie folgt ergänzt und überarbeitet werden:
+Grundsätzlich müssen wir unterscheiden zwischen
 
-- Methode zur Ermittlung eines neuen relativen Links - "newRelativeLink()"
-- Einbinden in die Image-Links
+- Hash = der Wert, der in der Adresszeile hinter dem Zeichen '#' steht
+- Dateiname = der Pfad, unter dem die zu ladende Datei zu finden ist
+
+Hier ein paar Beispiele:
+
+Adresszeile                                    | Hash       | Filename
+-----------------------------------------------|------------|---------
+http://localhost:8000/index.html#/index.md     | #/index.md | /index.md
+http://localhost:8000/smp/index.html#/index.md | #/index.md | /smp/index.md
 
 Hier die Unterschiede im Detail:
 
 ```diff
---- step-10_subfolders/index.html	2022-01-17 13:52:28.946374547 +0100
-+++ step-11_images/index.html	2022-01-17 17:49:50.745328817 +0100
-@@ -19,9 +19,14 @@
-     const renderer = new marked.Renderer();
-     const originalRendererLink = renderer.link.bind(renderer);
-     renderer.link = (href, title, text) => {
--        href = newHash(href);
-+        href = '#' + newRelativeLink(href);
-         return originalRendererLink(href, title, text);
-     };
-+    const originalRendererImage = renderer.image.bind(renderer);
-+    renderer.image = (href, title, text) => {
-+        href = newRelativeLink(href);
-+        return originalRendererImage(href, title, text);
-+    };
- 
-     async function load(element, filename) {
-         const contentFetcher = await fetch(filename, {cache: "no-store"});
-@@ -102,17 +107,17 @@
+--- step-11_images/index.html	2022-01-17 18:55:42.832194512 +0100
++++ step-12_smp/smp/index.html	2022-01-17 22:30:23.243167461 +0100
+@@ -53,6 +53,10 @@
+         return filename.replaceAll(/[.-]/g, '');
      }
-     
+
++    function dirname (path) {
++	return path.replace(/\/[^\/]*$/, '');
++    }
++
      /*
--     * newHash
--     * Creates a new hash for window.location based on
-+     * newRelativeLink
-+     * Creates a relative link for window.location based on
-      * the current hash and the new link/filename
-      *
-      * Examples:
-      *   hash            | link        -> result
--     *   '#/'            | 'readme.md' -> '#/readme.md'
--     *   '#'             | 'readme.md' -> '#/readme.md'
--     *   '#/sd/index.md' | 'readme.md' -> '#/sd/readme.md'
-+     *   '#/'            | 'readme.md' -> '/readme.md'
-+     *   '#'             | 'readme.md' -> '/readme.md'
-+     *   '#/sd/index.md' | 'readme.md' -> '/sd/readme.md'
-      */
--    function newHash (href) {
-+    function newRelativeLink (href) {
-         const oldFilename = hashToFilename(window.location.hash);
-         const newFilename = href;
-         var newHash = newFilename;
-@@ -121,7 +126,7 @@
-         } else {
-             newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
+      * hashToFilename
+      * Transforms the hash value to a filename
+@@ -74,9 +78,15 @@
+         if (! filename.startsWith('/')) {
+             filename = '/' + filename;
          }
--        return '#' + normalizePath(newHash);
-+        return normalizePath(newHash);
+-        return filename;
++        return normalizePath(dirname(window.location.pathname) + filename);
      }
-     
-     function initPage () {
+ 
++    function filenameToHash (filename) {
++	var nPathname = normalizePath(dirname(window.location.pathname));
++	var nFilename = normalizePath(filename);
++	return '#'+filename.replace(nPathname, '');
++    }
++
+     /*
+      * normalizePath
+      * Removes various unwanted parts from a path
+@@ -133,7 +143,7 @@
+         const page = document.getElementById('page-id');
+         if (page) {
+             var filename=hashToFilename(window.location.hash);
+-            window.location.hash = "#" + filename;
++            window.location.hash = filenameToHash(filename);
+             load(page, filename);
+         }
+         additionalElements.forEach((ae) => {
 ```
 
 HTML-Dokument mit Javascript
@@ -95,8 +84,8 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 - [Ansicht via Dummy-HTTP-Server][LOCALHOST]
 
 [MAIN]:      ../README.md
-[BASE]:      ../step-10_subfolders/index.html
+[BASE]:      ../step-11_images/index.html
 [INDEXHTML]: index.html
-[LOCALHOST]: http://localhost:8000
-[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-11_images/index.html
+[LOCALHOST]: http://localhost:8000/smp/
+[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-12_smp/smp/index.html
 [INDEXMD]:   index.md
