@@ -1,5 +1,7 @@
-# Step 10 - index.md
+# Step 11 - index.md
 
-* First markdown file: [page.md](page.md)
-* Second markdown file: [another-page.md](another-page.md)
-* Links to subfolder: [links-to-subfolder.md](links-to-subfolder.md)
+Page containing an image.
+
+![Stuttgart](stuttgart.svg)
+
+[subfolder/index.md](subfolder/index.md)

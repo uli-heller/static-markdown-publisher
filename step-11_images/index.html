@@ -19,8 +19,13 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        href = newHash(href);
+        href = '#' + newRelativeLink(href);
         return originalRendererLink(href, title, text);
+    };
+    const originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+        href = newRelativeLink(href);
+        return originalRendererImage(href, title, text);
     };
 
     async function load(element, filename) {
@@ -102,17 +107,17 @@
     }
     
     /*
-     * newHash
-     * Creates a new hash for window.location based on
+     * newRelativeLink
+     * Creates a relative link for window.location based on
      * the current hash and the new link/filename
      *
      * Examples:
      *   hash            | link        -> result
-     *   '#/'            | 'readme.md' -> '#/readme.md'
-     *   '#'             | 'readme.md' -> '#/readme.md'
-     *   '#/sd/index.md' | 'readme.md' -> '#/sd/readme.md'
+     *   '#/'            | 'readme.md' -> '/readme.md'
+     *   '#'             | 'readme.md' -> '/readme.md'
+     *   '#/sd/index.md' | 'readme.md' -> '/sd/readme.md'
      */
-    function newHash (href) {
+    function newRelativeLink (href) {
         const oldFilename = hashToFilename(window.location.hash);
         const newFilename = href;
         var newHash = newFilename;
@@ -121,7 +126,7 @@
         } else {
             newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
         }
-        return '#' + normalizePath(newHash);
+        return normalizePath(newHash);
     }
     
     function initPage () {
