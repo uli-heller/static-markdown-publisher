@@ -19,7 +19,7 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        href = "#" + href;
+        href = newHash(href);
         return originalRendererLink(href, title, text);
     };
 
@@ -48,6 +48,17 @@
 	return filename.replaceAll(/[.-]/g, '');
     }
 
+    /*
+     * hashToFilename
+     * Transforms the hash value to a filename
+     *
+     * Examples:
+     *   '#/index.md'          -> /index.md
+     *   '#index.md'           -> /index.md
+     *   ''                    -> /index.md
+     *   '#/page.md'           -> /page.md
+     *   '#/subfolder/page.md' -> /subfolder/page.md
+     */
     function hashToFilename (hash) {
 	var filename = removeHash(hash);
 	if (! filename) {
@@ -55,13 +66,40 @@
 	} else if (filename.endsWith('/')) {
 	    filename = filename + 'index.md';
 	}
+	if (! filename.startsWith('/')) {
+	    filename = '/' + filename;
+	}
 	return filename;
+    }
+
+    /*
+     * newHash
+     * Creates a new hash for window.location based on
+     * the current hash and the new link/filename
+     *
+     * Examples:
+     *   hash            | link        -> result
+     *   '#/'            | 'readme.md' -> '#/readme.md'
+     *   '#'             | 'readme.md' -> '#/readme.md'
+     *   '#/sd/index.md' | 'readme.md' -> '#/sd/readme.md'
+     */
+    function newHash (href) {
+	const oldFilename = hashToFilename(window.location.hash);
+	const newFilename = href;
+	var newHash = newFilename;
+	if (newFilename.startsWith('/')) {
+	    newHash = newFilename;
+	} else {
+	    newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
+	}
+	return '#' + newHash;
     }
     
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
             var filename=hashToFilename(window.location.hash);
+	    window.location.hash = "#" + filename;
             load(page, filename);
         }
         additionalElements.forEach((ae) => {
