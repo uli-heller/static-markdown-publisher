@@ -74,9 +74,9 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 6 - Mehrere Markdown-Dateien](step-06_multi-markdown/README.md)
 * [Schritt 7 - Links zwischen Markdown-Dateien](step-07_markdown-links/README.md)
 * [Schritt 8 - Kopf und Fuß](step-08_header-and-footer/README.md)
-* [Schritt 9 - Styling](step-09_styling.md)
-* [Schritt 10 - Unterordner](step-10_subfolders.md)
-* Schritt 11 - Bilder in Markdown-Dateien
+* [Schritt 9 - Styling](step-09_styling/README.md)
+* [Schritt 10 - Unterordner](step-10_subfolders/README.md)
+* [Schritt 11 - Bilder in Markdown-Dateien](step-11_images/README.md)
 * Schritt 12 - Absolute Links und Links zu externen Resourcen
 * Schritt 13 - Unterverzeichnisse
 * Schritt 14 - Mermaid

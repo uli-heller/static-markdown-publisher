@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  </head>
+  <link rel="stylesheet" type="text/css" href="smp.css">
+  <body onload="initPage();" onhashchange="hashChanged();">
+    <span id="top-id"></span>
+    <span id="page-id"></span>
+    <span id="bottom-id"></span>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const additionalElements = [
+        { filename: "header.md",    elementId: "top-id" },
+        { filename: "header-02.md", elementId: "top-id" },
+        { filename: "footer.md",    elementId: "bottom-id" },
+        { filename: "footer-02.md", elementId: "bottom-id" },
+    ];
+    const renderer = new marked.Renderer();
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        href = newHash(href);
+        return originalRendererLink(href, title, text);
+    };
+
+    async function load(element, filename) {
+        const contentFetcher = await fetch(filename, {cache: "no-store"});
+        const contentText = await contentFetcher.text();
+        element.innerHTML = marked.parse(contentText, { renderer: renderer });
+    }
+
+    function removeHash (windowLocationHash) {
+        return windowLocationHash.replace(/^#/, "");
+    }
+
+    function hashChanged () {
+        initPage();
+    }
+
+    /*
+     * filenameToId
+     * Transforms a filename into a valid id of an html element
+     *
+     * Example:
+     *   header-02.md -> header02md
+     */
+    function filenameToId (filename) {
+        return filename.replaceAll(/[.-]/g, '');
+    }
+
+    /*
+     * hashToFilename
+     * Transforms the hash value to a filename
+     *
+     * Examples:
+     *   '#/index.md'          -> /index.md
+     *   '#index.md'           -> /index.md
+     *   ''                    -> /index.md
+     *   '#/page.md'           -> /page.md
+     *   '#/subfolder/page.md' -> /subfolder/page.md
+     */
+    function hashToFilename (hash) {
+        var filename = removeHash(hash);
+        if (! filename) {
+            filename = '/index.md';
+        } else if (filename.endsWith('/')) {
+            filename = filename + 'index.md';
+        }
+        if (! filename.startsWith('/')) {
+            filename = '/' + filename;
+        }
+        return filename;
+    }
+
+    /*
+     * normalizePath
+     * Removes various unwanted parts from a path
+     *
+     * Examples
+     *  x//y   -> x/y
+     *  /a/../ -> /
+     *  /a/..  -> /
+     *  /../   -> /
+     *  /..    -> /
+     *  //a/b  -> /a/b
+     */
+    function normalizePath (path) {
+        var this_path = '';
+        var next_path = path;
+        while (this_path != next_path) {
+            this_path = next_path;
+            next_path = next_path.replace('//', '/');
+            next_path = next_path.replace('/./', '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.\//, '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.$/, '/');
+            next_path = next_path.replace('/../', '/');
+            next_path = next_path.replace('/..', '/');
+            next_path = next_path.replace('../', '/');
+            next_path = next_path.replace('..', '/');
+        }
+        return next_path;
+    }
+    
+    /*
+     * newHash
+     * Creates a new hash for window.location based on
+     * the current hash and the new link/filename
+     *
+     * Examples:
+     *   hash            | link        -> result
+     *   '#/'            | 'readme.md' -> '#/readme.md'
+     *   '#'             | 'readme.md' -> '#/readme.md'
+     *   '#/sd/index.md' | 'readme.md' -> '#/sd/readme.md'
+     */
+    function newHash (href) {
+        const oldFilename = hashToFilename(window.location.hash);
+        const newFilename = href;
+        var newHash = newFilename;
+        if (newFilename.startsWith('/')) {
+            newHash = newFilename;
+        } else {
+            newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
+        }
+        return '#' + normalizePath(newHash);
+    }
+    
+    function initPage () {
+        const page = document.getElementById('page-id');
+        if (page) {
+            var filename=hashToFilename(window.location.hash);
+            window.location.hash = "#" + filename;
+            load(page, filename);
+        }
+        additionalElements.forEach((ae) => {
+            const element = document.getElementById(ae.elementId);
+            if (element) {
+                const id = filenameToId(ae.filename)
+                if (! document.getElementById(id)) {
+                    const newElement = document.createElement('div');
+                    newElement.id = id;
+                    element.append(newElement)
+                    load(newElement, ae.filename);
+                }
+            }
+        });
+    }
+  </script>
+</html>
