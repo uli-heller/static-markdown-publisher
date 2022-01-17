@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  </head>
+  <link rel="stylesheet" type="text/css" href="smp.css">
+  <body onload="initPage();" onhashchange="hashChanged();">
+    <span id="top-id"></span>
+    <span id="page-id"></span>
+    <span id="bottom-id"></span>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const additionalElements = [
+        { filename: "header.md",    elementId: "top-id" },
+        { filename: "header-02.md", elementId: "top-id" },
+        { filename: "footer.md",    elementId: "bottom-id" },
+        { filename: "footer-02.md", elementId: "bottom-id" },
+    ];
+    const renderer = new marked.Renderer();
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        href = "#" + href;
+        return originalRendererLink(href, title, text);
+    };
+
+    async function load(element, filename) {
+        const contentFetcher = await fetch(filename, {cache: "no-store"});
+        const contentText = await contentFetcher.text();
+        element.innerHTML = marked.parse(contentText, { renderer: renderer });
+    }
+
+    function removeHash (windowLocationHash) {
+        return windowLocationHash.replace(/^#/, "");
+    }
+
+    function hashChanged () {
+        initPage();
+    }
+
+    function filenameToId (filename) {
+	return filename.replaceAll(/[.-]/g, '');
+    }
+    
+    function initPage () {
+        const page = document.getElementById('page-id');
+        if (page) {
+            var filename=removeHash(window.location.hash);
+            if (! filename) {
+                filename = 'index.md';
+            }
+            load(page, filename);
+        }
+        additionalElements.forEach((ae) => {
+            const element = document.getElementById(ae.elementId);
+            if (element) {
+		const id = filenameToId(ae.filename)
+                if (! document.getElementById(id)) {
+                    const newElement = document.createElement('div');
+                    newElement.id = id;
+                    element.append(newElement)
+                    load(newElement, ae.filename);
+                }
+            }
+        });
+    }
+  </script>
+</html>
