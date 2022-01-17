@@ -45,7 +45,7 @@
      *   header-02.md -> header02md
      */
     function filenameToId (filename) {
-	return filename.replaceAll(/[.-]/g, '');
+        return filename.replaceAll(/[.-]/g, '');
     }
 
     /*
@@ -60,18 +60,47 @@
      *   '#/subfolder/page.md' -> /subfolder/page.md
      */
     function hashToFilename (hash) {
-	var filename = removeHash(hash);
-	if (! filename) {
-	    filename = '/index.md';
-	} else if (filename.endsWith('/')) {
-	    filename = filename + 'index.md';
-	}
-	if (! filename.startsWith('/')) {
-	    filename = '/' + filename;
-	}
-	return filename;
+        var filename = removeHash(hash);
+        if (! filename) {
+            filename = '/index.md';
+        } else if (filename.endsWith('/')) {
+            filename = filename + 'index.md';
+        }
+        if (! filename.startsWith('/')) {
+            filename = '/' + filename;
+        }
+        return filename;
     }
 
+    /*
+     * normalizePath
+     * Removes various unwanted parts from a path
+     *
+     * Examples
+     *  x//y   -> x/y
+     *  /a/../ -> /
+     *  /a/..  -> /
+     *  /../   -> /
+     *  /..    -> /
+     *  //a/b  -> /a/b
+     */
+    function normalizePath (path) {
+        var this_path = '';
+        var next_path = path;
+        while (this_path != next_path) {
+            this_path = next_path;
+            next_path = next_path.replace('//', '/');
+            next_path = next_path.replace('/./', '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.\//, '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.$/, '/');
+            next_path = next_path.replace('/../', '/');
+            next_path = next_path.replace('/..', '/');
+            next_path = next_path.replace('../', '/');
+            next_path = next_path.replace('..', '/');
+        }
+        return next_path;
+    }
+    
     /*
      * newHash
      * Creates a new hash for window.location based on
@@ -84,28 +113,28 @@
      *   '#/sd/index.md' | 'readme.md' -> '#/sd/readme.md'
      */
     function newHash (href) {
-	const oldFilename = hashToFilename(window.location.hash);
-	const newFilename = href;
-	var newHash = newFilename;
-	if (newFilename.startsWith('/')) {
-	    newHash = newFilename;
-	} else {
-	    newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
-	}
-	return '#' + newHash;
+        const oldFilename = hashToFilename(window.location.hash);
+        const newFilename = href;
+        var newHash = newFilename;
+        if (newFilename.startsWith('/')) {
+            newHash = newFilename;
+        } else {
+            newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
+        }
+        return '#' + normalizePath(newHash);
     }
     
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
             var filename=hashToFilename(window.location.hash);
-	    window.location.hash = "#" + filename;
+            window.location.hash = "#" + filename;
             load(page, filename);
         }
         additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.elementId);
             if (element) {
-		const id = filenameToId(ae.filename)
+                const id = filenameToId(ae.filename)
                 if (! document.getElementById(id)) {
                     const newElement = document.createElement('div');
                     newElement.id = id;
