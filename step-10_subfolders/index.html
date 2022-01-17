@@ -37,17 +37,31 @@
         initPage();
     }
 
+    /*
+     * filenameToId
+     * Transforms a filename into a valid id of an html element
+     *
+     * Example:
+     *   header-02.md -> header02md
+     */
     function filenameToId (filename) {
 	return filename.replaceAll(/[.-]/g, '');
+    }
+
+    function hashToFilename (hash) {
+	var filename = removeHash(hash);
+	if (! filename) {
+	    filename = '/index.md';
+	} else if (filename.endsWith('/')) {
+	    filename = filename + 'index.md';
+	}
+	return filename;
     }
     
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
-            var filename=removeHash(window.location.hash);
-            if (! filename) {
-                filename = 'index.md';
-            }
+            var filename=hashToFilename(window.location.hash);
             load(page, filename);
         }
         additionalElements.forEach((ae) => {
