@@ -13,6 +13,9 @@
     function isAbsoluteUrl (href) {
         return href.indexOf('://') > 0;
     }
+    function isMarkdownUrl (href) {
+        return href.endsWith('.md');
+    }
 
     const additionalElements = [
         { filename: "header.md",    elementId: "top-id" },
@@ -23,7 +26,7 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        if (! isAbsoluteUrl(href)) {
+        if (! isAbsoluteUrl(href) && isMarkdownUrl(href)) {
             const newFilename = newRelativeLink(href);
             href = filenameToHash(newFilename);
         }

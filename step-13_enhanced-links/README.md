@@ -58,6 +58,39 @@ index afa40a0..9906a6d 100644
      const originalRendererImage = renderer.image.bind(renderer);
 ```
 
+### Nicht-Markdown-Links werden falsch umgesetzt
+
+Typ              |Link/Image                  |Ergebnis
+-----------------|----------------------------|--------
+Bilddatei (SVG)  |`[...](/stuttgart.svg)`     |http://localhost:8000/#/stuttgart.svg
+Bilddatei (PNG)  |`[...](/stuttgart.png)`     |http://localhost:8000/#/stuttgart.png
+
+Hier die Änderungen für die Korrektur:
+
+```diff
+--- a/step-13_enhanced-links/index.html
++++ b/step-13_enhanced-links/index.html
+@@ -13,6 +13,9 @@
+     function isAbsoluteUrl (href) {
+         return href.indexOf('://') > 0;
+     }
++    function isMarkdownUrl (href) {
++        return href.endsWith('.md');
++    }
+ 
+     const additionalElements = [
+         { filename: "header.md",    elementId: "top-id" },
+@@ -23,7 +26,7 @@
+     const renderer = new marked.Renderer();
+     const originalRendererLink = renderer.link.bind(renderer);
+     renderer.link = (href, title, text) => {
+-        if (! isAbsoluteUrl(href)) {
++        if (! isAbsoluteUrl(href) && isMarkdownUrl(href)) {
+             const newFilename = newRelativeLink(href);
+             href = filenameToHash(newFilename);
+         }
+```
+
 ### Links werden völlig falsch umgesetzt
 
 Typ              |Link/Image                  |Ergebnis
