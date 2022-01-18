@@ -78,7 +78,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 10 - Unterordner](step-10_subfolders/README.md)
 * [Schritt 11 - Bilder in Markdown-Dateien](step-11_images/README.md)
 * [Schritt 12 - Kontextpfad /smp](step-12_smp/README.md)
-* Schritt 13 - Absolute Links und Links zu externen Resourcen
+* [Schritt 13 - Absolute Links und Links zu externen Resourcen](step-13_enhanced-links/README.md)
 * Schritt 14 - Javascript in Markdown-Dateien
 * Schritt 15 - Mermaid
 * Schritt 16 - Mehrspachigkeit
