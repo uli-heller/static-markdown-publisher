@@ -69,36 +69,6 @@
     }
 
     /*
-     * hashToFilename
-     * Transforms the hash value to a filename
-     *
-     * Examples:
-     *   '#/index.md'          -> /index.md
-     *   '#index.md'           -> /index.md
-     *   ''                    -> /index.md
-     *   '#/page.md'           -> /page.md
-     *   '#/subfolder/page.md' -> /subfolder/page.md
-     */
-    function hashToFilename (hash) {
-        var filename = removeHash(hash);
-        if (! filename) {
-            filename = '/index.md';
-        } else if (filename.endsWith('/')) {
-            filename = filename + 'index.md';
-        }
-        if (! filename.startsWith('/')) {
-            filename = '/' + filename;
-        }
-        return normalizePath(dirname(window.location.pathname) + filename);
-    }
-
-    function filenameToHash (filename) {
-        var nPathname = normalizePath(dirname(window.location.pathname));
-        var nFilename = normalizePath(filename);
-        return '#'+filename.replace(nPathname, '');
-    }
-    
-    /*
      * normalizePath
      * Removes various unwanted parts from a path
      *
@@ -127,6 +97,43 @@
         return next_path;
     }
     
+    /*
+     * hashToFilename
+     * Transforms the hash value to a filename
+     *
+     * Examples:
+     *  '/'     '#/index.md'          -> /index.md
+     *  '/smp'  '#/index.md'          -> /smp/index.md
+     *  '/'     '#index.md'           -> /index.md
+     *  '/'     ''                    -> /index.md
+     *  '/'     '#/page.md'           -> /page.md
+     *  '/'     '#/subfolder/page.md' -> /subfolder/page.md
+     *  '/smp'  '#/subfolder/page.md' -> /smp/subfolder/page.md
+     */
+    function hashToFilename (hash) {
+        var filename = removeHash(hash);
+        if (! filename) {
+            filename = '/index.md';
+        } else if (filename.endsWith('/')) {
+            filename = filename + 'index.md';
+        }
+        if (! filename.startsWith('/')) {
+            filename = '/' + filename;
+        }
+        return normalizePath(dirname(window.location.pathname) + filename);
+    }
+
+    /*
+     * filenameToHash
+     * Transforms a filename to the hash value
+     *
+     */
+    function filenameToHash (filename) {
+        var nPathname = normalizePath(dirname(window.location.pathname));
+        var nFilename = normalizePath(filename);
+        return '#'+filename.replace(nPathname, '');
+    }
+
     /*
      * newRelativeLink
      * Creates a relative link for window.location based on
