@@ -10,8 +10,10 @@ Ich möchte, dass diverse Links funktionieren:
 
 - relative Links haben wir schon ausführlich in den Vorgängerschritten getestet
 - Host-relative Links - [/index.md](/index.md)
-- Protokoll-relative Links - [//bert.html](//bert.html)
+- Protokoll-relative Links - [//bert.md](//bert.md)
 - Absolute Links - [https://github.com](https://github.com)
+- Link zu Bilddatei (SVG) - [/stuttgart.svg](/stuttgart.svg)
+- Link zu Bilddatei (PNG) - [/stuttgart.png](/stuttgart.png)
 
 Ähnliches auch für Bilder:
 
@@ -23,8 +25,10 @@ Probleme
 Typ              |Link/Image                  |Ergebnis
 -----------------|----------------------------|--------
 Host-relativ     |`[...](/index.md)`          |http://localhost:8000/#/index.md     
-Protokoll-relativ|`[...](//bert.html)`        |http://localhost:8000/#/bert.html
-Absolut          |`[...]([https://github.com)`|http://localhost:8000/#/https:/github.com
+Protokoll-relativ|`[...](//bert.md)`          |http://localhost:8000/#/bert.md
+Absolut          |`[...](https://github.com)` |http://localhost:8000/#/https:/github.com
+Bilddatei (SVG)  |`[...](/stuttgart.svg)`     |http://localhost:8000/#/stuttgart.svg
+Bilddatei (PNG)  |`[...](/stuttgart.png)`     |http://localhost:8000/#/stuttgart.png
 
 Änderungen
 ----------
