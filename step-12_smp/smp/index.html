@@ -34,12 +34,15 @@
         element.innerHTML = marked.parse(contentText, { renderer: renderer });
     }
 
+    /*
+     * removeHash
+     * remove the leading hash sign '#'
+     *
+     * #/index.md -> /index.md
+     * #/index#   -> /index#
+     */
     function removeHash (windowLocationHash) {
         return windowLocationHash.replace(/^#/, "");
-    }
-
-    function hashChanged () {
-        initPage();
     }
 
     /*
@@ -53,6 +56,14 @@
         return filename.replaceAll(/[.-]/g, '');
     }
 
+    /*
+     * dirname
+     * Asuming a filename produce the name of the
+     * parent directory
+     *
+     * /subfolder/index.md -> /subfolder
+     * /subfolder/         -> /subfolder (OK?)
+     */
     function dirname (path) {
         return path.replace(/\/[^\/]*$/, '');
     }
@@ -139,6 +150,10 @@
         return normalizePath(newHash);
     }
     
+    function hashChanged () {
+        initPage();
+    }
+
     function initPage () {
         const page = document.getElementById('page-id');
         if (page) {
