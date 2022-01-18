@@ -10,9 +10,32 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    /*
+     * isAbsoluteUrl
+     * Checks if the url contains something like XXX://
+     * - true ... an absolute url containing  XXX://
+     * - false ... not an absolute url
+     */
     function isAbsoluteUrl (href) {
         return href.indexOf('://') > 0;
     }
+
+    /*
+     * isProtocolRelativeUrl
+     * Checks if we do have a protocol relative url starting with //
+     * - true ... we have a protocol relative url starting with //
+     * - false ... we don't have a protocol relative url
+     */
+    function isProtocolRelativeUrl (href) {
+        return href.startsWith('//');
+    }
+
+    /*
+     * isMarkdownUrl
+     * Checks if the url points to a markdown file (ending with '.md')
+     * - true ... the url points to a markdown file
+     * - false ... the url doesn't point to a markdown file
+     */
     function isMarkdownUrl (href) {
         return href.endsWith('.md');
     }
@@ -26,7 +49,19 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        if (! isAbsoluteUrl(href) && isMarkdownUrl(href)) {
+        if (isAbsoluteUrl(href)) {
+            ;
+        } else if (isProtocolRelativeUrl(href)) {
+            const pathname = window.location.pathname;
+            var location = window.location.href;
+            location = location.replace(/#.*$/, '');
+            location = location.slice(0, -pathname.length);
+            href = location + href;
+            ;
+        } else if (!isMarkdownUrl(href)) {
+            ;
+        } else {
+            /* isMarkdownUrl */
             const newFilename = newRelativeLink(href);
             href = filenameToHash(newFilename);
         }
