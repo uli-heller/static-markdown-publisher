@@ -19,7 +19,8 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        href = '#' + newRelativeLink(href);
+        const newFilename = newRelativeLink(href);
+        href = filenameToHash(newFilename);
         return originalRendererLink(href, title, text);
     };
     const originalRendererImage = renderer.image.bind(renderer);
@@ -152,7 +153,7 @@
         if (newFilename.startsWith('/')) {
             newHash = newFilename;
         } else {
-            newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
+            newHash = dirname(oldFilename) + '/' + newFilename;
         }
         return normalizePath(newHash);
     }

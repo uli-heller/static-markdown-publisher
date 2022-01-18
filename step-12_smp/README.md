@@ -75,6 +75,41 @@ Hier die Unterschiede im Detail:
          additionalElements.forEach((ae) => {
 ```
 
+Probleme
+--------
+
+### Link auf "subfolder/index.md" klappt nicht
+
+```
+127.0.0.1 - - [18/Jan/2022 11:08:11] "GET /smp/smp/subfolder/index.md HTTP/1.1" 404 -
+```
+
+Korrigiert mit dieser Änderung:
+
+```diff
+--- a/step-12_smp/smp/index.html
++++ b/step-12_smp/smp/index.html
+@@ -19,7 +19,8 @@
+     const renderer = new marked.Renderer();
+     const originalRendererLink = renderer.link.bind(renderer);
+     renderer.link = (href, title, text) => {
+-        href = '#' + newRelativeLink(href);
++        const newFilename = newRelativeLink(href);
++        href = filenameToHash(newFilename);
+         return originalRendererLink(href, title, text);
+     };
+     const originalRendererImage = renderer.image.bind(renderer);
+@@ -152,7 +153,7 @@
+         if (newFilename.startsWith('/')) {
+             newHash = newFilename;
+         } else {
+-            newHash = oldFilename.replace(/[^\/]*$/, '') + newFilename;
++            newHash = dirname(oldFilename) + '/' + newFilename;
+         }
+         return normalizePath(newHash);
+     }
+```
+
 HTML-Dokument mit Javascript
 ----------------------------
 
