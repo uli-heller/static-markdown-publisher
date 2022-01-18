@@ -1,20 +1,30 @@
-12 - /smp
-=========
+13 - Diverse Link-Typen und Links zu externen Resourcen
+=======================================================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Ich möchte, dass die Webseiten unter einem Kontext-Pfad
-abgerufen werden können. Also:
+Ich möchte, dass diverse Links funktionieren:
 
-- bislang: http://localhost:8000/index.html#/index.md
-- künftig: http://localhost:8000/smp/index.html#/index.md
+- relative Links haben wir schon ausführlich in den Vorgängerschritten getestet
+- Host-relative Links - [/index.md](/index.md)
+- Protokoll-relative Links - [//bert.html](//bert.html)
+- Absolute Links - [https://github.com](https://github.com)
 
-Idealerweise muß dazu keinerlei Änderung an den
-Webseiten gemacht werden, also eine "index.html"
-ist in beiden Varianten einsetzbar.
+Ähnliches auch für Bilder:
+
+Probleme
+--------
+
+### Links werden völlig falsch umgesetzt
+
+Typ              |Link/Image                  |Ergebnis
+-----------------|----------------------------|--------
+Host-relativ     |`[...](/index.md)`          |http://localhost:8000/#/index.md     
+Protokoll-relativ|`[...](//bert.html)`        |http://localhost:8000/#/bert.html
+Absolut          |`[...]([https://github.com)`|http://localhost:8000/#/https:/github.com
 
 Änderungen
 ----------
