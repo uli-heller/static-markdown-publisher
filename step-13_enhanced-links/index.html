@@ -10,6 +10,10 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    function isAbsoluteUrl (href) {
+        return href.indexOf('://') > 0;
+    }
+
     const additionalElements = [
         { filename: "header.md",    elementId: "top-id" },
         { filename: "header-02.md", elementId: "top-id" },
@@ -19,8 +23,10 @@
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        const newFilename = newRelativeLink(href);
-        href = filenameToHash(newFilename);
+        if (! isAbsoluteUrl(href)) {
+            const newFilename = newRelativeLink(href);
+            href = filenameToHash(newFilename);
+        }
         return originalRendererLink(href, title, text);
     };
     const originalRendererImage = renderer.image.bind(renderer);

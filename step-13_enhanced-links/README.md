@@ -20,6 +20,44 @@ Ich möchte, dass diverse Links funktionieren:
 Probleme
 --------
 
+### Absolute Links werden falsch umgesetzt
+
+Typ              |Link/Image                  |Ergebnis
+-----------------|----------------------------|--------
+Absolut          |`[...](https://github.com)` |http://localhost:8000/#/https:/github.com
+
+Hier die Änderungen für die Korrektur:
+
+```diff
+index afa40a0..9906a6d 100644
+--- a/step-13_enhanced-links/index.html
++++ b/step-13_enhanced-links/index.html
+@@ -10,6 +10,10 @@
+   </body>
+   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+   <script>
++    function isAbsoluteUrl (href) {
++        return href.indexOf('://') > 0;
++    }
++
+     const additionalElements = [
+         { filename: "header.md",    elementId: "top-id" },
+         { filename: "header-02.md", elementId: "top-id" },
+@@ -19,8 +23,10 @@
+     const renderer = new marked.Renderer();
+     const originalRendererLink = renderer.link.bind(renderer);
+     renderer.link = (href, title, text) => {
+-        const newFilename = newRelativeLink(href);
+-        href = filenameToHash(newFilename);
++        if (! isAbsoluteUrl(href)) {
++            const newFilename = newRelativeLink(href);
++            href = filenameToHash(newFilename);
++        }
+         return originalRendererLink(href, title, text);
+     };
+     const originalRendererImage = renderer.image.bind(renderer);
+```
+
 ### Links werden völlig falsch umgesetzt
 
 Typ              |Link/Image                  |Ergebnis
@@ -29,6 +67,11 @@ Protokoll-relativ|`[...](//bert.md)`          |http://localhost:8000/#/bert.md
 Absolut          |`[...](https://github.com)` |http://localhost:8000/#/https:/github.com
 Bilddatei (SVG)  |`[...](/stuttgart.svg)`     |http://localhost:8000/#/stuttgart.svg
 Bilddatei (PNG)  |`[...](/stuttgart.png)`     |http://localhost:8000/#/stuttgart.png
+
+Hier die Änderungen für die Korrektur:
+
+```diff
+```
 
 Änderungen
 ----------
