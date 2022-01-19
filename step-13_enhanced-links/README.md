@@ -202,4 +202,4 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 [BASE]:      ../step-12_smp/smp/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000/smp/
-[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-13_enhances-links/index.html
+[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-13_enhanced-links/index.html
