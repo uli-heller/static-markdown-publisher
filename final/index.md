@@ -18,6 +18,7 @@ Schritt 9 |Styling                           |Siehe diese Seite!
 Schritt 10|Unterordner                       |[Links zu Unterordner](links-to-subfolder.md) 
 Schritt 11|Bilder in Markdown-Dateien        |[Markdown mit Bild](image.md)                 
 Schritt 12|Kontextpfad /smp                  |TBD                                              
+Schritt 13|Diverse Link-Typen                |[Testdokument mit Link-Typen](various-links.md)
 
 * Schritt 13 - Absolute Links und Links zu externen Resourcen
 * Schritt 14 - Javascript in Markdown-Dateien
