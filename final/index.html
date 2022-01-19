@@ -69,7 +69,11 @@
     };
     const originalRendererImage = renderer.image.bind(renderer);
     renderer.image = (href, title, text) => {
-        href = newRelativeLink(href);
+        if (isAbsoluteUrl(href)) {
+            ;
+        } else {
+            href = newRelativeLink(href);
+        }
         return originalRendererImage(href, title, text);
     };
 
