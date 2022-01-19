@@ -79,7 +79,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 11 - Bilder in Markdown-Dateien](step-11_images/README.md)
 * [Schritt 12 - Kontextpfad /smp](step-12_smp/README.md)
 * [Schritt 13 - Diverse Link-Typen und Links zu externen Resourcen](step-13_enhanced-links/README.md)
-* Schritt 14 - Syntax-Highlighting mit "highlight.js"
+* [Schritt 14 - Syntaxhervorhebung mit "highlight.js"](step-14_highlightjs/README.md)
 * Schritt 15 - Javascript in Markdown-Dateien
 * Schritt 16 - Mermaid
 * Schritt 17 - Mehrspachigkeit

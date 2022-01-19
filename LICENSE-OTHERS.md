@@ -1,14 +1,17 @@
 LIZENZEN von Drittsoftware
 ==========================
 
-Name                | Datum      | Version | Lizenz            | Bemerkung
---------------------|------------|---------|-------------------|---------------------------------
-[MARKED.JS][MARKED] | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
-[STUTTGART][STGT]   | 2022-01-17 | -       | [PD][STGTL]       | Bildchen zur Demo
-[BOY][BOY]          | 2022-01-17 | -       | [PD][BOYL]        | Bildchen zur Demo
-[MDWIKI][MDWIKI]    | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
-[RAITO][RAITO]      | 2022-01-16 | -       | [MIT][RAITOL]     | Keinerlei Inhalte übernommen
+Name                      | Datum      | Version | Lizenz            | Bemerkung
+--------------------------|------------|---------|-------------------|---------------------------------
+[HIGHLIGHT.JS][HIGHLIGHT] | 2022-01-19 | 11.4.0  | [BSD][HIGHLIGHTL] | Syntaxhervorhebung
+[MARKED.JS}[MARKED]       | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
+[STUTTGART][STGT]         | 2022-01-17 | -       | [PD][STGTL]       | Bildchen zur Demo
+[BOY][BOY]                | 2022-01-17 | -       | [PD][BOYL]        | Bildchen zur Demo
+[MDWIKI][MDWIKI]          | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
+[RAITO][RAITO]            | 2022-01-16 | -       | [MIT][RAITOL]     | Keinerlei Inhalte übernommen
 
+[HIGHLIGHT]: https://highlightjs.org/
+[HIGHLIGHTL]: https://github.com/highlightjs/highlight.js/blob/main/LICENSE
 [MARKED]:  https://marked.js.org
 [MARKEDL]: https://marked.js.org/license
 [MDWIKI]:  http://www.mdwiki.info/
