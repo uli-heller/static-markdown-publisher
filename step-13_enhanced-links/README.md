@@ -6,6 +6,8 @@
 Ziel
 ----
 
+### Diverse Links
+
 Ich möchte, dass diverse Links funktionieren:
 
 - relative Links haben wir schon ausführlich in den Vorgängerschritten getestet
@@ -15,14 +17,33 @@ Ich möchte, dass diverse Links funktionieren:
 - Link zu Bilddatei (SVG) - [/stuttgart.svg](/stuttgart.svg)
 - Link zu Bilddatei (PNG) - [/stuttgart.png](/stuttgart.png)
 
-Ähnliches auch für Bilder:
+### Bilder
 
-- Bilder mit relativen Links haben wir schon ausführlich in den Vorgängerschritten getestet
-- Bilder mit host-relativen Links - ![/stuttgart.png](/stuttgart.png)
-- Bilder mit protokoll-relativen Links - ![//stuttgart.png](//stuttgart.png)
-- Bilder mit absoluten Links - ![https://github.com](https://github.com)
-- Link zu Bilddatei (SVG) - ![/stuttgart.svg](/stuttgart.svg)
-- Link zu Bilddatei (PNG) - ![/stuttgart.png](/stuttgart.png)
+Ähnliches auch für Bilder
+
+#### Bilder mit relativen Links
+
+Bilder mit relativen Links haben wir schon ausführlich in den Vorgängerschritten getestet
+
+#### Bilder mit host-relativen Links
+
+![/stuttgart.png](/stuttgart.png)
+
+#### Bilder mit protokoll-relativen Links
+
+![//stuttgart.png](//stuttgart.png)
+
+#### Bilder mit absoluten Links
+
+![https://gitea.io/images/gitea.png](https://gitea.io/images/gitea.png)
+
+#### Link zu Bilddatei (SVG)
+
+![/stuttgart.svg](/stuttgart.svg)
+
+#### Link zu Bilddatei (PNG)
+
+![/stuttgart.png](/stuttgart.png)
 
 Probleme
 --------
@@ -142,6 +163,31 @@ Hier die Änderungen für die Korrektur:
              const newFilename = newRelativeLink(href);
              href = filenameToHash(newFilename);
          }
+```
+
+### Bild mit absoluter URL
+
+Typ              |Link/Image                  |Ergebnis
+-----------------|----------------------------|--------
+Absolut          |`![...](https://gitea.io/images/gitea.png)`|/https:/gitea.io/images/gitea.png
+
+Korrektur:
+
+```diff
+--- a/step-13_enhanced-links/index.html
++++ b/step-13_enhanced-links/index.html
+@@ -69,7 +69,11 @@
+     };
+     const originalRendererImage = renderer.image.bind(renderer);
+     renderer.image = (href, title, text) => {
+-        href = newRelativeLink(href);
++        if (isAbsoluteUrl(href)) {
++            ;
++        } else {
++            href = newRelativeLink(href);
++        }
+         return originalRendererImage(href, title, text);
+     };
 ```
 
 HTML-Dokument mit Javascript
