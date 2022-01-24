@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  </head>
+  <link rel="stylesheet" type="text/css" href="smp.css">
+  <body onload="initPage();" onhashchange="hashChanged();">
+    <span id="top-id"></span>
+    <span id="page-id"></span>
+    <span id="bottom-id"></span>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <!-- and it's easy to individually load additional languages -->
+  <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
+  <script>
+    function nodeScriptIs(node) {
+       return node.tagName === 'SCRIPT';
+    }
+
+    function nodeScriptClone(node) {
+        var script  = document.createElement("script");
+        script.text = node.innerHTML;
+        var i = -1, attrs = node.attributes, attr;
+        while ( ++i < attrs.length ) {
+            script.setAttribute( (attr = attrs[i]).name, attr.value );
+        }
+        return script;
+    }
+
+    function nodeScriptReplace(node) {
+        if ( nodeScriptIs(node) === true ) {
+            node.parentNode.replaceChild( nodeScriptClone(node) , node );
+        } else {
+            var i = -1, children = node.childNodes;
+            while ( ++i < children.length ) {
+                nodeScriptReplace( children[i] );
+            }
+        }
+        return node;
+    }
+
+    /*
+     * isAbsoluteUrl
+     * Checks if the url contains something like XXX://
+     * - true ... an absolute url containing  XXX://
+     * - false ... not an absolute url
+     */
+    function isAbsoluteUrl (href) {
+        return href.indexOf('://') > 0;
+    }
+
+    /*
+     * isProtocolRelativeUrl
+     * Checks if we do have a protocol relative url starting with //
+     * - true ... we have a protocol relative url starting with //
+     * - false ... we don't have a protocol relative url
+     */
+    function isProtocolRelativeUrl (href) {
+        return href.startsWith('//');
+    }
+
+    /*
+     * isMarkdownUrl
+     * Checks if the url points to a markdown file (ending with '.md')
+     * - true ... the url points to a markdown file
+     * - false ... the url doesn't point to a markdown file
+     */
+    function isMarkdownUrl (href) {
+        return href.endsWith('.md');
+    }
+
+    const additionalElements = [
+        { filename: "header.md",    elementId: "top-id" },
+        { filename: "header-02.md", elementId: "top-id" },
+        { filename: "footer.md",    elementId: "bottom-id" },
+        { filename: "footer-02.md", elementId: "bottom-id" },
+    ];
+    const renderer = new marked.Renderer();
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        if (isAbsoluteUrl(href)) {
+            ;
+        } else if (isProtocolRelativeUrl(href)) {
+            const pathname = window.location.pathname;
+            var location = window.location.href;
+            location = location.replace(/#.*$/, '');
+            location = location.slice(0, -pathname.length);
+            href = location + href;
+            ;
+        } else if (!isMarkdownUrl(href)) {
+            ;
+        } else {
+            /* isMarkdownUrl */
+            const newFilename = newRelativeLink(href);
+            href = filenameToHash(newFilename);
+        }
+        return originalRendererLink(href, title, text);
+    };
+    const originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+        if (isAbsoluteUrl(href)) {
+            ;
+        } else {
+            href = newRelativeLink(href);
+        }
+        return originalRendererImage(href, title, text);
+    };
+
+    async function load(element, filename) {
+        const contentFetcher = await fetch(filename, {cache: "no-store"});
+        const contentText = await contentFetcher.text();
+        element.innerHTML = marked.parse(contentText, {
+            renderer: renderer,
+            highlight: function(code, lang) {
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
+            },
+        });
+        nodeScriptReplace(element);
+    }
+
+    /*
+     * removeHash
+     * remove the leading hash sign '#'
+     *
+     * #/index.md -> /index.md
+     * #/index#   -> /index#
+     */
+    function removeHash (windowLocationHash) {
+        return windowLocationHash.replace(/^#/, "");
+    }
+
+    /*
+     * filenameToId
+     * Transforms a filename into a valid id of an html element
+     *
+     * Example:
+     *   header-02.md -> header02md
+     */
+    function filenameToId (filename) {
+        return filename.replaceAll(/[.-]/g, '');
+    }
+
+    /*
+     * dirname
+     * Asuming a filename produce the name of the
+     * parent directory
+     *
+     * /subfolder/index.md -> /subfolder
+     * /subfolder/         -> /subfolder (OK?)
+     */
+    function dirname (path) {
+        return path.replace(/\/[^\/]*$/, '');
+    }
+
+    /*
+     * normalizePath
+     * Removes various unwanted parts from a path
+     *
+     * Examples
+     *  x//y   -> x/y
+     *  /a/../ -> /
+     *  /a/..  -> /
+     *  /../   -> /
+     *  /..    -> /
+     *  //a/b  -> /a/b
+     */
+    function normalizePath (path) {
+        var this_path = '';
+        var next_path = path;
+        while (this_path != next_path) {
+            this_path = next_path;
+            next_path = next_path.replace('//', '/');
+            next_path = next_path.replace('/./', '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.\//, '/');
+            next_path = next_path.replace(/\/[^\/]+\/\.\.$/, '/');
+            next_path = next_path.replace('/../', '/');
+            next_path = next_path.replace('/..', '/');
+            next_path = next_path.replace('../', '/');
+            next_path = next_path.replace('..', '/');
+        }
+        return next_path;
+    }
+    
+    /*
+     * hashToFilename
+     * Transforms the hash value to a filename
+     *
+     * Examples:
+     *  '/'     '#/index.md'          -> /index.md
+     *  '/smp'  '#/index.md'          -> /smp/index.md
+     *  '/'     '#index.md'           -> /index.md
+     *  '/'     ''                    -> /index.md
+     *  '/'     '#/page.md'           -> /page.md
+     *  '/'     '#/subfolder/page.md' -> /subfolder/page.md
+     *  '/smp'  '#/subfolder/page.md' -> /smp/subfolder/page.md
+     */
+    function hashToFilename (hash) {
+        var filename = removeHash(hash);
+        if (! filename) {
+            filename = '/index.md';
+        } else if (filename.endsWith('/')) {
+            filename = filename + 'index.md';
+        }
+        if (! filename.startsWith('/')) {
+            filename = '/' + filename;
+        }
+        return normalizePath(dirname(window.location.pathname) + filename);
+    }
+
+    /*
+     * filenameToHash
+     * Transforms a filename to the hash value
+     *
+     */
+    function filenameToHash (filename) {
+        var nPathname = normalizePath(dirname(window.location.pathname));
+        var nFilename = normalizePath(filename);
+        return '#'+filename.replace(nPathname, '');
+    }
+
+    /*
+     * newRelativeLink
+     * Creates a relative link for window.location based on
+     * the current hash and the new link/filename
+     *
+     * Examples:
+     *   hash            | link        -> result
+     *   '#/'            | 'readme.md' -> '/readme.md'
+     *   '#'             | 'readme.md' -> '/readme.md'
+     *   '#/sd/index.md' | 'readme.md' -> '/sd/readme.md'
+     */
+    function newRelativeLink (href) {
+        const oldFilename = hashToFilename(window.location.hash);
+        const newFilename = href;
+        var newHash = newFilename;
+        if (newFilename.startsWith('/')) {
+            newHash = newFilename;
+        } else {
+            newHash = dirname(oldFilename) + '/' + newFilename;
+        }
+        return normalizePath(newHash);
+    }
+    
+    function hashChanged () {
+        initPage();
+    }
+
+    function initPage () {
+        const page = document.getElementById('page-id');
+        if (page) {
+            var filename=hashToFilename(window.location.hash);
+            window.location.hash = filenameToHash(filename);
+            load(page, filename);
+        }
+        additionalElements.forEach((ae) => {
+            const element = document.getElementById(ae.elementId);
+            if (element) {
+                const id = filenameToId(ae.filename)
+                if (! document.getElementById(id)) {
+                    const newElement = document.createElement('div');
+                    newElement.id = id;
+                    element.append(newElement)
+                    load(newElement, ae.filename);
+                }
+            }
+        });
+    }
+  </script>
+</html>
