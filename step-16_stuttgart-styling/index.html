@@ -2,11 +2,11 @@
 <html>
   <head>
   </head>
-  <link rel="stylesheet" type="text/css" href="smp.css">
+  <link rel="stylesheet" type="text/css" href="smp.css?version=1">
   <body onload="initPage();" onhashchange="hashChanged();">
-    <span id="top-id"></span>
-    <span id="page-id"></span>
-    <span id="bottom-id"></span>
+    <span id="topid"></span>
+    <span id="pageid"></span>
+    <span id="bottomid"></span>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
@@ -71,10 +71,9 @@
     }
 
     const additionalElements = [
-        { filename: "header.md",    elementId: "top-id" },
-        { filename: "header-02.md", elementId: "top-id" },
-        { filename: "footer.md",    elementId: "bottom-id" },
-        { filename: "footer-02.md", elementId: "bottom-id" },
+        { filename: "header.md",    elementId: "topid" },
+        { filename: "header-02.md", elementId: "topid" },
+        { filename: "footer.md",    elementId: "bottomid" },
     ];
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
@@ -248,7 +247,7 @@
     }
 
     function initPage () {
-        const page = document.getElementById('page-id');
+        const page = document.getElementById('pageid');
         if (page) {
             var filename=hashToFilename(window.location.hash);
             window.location.hash = filenameToHash(filename);

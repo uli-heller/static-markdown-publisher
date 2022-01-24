@@ -1,14 +1,8 @@
 :root {
-    --background-color:        #fcdb00;
-    --foreground-color:        #000000;
-    --top-background-color:    #224422;
-    --top-02-background-color: #447744;
-    --top-foreground-color:    #ffffff;
-    --top-02-foreground-color: #dddddd;
-    --bottom-background-color:    var(--top-background-color);
-    --bottom-02-background-color: var(--top-02-background-color);
-    --bottom-foreground-color:    var(--top-foreground-color);
-    --bottom-02-foreground-color: var(--top-02-foreground-color);
+    --background-color:         #fcdb00;
+    --foreground-color:         #000000;
+    --lighter-background-color: #ffff66;
+    --lighter-foreground-color: #111111;
 }
 
 body {
@@ -21,18 +15,23 @@ body {
 }
 
 #header02md {
-    background: var(--top-02-background-color);
-    color:      var(--top-02-foreground-color);
+    display:    flex;
+    background: var(--lighter-background-color);
+    color:      var(--lighter-foreground-color);
+}
+
+#header02md > p {
+    margin: 0;
 }
 
 #footermd {
-    background: var(--bottom-background-color);
-    color:      var(--bottom-foreground-color);
+    display:    flex;
+    background: var(--lighter-background-color);
+    color:      var(--lighter-foreground-color);
 }
 
-#footer02md {
-    background: var(--bottom-02-background-color);
-    color:      var(--bottom-02-foreground-color);
+#footermd > p {
+    margin: 0;
 }
 
 #header {
