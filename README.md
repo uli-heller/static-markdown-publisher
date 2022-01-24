@@ -80,7 +80,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 12 - Kontextpfad /smp](step-12_smp/README.md)
 * [Schritt 13 - Diverse Link-Typen und Links zu externen Resourcen](step-13_enhanced-links/README.md)
 * [Schritt 14 - Syntaxhervorhebung mit "highlight.js"](step-14_highlightjs/README.md)
-* Schritt 15 - Javascript in Markdown-Dateien
+* [Schritt 15 - Javascript in Markdown-Dateien](step-15_script-tag/README.md)
 * Schritt 16 - Mermaid
 * Schritt 17 - Mehrspachigkeit
 * Schritt 18 - Syntaxhervorhebung mit "prism.js"
