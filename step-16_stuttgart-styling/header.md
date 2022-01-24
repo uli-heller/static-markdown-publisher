@@ -1,1 +1,1 @@
-# Header
+![Stuttgart - Pferdchen](stuttgart.svg)
