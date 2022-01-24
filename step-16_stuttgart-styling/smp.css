@@ -1,4 +1,6 @@
 :root {
+    --background-color:        #fcdb00;
+    --foreground-color:        #000000;
     --top-background-color:    #224422;
     --top-02-background-color: #447744;
     --top-foreground-color:    #ffffff;
@@ -14,8 +16,8 @@ body {
 }
 
 #headermd {
-    background: var(--top-background-color);
-    color:      var(--top-foreground-color);
+    background: var(--background-color);
+    color:      var(--foreground-color);
 }
 
 #header02md {
@@ -31,4 +33,9 @@ body {
 #footer02md {
     background: var(--bottom-02-background-color);
     color:      var(--bottom-02-foreground-color);
+}
+
+#header {
+    font-size: xx-large;
+    font-weight: bold;
 }
