@@ -76,7 +76,7 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 [MAIN]:      ../README.md
 [BASE]:      ../step-13_enhanced-links/index.html
 [INDEXHTML]: index.html
-[LOCALHOST]: http://localhost:8000/smp/
+[LOCALHOST]: http://localhost:8000
 [RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-14_highlightjs/index.html
 [HLJSD]:     https://highlightjs.org/usage/#jsdelivr
 [MJSD]:      https://marked.js.org/using_advanced
