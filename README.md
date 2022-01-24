@@ -83,6 +83,8 @@ Implementierungs- und Aufbau-Schritte
 * Schritt 15 - Javascript in Markdown-Dateien
 * Schritt 16 - Mermaid
 * Schritt 17 - Mehrspachigkeit
+* Schritt 18 - Syntaxhervorhebung mit "prism.js"
+* Schritt 19 - Hübschere DIFFs
 
 Endergebnis
 -----------
