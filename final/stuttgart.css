@@ -3,6 +3,9 @@
     --foreground-color:         #000000;
     --lighter-background-color: #ffff66;
     --lighter-foreground-color: #111111;
+    --padding-header:           1em;
+    --padding-left-right:       1em;
+    --padding-top-bottom:       0.5em;
 }
 
 body {
@@ -12,12 +15,20 @@ body {
 #headermd {
     background: var(--background-color);
     color:      var(--foreground-color);
+    padding-top: var(--padding-header);
+    padding-right: var(--padding-header);
+    padding-bottom: var(--padding-header);
+    padding-left: var(--padding-header);
 }
 
 #header02md {
     display:    flex;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
+    padding-top: var(--padding-top-bottom);
+    padding-right: var(--padding-left-right);
+    padding-bottom: var(--padding-top-bottom);
+    padding-left: var(--padding-left-right);
 }
 
 #header02md > p {
@@ -28,6 +39,10 @@ body {
     display:    flex;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
+    padding-top: var(--padding-top-bottom);
+    padding-right: var(--padding-left-right);
+    padding-bottom: var(--padding-top-bottom);
+    padding-left: var(--padding-left-right);
 }
 
 #footermd > p {
@@ -37,4 +52,11 @@ body {
 #header {
     font-size: xx-large;
     font-weight: bold;
+}
+
+#pageid {
+    padding-top: var(--padding-top-bottom);
+    padding-right: var(--padding-left-right);
+    padding-bottom: var(--padding-top-bottom);
+    padding-left: var(--padding-left-right);
 }
