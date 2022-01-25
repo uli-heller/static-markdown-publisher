@@ -1,145 +1,121 @@
-17 - Konfigurationsdatei "config.js"
-======================
+18 - Styling der Randabstände
+=============================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Ich möchte die "spezifischen" Dinge externalisieren von
-der Datei "index.html", also:
-
-- Nachzuladende Dateien wie "header.md", "footer.md", usw
-- Nachzuladende Stylesheets
-
-Idealerweise enthält "index.html" danach nur noch die generell
-notwendigen Dinge und alle spezifischen Dinge sind rausgeflogen!
+Bislang waren die Schriften innerhalb der Kopf- und Fußzeilen
+jeweils relativ nahe an den Rändern. Im Rahmen dieses Schrittes
+möchte ich das etwas "gefälliger" gestalten!
 
 Änderungen
 ----------
 
-### Datei config.js
+### Datei stuttgart.css
 
-```javascript
-const config = {
-    additionalElements: [
-        { filename: "header.md",    elementId: "topid" },
-        { filename: "header-02.md", elementId: "topid" },
-        { filename: "footer.md",    elementId: "bottomid" },
-    ],
-    stylesheets: [
-	"stuttgart.css",
-    ],
-}
-```
+Im Stylesheet "stuttgart.css" muß ich grob diese Änderungen vornehmen:
 
-### Datei index.html
-
-In der Datei "index.html" sind diese
-Änderungen notwendig:
-
-- Laden von "config.js" eingebaut
-- Statisches Laden von "stuttgart.css" fliegt raus
-- Stattdessen werden die in "config.js" hinterlegten "stylesheets"
-  geladen
-- Statisches Laden "additionalElements" fliegt raus
-- Stattdessen werden die in "config.js" hinterlegten "additionalElements"
-  geladen
-- Neue Javascript-Methode zum Laden eines Stylesheets
+- Variablen definieren für die Einrückungen
+- Einrückungen für ID "headermd" (=für Datei "header.md") festlegen
+- Einrückungen für ID "header02md" (=für Datei "header-02.md") festlegen
+- Einrückungen für ID "footermd" (=für Datei "footer.md") festlegen
+- Einrückungen für ID "pageid" (=Hauptteil) festlegen
 
 Hier die Änderungen im Detail:
 
 ```diff
------------------------- step-17_config-js/index.html -------------------------
-index 8edeb98..8807854 100644
-@@ -1,20 +1,20 @@
+------------------- step-18_styling-padding/stuttgart.css --------------------
+index fbc7bbb..49a4859 100644
+@@ -1,40 +1,62 @@
+ :root {
+     --background-color:         #fcdb00;
+     --foreground-color:         #000000;
+     --lighter-background-color: #ffff66;
+     --lighter-foreground-color: #111111;
++    --padding-header:           1em;
++    --padding-left-right:       1em;
++    --padding-top-bottom:       0.5em;
+ }
+ 
+ body {
+     font-family: Arial, Helvetica, sans-serif;
+ }
+ 
+ #headermd {
+     background: var(--background-color);
+     color:      var(--foreground-color);
++    padding-top: var(--padding-header);
++    padding-right: var(--padding-header);
++    padding-bottom: var(--padding-header);
++    padding-left: var(--padding-header);
+ }
+ 
+ #header02md {
+     display:    flex;
+     background: var(--lighter-background-color);
+     color:      var(--lighter-foreground-color);
++    padding-top: var(--padding-top-bottom);
++    padding-right: var(--padding-left-right);
++    padding-bottom: var(--padding-top-bottom);
++    padding-left: var(--padding-left-right);
+ }
+ 
+ #header02md > p {
+     margin: 0;
+ }
+ 
+ #footermd {
+     display:    flex;
+     background: var(--lighter-background-color);
+     color:      var(--lighter-foreground-color);
++    padding-top: var(--padding-top-bottom);
++    padding-right: var(--padding-left-right);
++    padding-bottom: var(--padding-top-bottom);
++    padding-left: var(--padding-left-right);
+ }
+ 
+ #footermd > p {
+     margin: 0;
+ }
+ 
+ #header {
+     font-size: xx-large;
+     font-weight: bold;
+ }
++
++#pageid {
++    padding-top: var(--padding-top-bottom);
++    padding-right: var(--padding-left-right);
++    padding-bottom: var(--padding-top-bottom);
++    padding-left: var(--padding-left-right);
++}
+```
+
+### Datei index.html
+
+In der Datei "index.html" muß ich im Wesentlichen die SPAN-Tags durch DIV-Tags ersetzen,
+damit das Setzen der Abstände klappt. Hier die Änderungen im Detail:
+
+```diff
+--------------------- step-18_styling-padding/index.html ----------------------
+index 8807854..17708e5 100644
+@@ -1,13 +1,13 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
  <html>
    <head>
    </head>
--  <link rel="stylesheet" type="text/css" href="stuttgart.css">
    <body onload="initPage();" onhashchange="hashChanged();">
-     <span id="topid"></span>
-     <span id="pageid"></span>
-     <span id="bottomid"></span>
+-    <span id="topid"></span>
+-    <span id="pageid"></span>
+-    <span id="bottomid"></span>
++    <div id="topid"></div>
++    <div id="pageid"></div>
++    <div id="bottomid"></div>
    </body>
    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
-   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
-   <!-- and it's easy to individually load additional languages -->
-   <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
-+  <script src="config.js"></script>
-   <script>
-     function nodeScriptIs(node) {
-        return node.tagName === 'SCRIPT';
-     }
- 
-@@ -68,15 +68,10 @@
-      */
-     function isMarkdownUrl (href) {
-         return href.endsWith('.md');
-     }
- 
--    const additionalElements = [
--        { filename: "header.md",    elementId: "topid" },
--        { filename: "header-02.md", elementId: "topid" },
--        { filename: "footer.md",    elementId: "bottomid" },
--    ];
-     const renderer = new marked.Renderer();
-     const originalRendererLink = renderer.link.bind(renderer);
-     renderer.link = (href, title, text) => {
-         if (isAbsoluteUrl(href)) {
-             ;
-@@ -239,10 +234,24 @@
-         } else {
-             newHash = dirname(oldFilename) + '/' + newFilename;
-         }
-         return normalizePath(newHash);
-     }
-+
-+    function loadStylesheet (filename) {
-+        const id = filenameToId(filename);
-+	if (! document.getElementById(id)) {
-+	    const head = document.getElementsByTagName('head')[0];
-+	    const link = document.createElement('link');
-+	    link.id = id;
-+	    link.rel = 'stylesheet';
-+	    link.type = 'text/css';
-+	    link.href = filename;
-+	    link.media = 'all';
-+	    head.appendChild(link);
-+	}
-+    }
-     
-     function hashChanged () {
-         initPage();
-     }
- 
-@@ -251,11 +260,11 @@
-         if (page) {
-             var filename=hashToFilename(window.location.hash);
-             window.location.hash = filenameToHash(filename);
-             load(page, filename);
-         }
--        additionalElements.forEach((ae) => {
-+        config.additionalElements.forEach((ae) => {
-             const element = document.getElementById(ae.elementId);
-             if (element) {
-                 const id = filenameToId(ae.filename)
-                 if (! document.getElementById(id)) {
-                     const newElement = document.createElement('div');
-@@ -263,8 +272,11 @@
-                     element.append(newElement)
-                     load(newElement, ae.filename);
-                 }
-             }
-         });
-+	config.stylesheets.forEach((s) => {
-+	    loadStylesheet(s);
-+	});
-     }
-   </script>
- </html>
 ```
 
 HTML-Dokument mit Javascript
@@ -151,7 +127,7 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 - [Ansicht via Dummy-HTTP-Server][LOCALHOST]
 
 [MAIN]:      ../README.md
-[BASE]:      ../step-16_stuttgart-styling/index.html
+[BASE]:      ../step-17_config-js/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
-[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-17_config-js/index.html
+[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-18_styling-padding/index.html
