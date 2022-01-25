@@ -21,7 +21,7 @@ body {
     padding-left: var(--padding-header);
 }
 
-#header02md {
+#navbarmd {
     display:    flex;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
@@ -31,7 +31,7 @@ body {
     padding-left: var(--padding-left-right);
 }
 
-#header02md > p {
+#navbarmd > p {
     margin: 0;
 }
 
