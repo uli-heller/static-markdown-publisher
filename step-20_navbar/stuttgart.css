@@ -51,6 +51,7 @@ body {
 #navbarmd li a:hover {
     background-color: var(--lighter-background-color);
     filter: brightness(80%);
+    border-radius: 5px;
 }
 
 #footermd {
