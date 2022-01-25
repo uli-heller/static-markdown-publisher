@@ -85,11 +85,12 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 17 - Konfigurationsdatei "config.js"](step-17_config-js/README.md)
 * [Schritt 18 - Styling der Randabstände](step-18_styling-padding/README.md)
 * [Schritt 19 - Styling der Tabellen](step-19_styling-tables/README.md)
-* Schritt 20 - Menüzeile
-* Schritt 21 - Mermaid
-* Schritt 22 - Mehrspachigkeit
-* Schritt 23 - Syntaxhervorhebung mit "prism.js"
-* Schritt 24 - Hübschere DIFFs
+* [Schritt 20 - Menüzeile](step-20_navbar/README.md)
+* [Schritt 21 - Klebende Menü- und Fußzeile](step-21_sticky-navbar/README.md)
+* Schritt 22 - Mermaid
+* Schritt 23 - Mehrspachigkeit
+* Schritt 24 - Syntaxhervorhebung mit "prism.js"
+* Schritt 25 - Hübschere DIFFs
 
 Endergebnis
 -----------
