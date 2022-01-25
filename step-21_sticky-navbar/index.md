@@ -36,3 +36,12 @@ haben, dann erscheint rechts ein Scrollbalken!
 - Liste-17
 - Liste-18
 - Liste-19
+
+Jetzt nochmal die Tabelle:
+
+Name  | Alter
+------|---
+Uli   | 56
+Ernie | 66
+Bert  | 67
+Kermit| 68
