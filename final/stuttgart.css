@@ -21,7 +21,7 @@ body {
     padding-left: var(--padding-header);
 }
 
-#header02md {
+#navbarmd {
     display:    flex;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
@@ -31,8 +31,27 @@ body {
     padding-left: var(--padding-left-right);
 }
 
-#header02md > p {
+#navbarmd ul {
+    list-style-type: none;    
     margin: 0;
+    padding: 0;
+}
+
+#navbarmd li {
+    float: left;
+}
+
+#navbarmd li a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color:      var(--lighter-foreground-color);
+}
+
+#navbarmd li a:hover {
+    background-color: var(--lighter-background-color);
+    filter: brightness(80%);
+    border-radius: 5px;
 }
 
 #footermd {
