@@ -60,3 +60,31 @@ body {
     padding-bottom: var(--padding-top-bottom);
     padding-left: var(--padding-left-right);
 }
+
+#middle table {
+    border-collapse: collapse;
+}
+
+#middle th {
+    background: var(--background-color);
+    padding-top: var(--padding-top-bottom);
+    padding-right: var(--padding-left-right);
+    padding-bottom: var(--padding-top-bottom);
+    padding-left: var(--padding-left-right);
+}
+
+#middle tr {
+    /*border-bottom: solid 1px black;*/
+    padding-right: var(--padding-left-right);
+    padding-left: var(--padding-left-right);
+}
+
+#middle td {
+    /*border-bottom: solid 1px black;*/
+    padding-right: var(--padding-left-right);
+    padding-left: var(--padding-left-right);
+}
+
+#middle tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
