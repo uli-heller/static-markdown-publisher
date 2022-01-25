@@ -1,17 +1,13 @@
-19 - Styling der Tabellen
-=========================
+20 - Menüzeile
+==============
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Die Tabellen sollen hübscher aussehen:
-
-- Farbiger Hintergrund für die Kopfzeile
-- Etwas größerer Abstand bei der Kopfzeile
-- Zebrastreifen
-- Runde Ecken
+Die zweite Zeile oben unter der Titelzeile
+soll eine Menüzeile sein!
 
 Änderungen
 ----------
