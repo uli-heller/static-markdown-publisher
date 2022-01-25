@@ -82,10 +82,12 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 14 - Syntaxhervorhebung mit "highlight.js"](step-14_highlightjs/README.md)
 * [Schritt 15 - Javascript in Markdown-Dateien](step-15_script-tag/README.md)
 * [Schritt 16 - Stuttgart-Styling](step-16_stuttgart-styling/README.md)
-* Schritt 16 - Mermaid
-* Schritt 17 - Mehrspachigkeit
-* Schritt 18 - Syntaxhervorhebung mit "prism.js"
-* Schritt 19 - Hübschere DIFFs
+* Schritt 17 - Konfigurationsdatei "config.js"
+* Schritt 18 - Menüzeile
+* Schritt 19 - Mermaid
+* Schritt 20 - Mehrspachigkeit
+* Schritt 21 - Syntaxhervorhebung mit "prism.js"
+* Schritt 22 - Hübschere DIFFs
 
 Endergebnis
 -----------
