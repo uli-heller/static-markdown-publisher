@@ -1,4 +1,4 @@
-16 - Stuttgart Styling
+17 - Konfigurationsdatei "config.js"
 ======================
 
 [Zurück zur Übersicht][MAIN]

@@ -82,7 +82,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 14 - Syntaxhervorhebung mit "highlight.js"](step-14_highlightjs/README.md)
 * [Schritt 15 - Javascript in Markdown-Dateien](step-15_script-tag/README.md)
 * [Schritt 16 - Stuttgart-Styling](step-16_stuttgart-styling/README.md)
-* Schritt 17 - Konfigurationsdatei "config.js"
+* {Schritt 17 - Konfigurationsdatei "config.js"](step-17_config-js/README.md)
 * Schritt 18 - Menüzeile
 * Schritt 19 - Mermaid
 * Schritt 20 - Mehrspachigkeit
