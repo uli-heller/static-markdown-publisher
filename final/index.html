@@ -4,7 +4,7 @@
   </head>
   <body onload="initPage();" onhashchange="hashChanged();">
     <div id="topid"></div>
-    <div id="pageid"></div>
+    <div id="middle"></div>
     <div id="bottomid"></div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -256,11 +256,11 @@
     }
 
     function initPage () {
-        const page = document.getElementById('pageid');
-        if (page) {
+        const middle = document.getElementById('middle');
+        if (middle) {
             var filename=hashToFilename(window.location.hash);
             window.location.hash = filenameToHash(filename);
-            load(page, filename);
+            load(middle, filename);
         }
         config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.elementId);
