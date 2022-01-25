@@ -6,144 +6,140 @@
 Ziel
 ----
 
-Ich möchte, dass das Styling etwas überarbeitet wird:
+Ich möchte die "spezifischen" Dinge externalisieren von
+der Datei "index.html", also:
 
-- Stuttgart-Pferdchen oben links
-- Daneben die Überschrift
-- Darunter eine zweite Zeile, die später mal das Navigationsmenü aufnimmt
-- Eine Fußzeile
-- Alles in Gelb
+- Nachzuladende Dateien wie "header.md", "footer.md", usw
+- Nachzuladende Stylesheets
+
+Idealerweise enthält "index.html" danach nur noch die generell
+notwendigen Dinge und alle spezifischen Dinge sind rausgeflogen!
 
 Änderungen
 ----------
 
-Hierfür sind diese Änderungen erforderlich:
+### Datei config.js
 
-- header.md: Neuer Inhalt: Logo und Text als Tabelle
-- header-02.md: Neuer Inhalt - anzuzeigender Text
-- footer.md: Neuer Inhalt - anzuzeigender Text
-- footer-02.md: Gelöscht
-- index.md: Neuer Inhalt - anzuzeigender Text
-- stuttgart.svg: Neue Datei - Pferdchen
-
-### smp.css - stuttgart.css
-
-Umbenannt nach "stuttgart.css".
-
-Inhalt:
-
-```css
-:root {
-    --background-color:         #fcdb00;
-    --foreground-color:         #000000;
-    --lighter-background-color: #ffff66;
-    --lighter-foreground-color: #111111;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#headermd {
-    background: var(--background-color);
-    color:      var(--foreground-color);
-}
-
-#header02md {
-    display:    flex;
-    background: var(--lighter-background-color);
-    color:      var(--lighter-foreground-color);
-}
-
-#header02md > p {
-    margin: 0;
-}
-
-#footermd {
-    display:    flex;
-    background: var(--lighter-background-color);
-    color:      var(--lighter-foreground-color);
-}
-
-#footermd > p {
-    margin: 0;
-}
-
-#header {
-    font-size: xx-large;
-    font-weight: bold;
+```javascript
+const config = {
+    additionalElements: [
+        { filename: "header.md",    elementId: "topid" },
+        { filename: "header-02.md", elementId: "topid" },
+        { filename: "footer.md",    elementId: "bottomid" },
+    ],
+    stylesheets: [
+	"stuttgart.css",
+    ],
 }
 ```
 
-### index.html
+### Datei index.html
 
-- Stylesheet: stuttgart.css statt smp.css
-- Minuszeichen aus den IDs der Seitenbereiche entfernt
-- Laden von footer-02.md entfernt
+In der Datei "index.html" sind diese
+Änderungen notwendig:
+
+- Laden von "config.js" eingebaut
+- Statisches Laden von "stuttgart.css" fliegt raus
+- Stattdessen werden die in "config.js" hinterlegten "stylesheets"
+  geladen
+- Statisches Laden "additionalElements" fliegt raus
+- Stattdessen werden die in "config.js" hinterlegten "additionalElements"
+  geladen
+- Neue Javascript-Methode zum Laden eines Stylesheets
 
 Hier die Änderungen im Detail:
 
 ```diff
--------------------- step-16_stuttgart-styling/index.html ---------------------
-index e958afc..a7d29ac 100644
-@@ -1,16 +1,16 @@
+------------------------ step-17_config-js/index.html -------------------------
+index 8edeb98..8807854 100644
+@@ -1,20 +1,20 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
  <html>
    <head>
    </head>
--  <link rel="stylesheet" type="text/css" href="smp.css">
-+  <link rel="stylesheet" type="text/css" href="smp.css?version=1">
+-  <link rel="stylesheet" type="text/css" href="stuttgart.css">
    <body onload="initPage();" onhashchange="hashChanged();">
--    <span id="top-id"></span>
--    <span id="page-id"></span>
--    <span id="bottom-id"></span>
-+    <span id="topid"></span>
-+    <span id="pageid"></span>
-+    <span id="bottomid"></span>
+     <span id="topid"></span>
+     <span id="pageid"></span>
+     <span id="bottomid"></span>
    </body>
    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
    <!-- and it's easy to individually load additional languages -->
    <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
++  <script src="config.js"></script>
    <script>
-@@ -67,18 +67,17 @@
-      * - false ... the url doesn't point to a markdown file
+     function nodeScriptIs(node) {
+        return node.tagName === 'SCRIPT';
+     }
+ 
+@@ -68,15 +68,10 @@
       */
      function isMarkdownUrl (href) {
          return href.endsWith('.md');
      }
  
-     const additionalElements = [
--        { filename: "header.md",    elementId: "top-id" },
--        { filename: "header-02.md", elementId: "top-id" },
--        { filename: "footer.md",    elementId: "bottom-id" },
--        { filename: "footer-02.md", elementId: "bottom-id" },
-+        { filename: "header.md",    elementId: "topid" },
-+        { filename: "header-02.md", elementId: "topid" },
-+        { filename: "footer.md",    elementId: "bottomid" },
-     ];
+-    const additionalElements = [
+-        { filename: "header.md",    elementId: "topid" },
+-        { filename: "header-02.md", elementId: "topid" },
+-        { filename: "footer.md",    elementId: "bottomid" },
+-    ];
      const renderer = new marked.Renderer();
      const originalRendererLink = renderer.link.bind(renderer);
      renderer.link = (href, title, text) => {
          if (isAbsoluteUrl(href)) {
              ;
-         } else if (isProtocolRelativeUrl(href)) {
-@@ -244,15 +243,15 @@
+@@ -239,10 +234,24 @@
+         } else {
+             newHash = dirname(oldFilename) + '/' + newFilename;
+         }
+         return normalizePath(newHash);
      }
++
++    function loadStylesheet (filename) {
++        const id = filenameToId(filename);
++	if (! document.getElementById(id)) {
++	    const head = document.getElementsByTagName('head')[0];
++	    const link = document.createElement('link');
++	    link.id = id;
++	    link.rel = 'stylesheet';
++	    link.type = 'text/css';
++	    link.href = filename;
++	    link.media = 'all';
++	    head.appendChild(link);
++	}
++    }
      
      function hashChanged () {
          initPage();
      }
  
-     function initPage () {
--        const page = document.getElementById('page-id');
-+        const page = document.getElementById('pageid');
+@@ -251,11 +260,11 @@
          if (page) {
              var filename=hashToFilename(window.location.hash);
              window.location.hash = filenameToHash(filename);
              load(page, filename);
          }
+-        additionalElements.forEach((ae) => {
++        config.additionalElements.forEach((ae) => {
+             const element = document.getElementById(ae.elementId);
+             if (element) {
+                 const id = filenameToId(ae.filename)
+                 if (! document.getElementById(id)) {
+                     const newElement = document.createElement('div');
+@@ -263,8 +272,11 @@
+                     element.append(newElement)
+                     load(newElement, ae.filename);
+                 }
+             }
+         });
++	config.stylesheets.forEach((s) => {
++	    loadStylesheet(s);
++	});
+     }
+   </script>
+ </html>
 ```
 
 HTML-Dokument mit Javascript
@@ -155,7 +151,7 @@ Das [komplette Dokument][INDEXHTML] ist [hier][INDEXHTML] einsichtbar.
 - [Ansicht via Dummy-HTTP-Server][LOCALHOST]
 
 [MAIN]:      ../README.md
-[BASE]:      ../step-15_script-tag/index.html
+[BASE]:      ../step-16_stuttgart-styling/index.html
 [INDEXHTML]: index.html
 [LOCALHOST]: http://localhost:8000
-[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-16_stuttgart-styling/index.html
+[RESULT]:    https://uli-heller.github.io/static-markdown-publisher/step-17_config-js/index.html
