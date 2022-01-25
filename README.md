@@ -83,7 +83,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 15 - Javascript in Markdown-Dateien](step-15_script-tag/README.md)
 * [Schritt 16 - Stuttgart-Styling](step-16_stuttgart-styling/README.md)
 * [Schritt 17 - Konfigurationsdatei "config.js"](step-17_config-js/README.md)
-* Schritt 18 - Styling der Randabstände
+* [Schritt 18 - Styling der Randabstände](step-18_styling-padding/README.md)
 * Schritt 19 - Styling der Tabellen
 * Schritt 20 - Menüzeile
 * Schritt 21 - Mermaid
