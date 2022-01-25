@@ -2,7 +2,6 @@
 <html>
   <head>
   </head>
-  <link rel="stylesheet" type="text/css" href="stuttgart.css">
   <body onload="initPage();" onhashchange="hashChanged();">
     <span id="topid"></span>
     <span id="pageid"></span>
@@ -13,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
   <!-- and it's easy to individually load additional languages -->
   <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
+  <script src="config.js"></script>
   <script>
     function nodeScriptIs(node) {
        return node.tagName === 'SCRIPT';
@@ -70,11 +70,6 @@
         return href.endsWith('.md');
     }
 
-    const additionalElements = [
-        { filename: "header.md",    elementId: "topid" },
-        { filename: "header-02.md", elementId: "topid" },
-        { filename: "footer.md",    elementId: "bottomid" },
-    ];
     const renderer = new marked.Renderer();
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
@@ -241,6 +236,20 @@
         }
         return normalizePath(newHash);
     }
+
+    function loadStylesheet (filename) {
+        const id = filenameToId(filename);
+	if (! document.getElementById(id)) {
+	    const head = document.getElementsByTagName('head')[0];
+	    const link = document.createElement('link');
+	    link.id = id;
+	    link.rel = 'stylesheet';
+	    link.type = 'text/css';
+	    link.href = filename;
+	    link.media = 'all';
+	    head.appendChild(link);
+	}
+    }
     
     function hashChanged () {
         initPage();
@@ -253,7 +262,7 @@
             window.location.hash = filenameToHash(filename);
             load(page, filename);
         }
-        additionalElements.forEach((ae) => {
+        config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.elementId);
             if (element) {
                 const id = filenameToId(ae.filename)
@@ -265,6 +274,9 @@
                 }
             }
         });
+	config.stylesheets.forEach((s) => {
+	    loadStylesheet(s);
+	});
     }
   </script>
 </html>
