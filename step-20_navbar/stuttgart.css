@@ -48,6 +48,11 @@ body {
     color:      var(--lighter-foreground-color);
 }
 
+#navbarmd li a:hover {
+    background-color: var(--lighter-background-color);
+    filter: brightness(80%);
+}
+
 #footermd {
     display:    flex;
     background: var(--lighter-background-color);
