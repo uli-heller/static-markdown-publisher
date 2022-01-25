@@ -31,9 +31,21 @@ body {
     padding-left: var(--padding-left-right);
 }
 
-#navbarmd > p {
+#navbarmd ul {
+    list-style-type: none;    
     margin: 0;
+    padding: 0;
 }
+
+#navbarmd li {
+    display: inline;
+}
+
+/*
+#navbarmd li a {
+    display: block;
+}
+*/
 
 #footermd {
     display:    flex;
