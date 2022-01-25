@@ -38,14 +38,15 @@ body {
 }
 
 #navbarmd li {
-    display: inline;
+    float: left;
 }
 
-/*
 #navbarmd li a {
     display: block;
+    padding: 8px;
+    text-decoration: none;
+    color:      var(--lighter-foreground-color);
 }
-*/
 
 #footermd {
     display:    flex;
