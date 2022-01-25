@@ -73,6 +73,14 @@ body {
     padding-left: var(--padding-left-right);
 }
 
+#middle th:first-child {
+    border-top-left-radius: 5px;
+}
+
+#middle th:last-child {
+    border-top-right-radius: 5px;
+}
+
 #middle tr {
     /*border-bottom: solid 1px black;*/
     padding-right: var(--padding-left-right);
@@ -87,4 +95,12 @@ body {
 
 #middle tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+#middle tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+#middle tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
 }
