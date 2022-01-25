@@ -54,7 +54,7 @@ body {
     font-weight: bold;
 }
 
-#pageid {
+#middle {
     padding-top: var(--padding-top-bottom);
     padding-right: var(--padding-left-right);
     padding-bottom: var(--padding-top-bottom);
