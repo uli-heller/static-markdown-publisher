@@ -269,7 +269,7 @@
                 if (! document.getElementById(id)) {
                     const newElement = document.createElement('div');
                     newElement.id = id;
-                    element.append(newElement)
+                    element.parentNode.insertBefore(newElement, element)
                     load(newElement, ae.filename);
                 }
             }
