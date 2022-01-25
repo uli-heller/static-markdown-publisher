@@ -87,10 +87,11 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 19 - Styling der Tabellen](step-19_styling-tables/README.md)
 * [Schritt 20 - Menüzeile](step-20_navbar/README.md)
 * [Schritt 21 - Klebende Menü- und Fußzeile](step-21_sticky-navbar/README.md)
-* Schritt 22 - Mermaid
-* Schritt 23 - Mehrspachigkeit
-* Schritt 24 - Syntaxhervorhebung mit "prism.js"
-* Schritt 25 - Hübschere DIFFs
+* [Schritt 22 - Links-Rechts-Menüzeile](step-22_left-right-navbar/README.md)
+* Schritt 23 - Mermaid
+* Schritt 24 - Mehrspachigkeit
+* Schritt 25 - Syntaxhervorhebung mit "prism.js"
+* Schritt 26 - Hübschere DIFFs
 
 Endergebnis
 -----------
