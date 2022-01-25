@@ -5,4 +5,7 @@ const config = {
         { filename: "header-02.md", elementId: "topid" },
         { filename: "footer.md",    elementId: "bottomid" },
     ],
+    stylesheets: [
+	"stuttgart.css",
+    ],
 }

@@ -2,7 +2,6 @@
 <html>
   <head>
   </head>
-  <link rel="stylesheet" type="text/css" href="stuttgart.css">
   <body onload="initPage();" onhashchange="hashChanged();">
     <span id="topid"></span>
     <span id="pageid"></span>
@@ -237,6 +236,20 @@
         }
         return normalizePath(newHash);
     }
+
+    function loadStylesheet (filename) {
+        const id = filenameToId(filename);
+	if (! document.getElementById(id)) {
+	    const head = document.getElementsByTagName('head')[0];
+	    const link = document.createElement('link');
+	    link.id = id;
+	    link.rel = 'stylesheet';
+	    link.type = 'text/css';
+	    link.href = filename;
+	    link.media = 'all';
+	    head.appendChild(link);
+	}
+    }
     
     function hashChanged () {
         initPage();
@@ -261,6 +274,9 @@
                 }
             }
         });
+	config.stylesheets.forEach((s) => {
+	    loadStylesheet(s);
+	});
     }
   </script>
 </html>
