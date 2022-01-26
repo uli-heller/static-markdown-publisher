@@ -7,6 +7,3 @@
 # Trenner
 
 - [Rechts](rechts.md)
-
-<div class="clear"></div>
-

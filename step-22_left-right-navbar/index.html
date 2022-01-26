@@ -101,7 +101,16 @@
         return originalRendererImage(href, title, text);
     };
 
-    async function load(element, filename) {
+    function handleNavbar (navbarElement) {
+        const navbar_clear = navbarElement.getElementsByClassName("clear");
+        if (navbar_clear.length <= 0) {
+            const clear = document.createElement('div')
+            clear.classList.add("clear");
+            navbarElement.appendChild(clear);
+        }
+    }
+
+    async function load(element, filename, isNavbar) {
         const contentFetcher = await fetch(filename, {cache: "no-store"});
         const contentText = await contentFetcher.text();
         element.innerHTML = marked.parse(contentText, {
@@ -112,6 +121,9 @@
             },
         });
         nodeScriptReplace(element);
+        if (isNavbar) {
+            handleNavbar(element);
+        }
     }
 
     /*
@@ -250,7 +262,7 @@
             head.appendChild(link);
         }
     }
-    
+
     function hashChanged () {
         initPage();
     }
@@ -260,7 +272,7 @@
         if (middle) {
             var filename=hashToFilename(window.location.hash);
             window.location.hash = filenameToHash(filename);
-            load(middle, filename);
+            load(middle, filename, false);
         }
         config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.insertBeforeElementId);
@@ -270,7 +282,7 @@
                     const newElement = document.createElement('div');
                     newElement.id = id;
                     element.parentNode.insertBefore(newElement, element)
-                    load(newElement, ae.filename);
+                    load(newElement, ae.filename, ae.isNavbar);
                 }
             }
         });
