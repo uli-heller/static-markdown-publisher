@@ -102,6 +102,14 @@
     };
 
     function handleNavbar (navbarElement) {
+        // Make sure the navbar contains two lists
+        var navbar_uls = navbarElement.querySelectorAll("ul");
+        while (navbar_uls.length < 2) {
+            const ul = document.createElement('ul');
+            navbarElement.appendChild(ul);
+            navbar_uls = navbarElement.querySelectorAll("ul");
+        }
+
         const navbar_clear = navbarElement.getElementsByClassName("clear");
         if (navbar_clear.length <= 0) {
             const clear = document.createElement('div')
