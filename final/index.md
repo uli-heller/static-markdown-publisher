@@ -25,12 +25,14 @@ Schritt 16|Stuttgart-Styling                 |Siehe diese Seite!
 Schritt 17|Konfigurationsdatei "config.js"   |Siehe diese Seite!
 Schritt 18|Styling der Randabstände          |Siehe diese Seite!
 Schritt 19|Styling der Tabellen              |Siehe diese Seite!
+Schritt 20|Menüzeile                         |Siehe diese Seite!
+Schritt 21|Klebende Menü- und Fußzeile       |Siehe diese Seite!
+Schritt 22|Links-Rechts-Menüzeile            |Siehe diese Seite!
 
-* Schritt 20 - Menüzeile
-* Schritt 21 - Mermaid
-* Schritt 22 - Mehrspachigkeit
-* Schritt 23 - Syntaxhervorhebung mit "prism.js"
-* Schritt 24 - Hübschere DIFFs
+* Schritt 23 - Mermaid
+* Schritt 24 - Mehrspachigkeit
+* Schritt 25 - Syntaxhervorhebung mit "prism.js"
+* Schritt 26 - Hübschere DIFFs
 
 
 * First markdown file: [page.md](page.md)
