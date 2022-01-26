@@ -265,7 +265,7 @@
             link.id = id;
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = filename + "?timestamp=" + new Date();
+            link.href = filename; // + "?timestamp=" + new Date();
             link.media = 'all';
             head.appendChild(link);
         }
