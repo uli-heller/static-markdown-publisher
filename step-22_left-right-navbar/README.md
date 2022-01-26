@@ -1,4 +1,4 @@
-21 - Klebrige Menü- und Fußzeile
+22 - Links-Rechts-Menüzeile
 ================================
 
 [Zurück zur Übersicht][MAIN]
@@ -6,18 +6,18 @@
 Ziel
 ----
 
-Die zweite Zeile oben unter der Titelzeile
-ist die Menüzeile und die soll immer sein!
-Gleiches auch für die Fußzeile unten!
+In der Menü- und Fußzeile hätte ich gerne links-
+und rechtsbündige Teile!
 
 Änderungen
 ----------
 
 Grob sind diese Änderungen erforderlich:
 
-- stuttgart.css: Bei "#navbarmd" und "#footermd"
-  müssen die Attribute "sticky" und "top"/"bottom" gesetzt werden
-- index.html: Menü- und Fußzeile müssen Toplevel-Elemente
-  sein, sie dürfen nicht innerhalb der DIV-Elemente liegen!
+- config.js: Markieren, ob das neue Element die Rechts- und Linksbündigkeit unterstützen soll (isNavbar)
+- navbar.md: Zwei Listen, getrennt durch Überschrift
+- footer.md: Zwei Listen analog to navbar.md
+- stuttgart.css: Styling der beiden Listen, Ausblenden der Überschrift
+- index.html: Spezielle Handbabung der Links-Rechts-Teile (handleNavbar)
 
 [MAIN]:      ../README.md
