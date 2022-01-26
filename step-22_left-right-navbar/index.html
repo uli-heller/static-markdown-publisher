@@ -239,16 +239,16 @@
 
     function loadStylesheet (filename) {
         const id = filenameToId(filename);
-	if (! document.getElementById(id)) {
-	    const head = document.getElementsByTagName('head')[0];
-	    const link = document.createElement('link');
-	    link.id = id;
-	    link.rel = 'stylesheet';
-	    link.type = 'text/css';
-	    link.href = filename + "?timestamp=" + new Date();
-	    link.media = 'all';
-	    head.appendChild(link);
-	}
+        if (! document.getElementById(id)) {
+            const head = document.getElementsByTagName('head')[0];
+            const link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = filename + "?timestamp=" + new Date();
+            link.media = 'all';
+            head.appendChild(link);
+        }
     }
     
     function hashChanged () {
@@ -265,7 +265,7 @@
         config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.insertBeforeElementId);
             if (element) {
-                const id = filenameToId(ae.filename)
+                const id = ae.elementId || filenameToId(ae.filename);
                 if (! document.getElementById(id)) {
                     const newElement = document.createElement('div');
                     newElement.id = id;
@@ -274,9 +274,9 @@
                 }
             }
         });
-	config.stylesheets.forEach((s) => {
-	    loadStylesheet(s);
-	});
+        config.stylesheets.forEach((s) => {
+            loadStylesheet(s);
+        });
     }
   </script>
 </html>
