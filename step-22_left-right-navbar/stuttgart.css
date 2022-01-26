@@ -24,7 +24,7 @@ body {
 #navbarmd {
     position: sticky;
     top: 0;
-    display:    flex;
+    display: flex;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
     padding-top: var(--padding-top-bottom);
@@ -33,14 +33,29 @@ body {
     padding-left: var(--padding-left-right);
 }
 
+#navbarmd .clear {
+    clear: both;
+}
+
+#navbarmd h1 {
+    display: none;
+}
+
 #navbarmd ul {
+    display: flex;
     list-style-type: none;    
     margin: 0;
     padding: 0;
+    background: var(--lighter-background-color);
+    color:      var(--lighter-foreground-color);
 }
 
-#navbarmd li {
+#navbarmd ul:first-of-type {
     float: left;
+}
+
+#navbarmd ul:last-of-type {
+    float: right;
 }
 
 #navbarmd li a {
