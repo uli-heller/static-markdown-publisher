@@ -24,7 +24,7 @@ body {
 #navbarmd {
     position: sticky;
     top: 0;
-    display: flex;
+    /*display: flex;*/
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
     padding-top: var(--padding-top-bottom);
