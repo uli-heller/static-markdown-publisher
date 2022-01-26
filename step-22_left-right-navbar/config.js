@@ -1,9 +1,9 @@
 
 const config = {
     additionalElements: [
-        { filename: "header.md", elementId: "topid" },
-        { filename: "navbar.md", elementId: "topid" },
-        { filename: "footer.md", elementId: "bottomid" },
+        { filename: "header.md", insertBeforeElementId: "topid" },
+        { filename: "navbar.md", insertBeforeElementId: "topid" },
+        { filename: "footer.md", insertBeforeElementId: "bottomid" },
     ],
     stylesheets: [
 	"stuttgart.css",

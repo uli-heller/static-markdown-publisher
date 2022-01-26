@@ -263,7 +263,7 @@
             load(middle, filename);
         }
         config.additionalElements.forEach((ae) => {
-            const element = document.getElementById(ae.elementId);
+            const element = document.getElementById(ae.insertBeforeElementId);
             if (element) {
                 const id = filenameToId(ae.filename)
                 if (! document.getElementById(id)) {
