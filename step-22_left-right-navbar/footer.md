@@ -1,1 +1,5 @@
-Entwickelt von Uli Heller -- veröffentlicht unter Apache-2.0-Lizenz
+- Entwickelt von Uli Heller
+
+# Rechts
+
+- veröffentlicht unter Apache-2.0-Lizenz
