@@ -14,8 +14,12 @@
   <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
 
   <!-- diff2html files -->
+  <!--
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.js"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js"></script>
 
   <script src="config.js"></script>
   <script>
@@ -131,7 +135,7 @@
             highlight: function(code, lang) {
                 if (lang === 'diff') {
                     //diff2html
-                    var diffHtml = Diff2Html.getPrettyHtml(code, {});
+                    var diffHtml = Diff2Html.html(code, {});
                     return diffHtml;
                 } else {
                     const language = hljs.getLanguage(lang) ? lang : 'plaintext';
