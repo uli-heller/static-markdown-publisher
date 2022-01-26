@@ -1,47 +1,26 @@
-# 21 - Klebrige Menüzeile
+# 23 - Diff2html.js
 
 Dies ist eine Markdown-Datei
-mit ein wenig Text und einer Tabelle.
-Oben wird eine Menüzeile eingeblendet!
+mit einem Block von Dateiunterschieden:
 
-Name  | Alter
-------|---
-Uli   | 56
-Ernie | 66
-Bert  | 67
-Kermit| 68
-
-Damit wir testen können, ob Menü- und Fußzeile
-klebrig sind, brauchen wir einen längeren Text
-auf dieser Seite. Wenn wir genügend Text
-haben, dann erscheint rechts ein Scrollbalken!
-
-- Liste-0
-- Liste-1
-- Liste-2
-- Liste-3
-- Liste-4
-- Liste-5
-- Liste-6
-- Liste-7
-- Liste-8
-- Liste-9
-- Liste-10
-- Liste-11
-- Liste-12
-- Liste-13
-- Liste-14
-- Liste-15
-- Liste-16
-- Liste-17
-- Liste-18
-- Liste-19
-
-Jetzt nochmal die Tabelle:
-
-Name  | Alter
-------|---
-Uli   | 56
-Ernie | 66
-Bert  | 67
-Kermit| 68
+```diff
+diff --git a/README.md b/README.md
+index b5ef026..2dd08c9 100644
+--- a/README.md
++++ b/README.md
+@@ -88,10 +88,10 @@ Implementierungs- und Aufbau-Schritte
+ * [Schritt 20 - Menüzeile](step-20_navbar/README.md)
+ * [Schritt 21 - Klebende Menü- und Fußzeile](step-21_sticky-navbar/README.md)
+ * [Schritt 22 - Links-Rechts-Menüzeile](step-22_left-right-navbar/README.md)
+-* Schritt 23 - Mermaid
+-* Schritt 24 - Mehrspachigkeit
+-* Schritt 25 - Syntaxhervorhebung mit "prism.js"
+-* Schritt 26 - Hübschere DIFFs
++* [Schritt 23 - Hübschere DIFFs](step-23_diff2htmljs/README.md)
++* Schritt 24 - Mermaid
++* Schritt 25 - Mehrspachigkeit
++* Schritt 26 - Syntaxhervorhebung mit "prism.js"
+ 
+ Endergebnis
+ -----------
+```
