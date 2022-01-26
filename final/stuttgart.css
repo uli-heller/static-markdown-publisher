@@ -21,10 +21,17 @@ body {
     padding-left: var(--padding-header);
 }
 
+
 #navbarmd {
-    position: sticky;
     top: 0;
-    display:    flex;
+}
+
+#footermd {
+    bottom: 0;
+}
+
+#navbarmd,#footermd {
+    position: sticky;
     background: var(--lighter-background-color);
     color:      var(--lighter-foreground-color);
     padding-top: var(--padding-top-bottom);
@@ -33,43 +40,42 @@ body {
     padding-left: var(--padding-left-right);
 }
 
-#navbarmd ul {
+#navbarmd .clear, #footermd .clear {
+    clear: both;
+}
+
+#navbarmd h1, #footermd h1 {
+    display: none;
+}
+
+#navbarmd ul, #footermd ul {
+    display: flex;
     list-style-type: none;    
     margin: 0;
     padding: 0;
+    background: var(--lighter-background-color);
+    color:      var(--lighter-foreground-color);
 }
 
-#navbarmd li {
+#navbarmd ul:first-of-type, #footermd ul:first-of-type {
     float: left;
 }
 
-#navbarmd li a {
+#navbarmd ul:last-of-type, #footermd ul:last-of-type {
+    float: right;
+}
+
+#navbarmd li a ,#footermd li a {
     display: block;
     padding: 8px;
     text-decoration: none;
     color:      var(--lighter-foreground-color);
 }
 
-#navbarmd li a:hover {
+#navbarmd li a:hover, #footermd li a:hover {
     background-color: var(--lighter-background-color);
     filter: brightness(80%);
     border-radius: 5px;
-}
-
-#footermd {
-    position: sticky;
-    bottom: 0;
-    display:    flex;
-    background: var(--lighter-background-color);
-    color:      var(--lighter-foreground-color);
-    padding-top: var(--padding-top-bottom);
-    padding-right: var(--padding-left-right);
-    padding-bottom: var(--padding-top-bottom);
-    padding-left: var(--padding-left-right);
-}
-
-#footermd > p {
-    margin: 0;
 }
 
 #header {
