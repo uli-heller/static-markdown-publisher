@@ -3,7 +3,7 @@
 Dies ist eine Markdown-Datei
 mit einem Block für Syntaxhervorhebungen:
 
-```sh
+```shell
 #!/bin/bash
 LOG=y
 
