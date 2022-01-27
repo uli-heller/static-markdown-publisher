@@ -8,6 +8,12 @@
     <div id="bottomid"></div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!--
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/themes/prism.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/prism.min.js"></script>
+  -->
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
   <!-- and it's easy to individually load additional languages -->
@@ -140,8 +146,13 @@
         element.innerHTML = marked.parse(contentText, {
             renderer: renderer,
             highlight: function(code, lang) {
-                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-                return hljs.highlight(code, { language }).value;
+		/*const prism_language = Prism.languages[lang];
+		  if (prism_language) {
+		     return Prism.highlight(code, prism_language, lang);
+		} else {*/
+                    const hl_language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { hl_language }).value;
+		/*}*/
             },
         });
         nodeScriptReplace(element);
