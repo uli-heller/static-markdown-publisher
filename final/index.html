@@ -12,6 +12,15 @@
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
   <!-- and it's easy to individually load additional languages -->
   <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
+
+  <!-- diff2html files -->
+  <!--
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.js"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js"></script>
+
   <script src="config.js"></script>
   <script>
     function nodeScriptIs(node) {
@@ -71,6 +80,13 @@
     }
 
     const renderer = new marked.Renderer();
+    const originalRendererCode = renderer.code.bind(renderer);
+    renderer.code = (code, infostring, escaped) => {
+        if (infostring === 'diff') {
+            return Diff2Html.html(code);
+        }
+        return originalRendererCode(code, infostring, escaped);
+    };
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
         if (isAbsoluteUrl(href)) {
