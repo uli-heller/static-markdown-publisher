@@ -4,6 +4,7 @@ LIZENZEN von Drittsoftware
 Name                      | Datum      | Version | Lizenz            | Bemerkung
 --------------------------|------------|---------|-------------------|---------------------------------
 [PRISM.JS][PRISM]         | 2022-01-27 | 1.26.0  | [MIT][PRISML]     | Syntaxhervorhebung
+[MERMAID.JS][MERMAID]     | 2022-01-27 | 8.13.10 | [MIT][MERMAIDL]   | Diverse Graphiken
 [DIFF2HTML.JS][DIFF2HTM]  | 2022-01-26 | 3.4.14  | [MIT][DIFF2HTMLL] | Aufbereitung von Dateiänderungen
 [HIGHLIGHT.JS][HIGHLIGHT] | 2022-01-19 | 11.4.0  | [BSD][HIGHLIGHTL] | Syntaxhervorhebung
 [MARKED.JS}[MARKED]       | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
@@ -14,6 +15,8 @@ Name                      | Datum      | Version | Lizenz            | Bemerkung
 
 [PRISM]: https://prismjs.com
 [PRISML]: https://github.com/PrismJS/prism/blob/master/LICENSE
+[MERMAID]:  https://github.com/mermaid-js/mermaid
+[MERMAIDL]: https://github.com/mermaid-js/mermaid/blob/develop/LICENSE
 [DIFF2HTML]: https://github.com/rtfpessoa/diff2html
 [DIFF2HTMLL]: https://github.com/rtfpessoa/diff2html/blob/master/LICENSE.md
 [HIGHLIGHT]: https://highlightjs.org/

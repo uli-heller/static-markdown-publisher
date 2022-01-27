@@ -133,3 +133,7 @@ body {
 #middle tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
+
+div.mermaid {
+    font-family: 'trebuchet ms', verdana, arial;
+}
