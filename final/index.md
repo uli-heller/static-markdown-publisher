@@ -19,7 +19,7 @@ Schritt 10|Unterordner                       |[Links zu Unterordner](links-to-su
 Schritt 11|Bilder in Markdown-Dateien        |[Markdown mit Bild](image.md)                 
 Schritt 12|Kontextpfad /smp                  |TBD                                              
 Schritt 13|Diverse Link-Typen                |[Testdokument mit Link-Typen](various-links.md)
-Schritt 14|Syntaxhervorhebung mit "highlight.js"|[Testdokument mit DIFF-Ausgabe](diff.md)
+Schritt 14|Syntaxhervorhebung mit "highlight.js"|[Testdokument mit Shell-Skript](bash.md)
 Schritt 15|Javascript in Markdown-Dateien    |[Testdokument mit Javascript-Code](javascript.md)
 Schritt 16|Stuttgart-Styling                 |Siehe diese Seite!
 Schritt 17|Konfigurationsdatei "config.js"   |Siehe diese Seite!
@@ -28,12 +28,11 @@ Schritt 19|Styling der Tabellen              |Siehe diese Seite!
 Schritt 20|Menüzeile                         |Siehe diese Seite!
 Schritt 21|Klebende Menü- und Fußzeile       |Siehe diese Seite!
 Schritt 22|Links-Rechts-Menüzeile            |Siehe diese Seite!
+Schritt 23|Hübschere DIFFs                   |[Testdokument mit DIFF-Ausgabe](diff.md)
 
-* Schritt 23 - Mermaid
-* Schritt 24 - Mehrspachigkeit
-* Schritt 25 - Syntaxhervorhebung mit "prism.js"
-* Schritt 26 - Hübschere DIFFs
-
+* Schritt 24 - Mermaid
+* Schritt 25 - Mehrspachigkeit
+* Schritt 26 - Syntaxhervorhebung mit "prism.js"
 
 * First markdown file: [page.md](page.md)
 * Second markdown file: [another-page.md](another-page.md)
