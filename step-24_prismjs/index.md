@@ -19,3 +19,13 @@ name,alter,groesse
 uli,56,178
 ernie,65,32
 ```
+
+Hier ein Mermaid-Absatz:
+
+```mermaid
+graph TD;
+  Error-->Yes;
+  Error-->No;
+  Yes-->Fail;
+  No-->Success;
+```
