@@ -1,0 +1,4 @@
+RECHTS
+======
+
+Platzhalter für "rechts"!
