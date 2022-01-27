@@ -21,6 +21,9 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js"></script>
 
+  <!-- mermaid.js -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
   <script src="config.js"></script>
   <script>
     function nodeScriptIs(node) {
@@ -84,6 +87,8 @@
     renderer.code = (code, infostring, escaped) => {
         if (infostring === 'diff') {
             return Diff2Html.html(code);
+	} else if (infostring === 'mermaid') {
+	    return '<div class="mermaid">' + code + '</div>';
         }
         return originalRendererCode(code, infostring, escaped);
     };
@@ -148,6 +153,7 @@
         if (isNavbar) {
             handleNavbar(element);
         }
+	mermaid.init(undefined, ".mermaid");
     }
 
     /*
