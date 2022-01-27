@@ -80,6 +80,13 @@
     }
 
     const renderer = new marked.Renderer();
+    const originalRendererCode = renderer.code.bind(renderer);
+    renderer.code = (code, infostring, escaped) => {
+        if (infostring === 'diff') {
+            return Diff2Html.html(code);
+        }
+        return originalRendererCode(code, infostring, escaped);
+    };
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
         if (isAbsoluteUrl(href)) {
@@ -133,14 +140,8 @@
         element.innerHTML = marked.parse(contentText, {
             renderer: renderer,
             highlight: function(code, lang) {
-                if (lang === 'diff') {
-                    //diff2html
-                    var diffHtml = Diff2Html.html(code, {});
-                    return diffHtml;
-                } else {
-                    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-                    return hljs.highlight(code, { language }).value;
-                }
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
             },
         });
         nodeScriptReplace(element);
