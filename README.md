@@ -89,9 +89,9 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 21 - Klebende Menü- und Fußzeile](step-21_sticky-navbar/README.md)
 * [Schritt 22 - Links-Rechts-Menüzeile](step-22_left-right-navbar/README.md)
 * [Schritt 23 - Hübschere DIFFs](step-23_diff2htmljs/README.md)
-* Schritt 24 - Mermaid
-* Schritt 25 - Mehrspachigkeit
-* Schritt 26 - Syntaxhervorhebung mit "prism.js"
+* Schritt 24 - Syntaxhervorhebung mit "prism.js"
+* Schritt 25 - Mermaid
+* Schritt 26 - Mehrspachigkeit
 
 Endergebnis
 -----------
