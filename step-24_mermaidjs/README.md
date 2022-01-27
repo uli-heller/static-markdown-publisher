@@ -1,5 +1,5 @@
-24 - Mermaid.js
-===============
+24 - Diagramme mit Mermaid.js
+=============================
 
 [Zurück zur Übersicht][MAIN]
 
