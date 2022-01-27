@@ -9,10 +9,9 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  <!--
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/themes/prism.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/prism.min.js"></script>
-  -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
@@ -146,13 +145,13 @@
         element.innerHTML = marked.parse(contentText, {
             renderer: renderer,
             highlight: function(code, lang) {
-		/*const prism_language = Prism.languages[lang];
-		  if (prism_language) {
-		     return Prism.highlight(code, prism_language, lang);
-		} else {*/
-                    const hl_language = hljs.getLanguage(lang) ? lang : 'plaintext';
-                    return hljs.highlight(code, { hl_language }).value;
-		/*}*/
+		var language = Prism.languages[lang];
+		if (language) {
+		    return Prism.highlight(code, language, lang);
+		} else {
+                    language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { language }).value;
+		}
             },
         });
         nodeScriptReplace(element);
