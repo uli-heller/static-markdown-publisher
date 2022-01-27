@@ -1,12 +1,21 @@
-# 24 - Mermaid.js
+# 25 - Prism.js
 
 Dies ist eine Markdown-Datei
-mit einem Block mit einer Mermaid-Graphik:
+mit einem Block für Syntaxhervorhebungen:
 
-```mermaid
-graph TD;
-  Error-->Yes;
-  Error-->No;
-  Yes-->Fail;
-  No-->Success;
+```shell
+#!/bin/bash
+LOG=y
+
+log () {
+  test -n "${LOG}" && echo "$(date +%Y-%m-%s_%H:%M:%S) - " "$@"
+}
+```
+
+Hier noch eine CSV-"Datei":
+
+```csv
+name,alter,groesse
+uli,56,178
+ernie,65,32
 ```

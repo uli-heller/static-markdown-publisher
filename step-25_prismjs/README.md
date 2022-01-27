@@ -1,86 +1,75 @@
-24 - Diagramme mit Mermaid.js
-=============================
+25 - Syntaxhervorhebungen mit "prism.js"
+========================================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-[Mermaid.js][MERMAID] ist in der Lage,
-Graphiken aus CodeBlöcken "hübsch" darzustellen.
-
-Hier ein Beispiel:
-
-```mermaid
-gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-```
+Die Syntaxhervorhebungen mit "highlight.js"
+funktionieren ganz gut. Allerdings soll ["prism.js"][PRISM]
+einige Zusatzfunktionen haben und auch mehr
+Formate unterstützen. Ich will das hier ausprobieren!
 
 Änderungen
 ----------
 
-Grob sind diese Änderungen erforderlich:
+Ursprünglich habe ich die CSS, die "prism.min.js" und den "prism-autoloader.min.js"
+via CDN "jsdelivr" eingebunden. Ergebnis: Nur sehr wenige Sprachen sind unterstützt.
 
-- index.html
-    - mermaid.min.js laden
-    - codeRenderer erweitern um 'mermaid'
-    - Aufruf von 'mermaid.init()' nachdem das Dokument geladen ist
-- stuttgart.css
-    - Zeichensatz für 'mermaid' festlegen
-
-Hier die Änderungen im Detail:
+Danach habe ich auf der Download-Seite
+alle Sprachen und Plugins aktiviert und
+die beiden Dateien "prism-1.26.0.js" und ".css"
+erstellt, heruntergeladen und eingebunden
+in die "index.html".
 
 ```diff
-diff --git a/step-24_mermaidjs/index.html b/step-24_mermaidjs/index.html
-index 44014ca..362c6ff 100644
---- a/step-24_mermaidjs/index.html
-+++ b/step-24_mermaidjs/index.html
-@@ -21,6 +21,9 @@
-   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js"></script>
+--- a/step-25_prismjs/index.html
++++ b/step-25_prismjs/index.html
+@@ -24,6 +24,15 @@
+   <!-- mermaid.js -->
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
  
-+  <!-- mermaid.js -->
-+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
++
++  <!--
++  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/themes/prism.min.css">
++  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-core.min.js"></script>
++  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/plugins/autoloader/prism-autoloader.min.js"></script>
++  -->
++  <link rel="stylesheet" href="prism-1.26.0.css">
++  <script src="prism-1.26.0.js"></script>
 +
    <script src="config.js"></script>
    <script>
      function nodeScriptIs(node) {
-@@ -84,6 +87,8 @@
+@@ -87,8 +96,8 @@
      renderer.code = (code, infostring, escaped) => {
          if (infostring === 'diff') {
              return Diff2Html.html(code);
-+       } else if (infostring === 'mermaid') {
-+           return '<div class="mermaid">' + code + '</div>';
+-       } else if (infostring === 'mermaid') {
+-           return '<div class="mermaid">' + code + '</div>';
++        } else if (infostring === 'mermaid') {
++            return '<div class="mermaid">' + code + '</div>';
          }
          return originalRendererCode(code, infostring, escaped);
      };
-@@ -148,6 +153,7 @@
-         if (isNavbar) {
-             handleNavbar(element);
-         }
-+       mermaid.init(undefined, ".mermaid");
-     }
- 
-     /*
-diff --git a/step-24_mermaidjs/stuttgart.css b/step-24_mermaidjs/stuttgart.css
-index 62e6ceb..9fbe0b9 100644
---- a/step-24_mermaidjs/stuttgart.css
-+++ b/step-24_mermaidjs/stuttgart.css
-@@ -133,3 +133,7 @@ body {
- #middle tr:last-child td:last-child {
-     border-bottom-right-radius: 5px;
- }
-+
-+div.mermaid {
-+    font-family: 'trebuchet ms', verdana, arial;
-+}
+@@ -145,15 +154,20 @@
+         element.innerHTML = marked.parse(contentText, {
+             renderer: renderer,
+             highlight: function(code, lang) {
+-                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+-                return hljs.highlight(code, { language }).value;
++                var language = Prism.languages[lang];
++                if (language) {
++                    return Prism.highlight(code, language, lang);
++                } else {
++                    language = hljs.getLanguage(lang) ? lang : 'plaintext';
++                    return hljs.highlight(code, { language }).value;
++                }
+             },
+         });
+         nodeScriptReplace(element);
 ```
 
-[MAIN]:    ../README.md
-[MERMAID]: https://github.com/mermaid-js/mermaid
+[MAIN]:  ../README.md
+[PRISM]: https://prismjs.com
