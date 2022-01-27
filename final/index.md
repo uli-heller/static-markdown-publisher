@@ -29,10 +29,10 @@ Schritt 20|Menüzeile                         |Siehe diese Seite!
 Schritt 21|Klebende Menü- und Fußzeile       |Siehe diese Seite!
 Schritt 22|Links-Rechts-Menüzeile            |Siehe diese Seite!
 Schritt 23|Hübschere DIFFs                   |[Testdokument mit DIFF-Ausgabe](diff.md)
+Schritt 24|Diagramme mit Mermaid.js          |[Testdokument mit Mermaid-Graphen](mermaid.md)
 
-* Schritt 24 - Mermaid
-* Schritt 25 - Mehrspachigkeit
-* Schritt 26 - Syntaxhervorhebung mit "prism.js"
+* Schritt 25 - Syntaxhervorhebung mit "prism.js"
+* Schritt 26 - Mehrspachigkeit
 
 * First markdown file: [page.md](page.md)
 * Second markdown file: [another-page.md](another-page.md)
