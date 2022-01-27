@@ -30,8 +30,8 @@ Schritt 21|Klebende Menü- und Fußzeile       |Siehe diese Seite!
 Schritt 22|Links-Rechts-Menüzeile            |Siehe diese Seite!
 Schritt 23|Hübschere DIFFs                   |[Testdokument mit DIFF-Ausgabe](diff.md)
 Schritt 24|Diagramme mit Mermaid.js          |[Testdokument mit Mermaid-Graphen](mermaid.md)
+Schritt 25|Syntaxhervorhebung mit "prism.js" |[Testdokument mit diversen CodeBlöcken](code-blocks.md)
 
-* Schritt 25 - Syntaxhervorhebung mit "prism.js"
 * Schritt 26 - Mehrspachigkeit
 
 * First markdown file: [page.md](page.md)
