@@ -157,7 +157,7 @@
             }
         }
     }
-    
+
     async function load(element, filename, isNavbar) {
         const contentText = await fetchFile(filename);
         element.innerHTML = marked.parse(contentText, {
