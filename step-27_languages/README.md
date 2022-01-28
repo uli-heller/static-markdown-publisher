@@ -32,6 +32,9 @@ Geändert werden muß nur die Datei "index.html":
 
 - Erstellen einer Funktion, die für eine MD-Datei alle denkbaren Sprachvarianten erzeugt
 - Verpacken des Ladens der MD-Datei in eine Schleife, bei der alle Varianten durchprobiert werden
+- Fehlgeschlagene Ladeversuche sorgen für Zeitverlust sowie Fehlermeldungen in der Browser-Konsole
+  (die Fehlermeldungen werden auch mit `catch` und/oder `Promise.reject` nicht unterdrückt)
+- Die Unterstützung der Mehtsprachigkeit ist konfigurierbar via "config.js"
 
 Hier die Änderungen im Detail:
 

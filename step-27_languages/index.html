@@ -281,7 +281,7 @@
 
     function languageFilenames (filename) {
         var result = [];
-        if (! filename.endsWith('.md')) {
+        if (! config.multiLanguage || ! filename.endsWith('.md')) {
             result.push(filename);
         } else {
             const navigatorLanguageRegion = navigator.language;
