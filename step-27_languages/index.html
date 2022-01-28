@@ -157,12 +157,25 @@
 	var contentFetcher;
         var contentText;
 	for (const newFilename of languageFilenames(filename)) {
-	    contentFetcher = await fetch(newFilename, {cache: "no-store"}).catch(handleError);
-	    if (contentFetcher.ok) {
-		contentText = await contentFetcher.text();
-		return contentText;
-	    } else {
-		Promise.reject(contentFetcher);
+	    var isOk = false;
+	    var text = undefined;
+	    await fetch(newFilename, {cache: "no-store"}).then((response) => {
+		//if (response.status >= 400) {
+		//    throw new Error("Uli was here");
+		//}
+		return response;
+	    }).then((returnedResponse) => {
+		if (returnedResponse.ok) {
+		    isOk = true;
+		    text = returnedResponse.text();
+		} else {
+		    Promise.reject({err: returnedResponse.status});
+		}
+	    }).catch((error) => {
+		alert(error);
+	    });
+	    if (isOk) {
+		return text;
 	    }
 	}
     }
