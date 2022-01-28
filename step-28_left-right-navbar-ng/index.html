@@ -132,6 +132,9 @@
     };
 
     function handleNavbar (navbarElement) {
+	if (!navbarElement.classList.contains(config.navbarClass)) {
+	    navbarElement.classList.add(config.navbarClass);
+	}
         // Make sure the navbar contains two lists
         var navbar_uls = navbarElement.querySelectorAll("ul");
         while (navbar_uls.length < 2) {

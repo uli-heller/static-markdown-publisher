@@ -9,4 +9,5 @@ const config = {
 	"stuttgart.css",
     ],
     multiLanguage: true,
+    navbarClass:   "navbar",
 }
