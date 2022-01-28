@@ -41,7 +41,26 @@ Hier die Änderungen im Detail:
 ```diff
 --- index.html
 +++ index.html
-@@ -146,13 +146,22 @@
+@@ -29,15 +29,15 @@
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/themes/prism.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-core.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/plugins/autoloader/prism-autoloader.min.js"></script>
+   -->
+   <link rel="stylesheet" href="prism-1.26.0.css">
+   <script src="prism-1.26.0.js"></script>
+ 
+-  <script src="config.js"></script>
++  <script src="config.js?version=step-27"></script>
+   <script>
+     function nodeScriptIs(node) {
+        return node.tagName === 'SCRIPT';
+     }
+ 
+     function nodeScriptClone(node) {
+         var script  = document.createElement("script");
+@@ -144,17 +144,26 @@
+         if (navbar_clear.length <= 0) {
+             const clear = document.createElement('div')
              clear.classList.add("clear");
              navbarElement.appendChild(clear);
          }
@@ -66,7 +85,11 @@ Hier die Änderungen im Detail:
              highlight: function(code, lang) {
                  var language = Prism.languages[lang];
                  if (language) {
-@@ -268,10 +277,48 @@
+                     return Prism.highlight(code, language, lang);
+                 } else {
+@@ -266,14 +275,52 @@
+      */
+     function filenameToHash (filename) {
          var nPathname = normalizePath(dirname(window.location.pathname));
          var nFilename = normalizePath(filename);
          return '#'+filename.replace(nPathname, '');
@@ -74,7 +97,7 @@ Hier die Änderungen im Detail:
  
 +    function languageFilenames (filename) {
 +        var result = [];
-+        if (! filename.endsWith('.md')) {
++        if (! config.multiLanguage || ! filename.endsWith('.md')) {
 +            result.push(filename);
 +        } else {
 +            const navigatorLanguageRegion = navigator.language;
@@ -115,6 +138,8 @@ Hier die Änderungen im Detail:
       * Creates a relative link for window.location based on
       * the current hash and the new link/filename
       *
+      * Examples:
+      *   hash            | link        -> result
 ```
 
 [MAIN]:  ../README.md
