@@ -8,5 +8,5 @@ const config = {
     stylesheets: [
 	"stuttgart.css",
     ],
-    multiLanguage: true,
+    multiLanguage: false,
 }
