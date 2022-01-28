@@ -93,6 +93,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 25 - Syntaxhervorhebung mit "prism.js"](step-25_prismjs/README.md)
 * [Schritt 26 - Haupt-Kopf aufblenden](step-26_header-on-off/README.md)
 * [Schritt 27 - Mehrsprachigkeit](step-27_languages/README.md)
+* [Schritt 28 - Links-Rechts-Menüzeile NG](step-28_left-right-navbar-ng/README.md)
 
 Endergebnis
 -----------
