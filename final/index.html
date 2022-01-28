@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="prism-1.26.0.css">
   <script src="prism-1.26.0.js"></script>
 
-  <script src="config.js"></script>
+  <script src="config.js?version=step-27"></script>
   <script>
     function nodeScriptIs(node) {
        return node.tagName === 'SCRIPT';
@@ -148,9 +148,18 @@
         }
     }
 
+    async function fetchFile(filename) {
+        var contentFetcher;
+        for (const newFilename of languageFilenames(filename)) {
+            contentFetcher = await fetch(newFilename, {cache: "no-store"});
+            if (contentFetcher.ok) {
+                return contentFetcher.text();
+            }
+        }
+    }
+    
     async function load(element, filename, isNavbar) {
-        const contentFetcher = await fetch(filename, {cache: "no-store"});
-        const contentText = await contentFetcher.text();
+        const contentText = await fetchFile(filename);
         element.innerHTML = marked.parse(contentText, {
             renderer: renderer,
             highlight: function(code, lang) {
@@ -268,6 +277,44 @@
         var nPathname = normalizePath(dirname(window.location.pathname));
         var nFilename = normalizePath(filename);
         return '#'+filename.replace(nPathname, '');
+    }
+
+    function languageFilenames (filename) {
+        var result = [];
+        if (! config.multiLanguage || ! filename.endsWith('.md')) {
+            result.push(filename);
+        } else {
+            const navigatorLanguageRegion = navigator.language;
+            const navigatorLanguage = navigatorLanguageRegion.slice(0,2);
+            var basename = filename.slice(0, -3);
+            const languageRegions = basename.match(/_[a-z][a-z]-[A-Z][A-Z]$/);
+            if (languageRegions) {
+                const languageRegion = languageRegions[0];
+                basename = basename.slice(0, -languageRegion.length);
+                result.push(filename);
+                //result.push(basename + languageRegion + '.md');
+                result.push(basename + languageRegion.slice(0,3) + '.md');
+                result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                result.push(basename + '_' + navigatorLanguage  + '.md');
+                result.push(basename + '.md');
+            } else {
+                const languages = basename.match(/_[a-z][a-z]$/);
+                if (languages) {
+                    const language = languages[0];
+                    basename = basename.slice(0, -language.length);
+                    result.push(filename);
+                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                    result.push(basename + '_' + navigatorLanguage  + '.md');
+                    result.push(basename + '.md');
+                } else {
+                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                    result.push(basename + '_' + navigatorLanguage  + '.md');
+                    //result.push(basename + '.md');
+                    result.push(filename);
+                }
+            }
+        }
+        return result;
     }
 
     /*
