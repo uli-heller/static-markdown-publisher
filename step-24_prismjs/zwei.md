@@ -1,4 +1,0 @@
-ZWEI
-====
-
-Die zweite Seite!

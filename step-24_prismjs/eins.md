@@ -1,4 +1,0 @@
-EINS
-====
-
-Die erste Seite!

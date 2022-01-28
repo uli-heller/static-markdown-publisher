@@ -1,4 +1,0 @@
-DREI
-====
-
-Die dritte Seite!
