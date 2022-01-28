@@ -10,8 +10,8 @@ Ich hätte gerne die Möglichkeit, die MD-Seiten
 mehrsprachig zur Verfügung zu stellen, also:
 
 - [README.md](README.md) ... Standardsprache
-- [README_de.md](README_de.md) ... gleiches Dokument auf "Deutsch"
-- [README_de-DE.md](README_de-DE.md) ... gleiches Dokument auf "Deutsch" für die Region "Deutschland"
+- README_de.md ... gleiches Dokument auf "Deutsch"
+- README_de-DE.md ... gleiches Dokument auf "Deutsch" für die Region "Deutschland"
 - [README_de-AT.md](README_de-AT.md) ... gleiches Dokument auf "Deutsch" für die Region "Österreich"
 - [README_de-CH.md](README_de-CH.md) ... gleiches Dokument auf "Deutsch" für die Region "Schweiz"
 - [README_en.md](README_en.md) ... gleiches Dokument auf "Englisch"
