@@ -32,9 +32,5 @@ Schritt 23|Hübschere DIFFs                   |[Testdokument mit DIFF-Ausgabe](d
 Schritt 24|Diagramme mit Mermaid.js          |[Testdokument mit Mermaid-Graphen](mermaid.md)
 Schritt 25|Syntaxhervorhebung mit "prism.js" |[Testdokument mit diversen CodeBlöcken](code-blocks.md)
 Schritt 26|Haupt-Kopf aufblenden             |Siehe diese Seite!
-
-* Schritt 27 - Mehrspachigkeit
-
-* First markdown file: [page.md](page.md)
-* Second markdown file: [another-page.md](another-page.md)
-* Links to subfolder: [links-to-subfolder.md](links-to-subfolder.md)
+Schritt 27|Mehrsprachigkeit                  |Aktuell abgeklemmt!
+Schritt 28|Links-Rechts-Menüzeile NG         |Siehe diese Seite!
