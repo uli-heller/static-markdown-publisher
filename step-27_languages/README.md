@@ -1,18 +1,34 @@
-26 - Haupt-Kopf aufblenden
-==========================
+27 - Mehrsprachigkeit
+=====================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Die Überschrift ganz oben nimmt etwas Platz weg.
-Ich hätte gerne eine Möglichkeit, diesen Teil auszublenden!
+Ich hätte gerne die Möglichkeit, die MD-Seiten
+mehrsprachig zur Verfügung zu stellen, also:
+
+- [README.md](README.md) ... Standardsprache
+- [README_de.md](README_de.md) ... gleiches Dokument auf "Deutsch"
+- [README_de-DE.md](README_de-DE.md) ... gleiches Dokument auf "Deutsch" für die Region "Deutschland"
+- [README_de-AT.md](README_de-AT.md) ... gleiches Dokument auf "Deutsch" für die Region "Österreich"
+- [README_de-CH.md](README_de-CH.md) ... gleiches Dokument auf "Deutsch" für die Region "Schweiz"
+- [README_en.md](README_en.md) ... gleiches Dokument auf "Englisch"
+- [README_fr.md](README_fr.md) ... gleiches Dokument auf "Französisch"
+
+Im ersten Ansatz unterstütze ich nur "navigator.language"-Belegungen in diesem Format:
+
+- xx-YY
+- xx ... Sprache
+- YY ... Region
+
+Das ist eine ziemlich starke Vereinfachung und muß vermutlich bei Gelegenheit nochmal überarbeitet werden!
 
 Änderungen
 ----------
 
-Geändert werden muß nur die Datei "navbar.md":
+Geändert werden muß nur die Datei "index.html":
 
 - Link zum Ein/Ausblenden einfügen
 - Javascript-Funktion zum Ein/Ausblenden einfügen
