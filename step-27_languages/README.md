@@ -30,38 +30,88 @@ Das ist eine ziemlich starke Vereinfachung und muß vermutlich bei Gelegenheit n
 
 Geändert werden muß nur die Datei "index.html":
 
-- Link zum Ein/Ausblenden einfügen
-- Javascript-Funktion zum Ein/Ausblenden einfügen
+- Erstellen einer Funktion, die für eine MD-Datei alle denkbaren Sprachvarianten erzeugt
+- Verpacken des Ladens der MD-Datei in eine Schleife, bei der alle Varianten durchprobiert werden
 
 Hier die Änderungen im Detail:
 
 ```diff
---- a/step-26_header-on-off/navbar.md
-+++ b/step-26_header-on-off/navbar.md
-@@ -1,3 +1,4 @@
-+- <a href="#" onclick="toggleTop(event);" id="show_hide">&Uarr;</a>
- - [README](README.md)
- - [index](index.md)
- - [Eins](eins.md)
-@@ -7,3 +8,18 @@
- # Trenner
+--- index.html
++++ index.html
+@@ -146,13 +146,22 @@
+             clear.classList.add("clear");
+             navbarElement.appendChild(clear);
+         }
+     }
  
- - [Rechts](rechts.md)
-+
-+<script>
-+ function toggleTop(e) {
-+    var top=document.getElementById("headermd");
-+    var show_hide=document.getElementById("show_hide");
-+    if (top.style.display === "none") {
-+        top.style.display = "block";
-+        show_hide.innerHTML="&Uarr;"
-+    } else {
-+        top.style.display = "none";
-+        show_hide.innerHTML="&Darr;"
++    async function fetchFile(filename) {
++        var contentFetcher;
++        for (const newFilename of languageFilenames(filename)) {
++            contentFetcher = await fetch(newFilename, {cache: "no-store"});
++            if (contentFetcher.ok) {
++                return contentFetcher.text();
++            }
++        }
 +    }
-+    e.preventDefault();
-+  }
-+</script>
++    
+     async function load(element, filename, isNavbar) {
+-        const contentFetcher = await fetch(filename, {cache: "no-store"});
+-        const contentText = await contentFetcher.text();
++        const contentText = await fetchFile(filename);
+         element.innerHTML = marked.parse(contentText, {
+             renderer: renderer,
+             highlight: function(code, lang) {
+                 var language = Prism.languages[lang];
+                 if (language) {
+@@ -268,10 +277,48 @@
+         var nPathname = normalizePath(dirname(window.location.pathname));
+         var nFilename = normalizePath(filename);
+         return '#'+filename.replace(nPathname, '');
+     }
+ 
++    function languageFilenames (filename) {
++        var result = [];
++        if (! filename.endsWith('.md')) {
++            result.push(filename);
++        } else {
++            const navigatorLanguageRegion = navigator.language;
++            const navigatorLanguage = navigatorLanguageRegion.slice(0,2);
++            var basename = filename.slice(0, -3);
++            const languageRegions = basename.match(/_[a-z][a-z]-[A-Z][A-Z]$/);
++            if (languageRegions) {
++                const languageRegion = languageRegions[0];
++                basename = basename.slice(0, -languageRegion.length);
++                result.push(filename);
++                //result.push(basename + languageRegion + '.md');
++                result.push(basename + languageRegion.slice(0,3) + '.md');
++                result.push(basename + '_' + navigatorLanguageRegion  + '.md');
++                result.push(basename + '_' + navigatorLanguage  + '.md');
++                result.push(basename + '.md');
++            } else {
++                const languages = basename.match(/_[a-z][a-z]$/);
++                if (languages) {
++                    const language = languages[0];
++                    basename = basename.slice(0, -language.length);
++                    result.push(filename);
++                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
++                    result.push(basename + '_' + navigatorLanguage  + '.md');
++                    result.push(basename + '.md');
++                } else {
++                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
++                    result.push(basename + '_' + navigatorLanguage  + '.md');
++                    //result.push(basename + '.md');
++                    result.push(filename);
++                }
++            }
++        }
++        return result;
++    }
++
+     /*
+      * newRelativeLink
+      * Creates a relative link for window.location based on
+      * the current hash and the new link/filename
+      *
 ```
 
 [MAIN]:  ../README.md
