@@ -91,7 +91,8 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 23 - Hübschere DIFFs](step-23_diff2htmljs/README.md)
 * [Schritt 24 - Diagramme mit Mermaid.js](step-24_mermaidjs/README.md)
 * [Schritt 25 - Syntaxhervorhebung mit "prism.js"](step-25_prismjs/README.md)
-* Schritt 26 - Mehrspachigkeit
+* [Schritt 26 - Haupt-Kopf aufblenden](step-26_header-on-off/README.md)
+* Schritt 27 - Mehrspachigkeit
 
 Endergebnis
 -----------
