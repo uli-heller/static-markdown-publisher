@@ -113,7 +113,7 @@
             href = location + href;
             ;
         } else if (!isMarkdownUrl(href)) {
-            ;
+            href = newRelativeLink(href);
         } else {
             /* isMarkdownUrl */
             const newFilename = newRelativeLink(href);

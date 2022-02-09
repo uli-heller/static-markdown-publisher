@@ -10,7 +10,7 @@ Typ | Beispiel | Status
 ----|---|---
 Markdown-Link auf MD-Datei  | `[MD-Datei](markdown.md)` | OK
 Markdown-Link auf Bild      | `![Bild](image.png)`      | OK
-Markdown-Link auf TXT-Datei | `[TXT-Datei](text.txt)`   | KO
+Markdown-Link auf TXT-Datei | `[TXT-Datei](text.txt)`   | OK
 HTML-Link auf MD-Datei      | `<a href="markdown.md">MD-Datei</a>` | KO
 HTML-Link auf Bild          | `<img src="image.png"></img>` | KO
 
