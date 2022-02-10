@@ -27,6 +27,11 @@ Absehbar ist, dass wir Wandelmöglichkeiten brauchen zwischen
 - Markdown-URLs, bspw. http://mydomain.org/path/index.html#/subfolder/links.md
 - HTML-URLs, bspw. http://mydomain.org/path/subfolder/image.png
 
+Diese Funktionen für die Wandlungen haben wir bereits:
+
+- hashToFilename() ...
+- filenameToHash() ...
+
 Änderungen
 ----------
 
