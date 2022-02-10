@@ -22,14 +22,36 @@ Markdown-Link auf TXT-Datei | `[TXT-Datei](text.txt)`   | KO
 HTML-Link auf MD-Datei      | `<a href="markdown.md">MD-Datei</a>` | KO
 HTML-Link auf Bild          | `<img src="image.png"></img>` | KO
 
+Absehbar ist, dass wir Wandelmöglichkeiten brauchen zwischen
+
+- Markdown-URLs, bspw. http://mydomain.org/path/index.html#/subfolder/links.md
+- HTML-URLs, bspw. http://mydomain.org/path/subfolder/image.png
+
 Änderungen
 ----------
 
-Geändert werden muß:
+### Markdown-Link auf TXT-Datei
 
-- in der Datei "config.js": Festlegen des Klassennamens
-- in der Datei "index.html": Setzen des Klassennamens für die Navbar-Elemente
-- in der Datei "stuttgart.css": Styling via Klassenname
+Der Markdown-Link auf eine Nicht-Markdown-Datei ist schnell korrigiert:
+
+```diff
+--- a/step-29_subfolders-and-links/index.html
++++ b/step-29_subfolders-and-links/index.html
+@@ -113,7 +113,7 @@
+             href = location + href;
+             ;
+         } else if (!isMarkdownUrl(href)) {
+-            ;
++            href = newRelativeLink(href);
+         } else {
+             /* isMarkdownUrl */
+             const newFilename = newRelativeLink(href);
+```
+
+### HTML-Links
+
+#### Irrweg: base
+
 
 [MAIN]:  ../README.md
 
