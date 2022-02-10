@@ -136,7 +136,7 @@
         }
     }
 
-    const tests = [
+    const nonHashHrefsTests = [
         { href: '/',                        result: '/' },
         { href: '/hugo',                    result: '/hugo' },
         { href: '/index.html',              result: '/index.html' },
@@ -149,11 +149,25 @@
         { href: '/smp/#/subfolder/page.md', result: '/smp/subfolder/page.md' },
     ];
 
-    for (var t in tests) {
-        const tt = tests[t];
+    nonHashHrefsTests.forEach((tt) => {
         const result = Site.nonHashHref(tt.href);
         console.assert(result === tt.result, "Site.nonHashHref(%s)->%s === %s", tt.href, result, tt.result);
-    }
+    });
+
+
+    const appendTests = [
+        { orig: '/',           appendix: 'README.md',  result: '/README.md' },
+        { orig: '/',           appendix: '/README.md', result: '/README.md' },
+        { orig: '/subfolder',  appendix: 'README.md',  result: '/subfolder/README.md' },
+        { orig: '/subfolder/', appendix: 'README.md',  result: '/subfolder/README.md' },
+        { orig: '/subfolder',  appendix: '/README.md', result: '/README.md' },
+        { orig: '/subfolder/', appendix: '/README.md', result: '/README.md' },
+    ];
+
+    appendTests.forEach((at) => {
+        const result = Site.append(at.orig, at.appendix);
+        console.assert(result === at.result, "Site.append(%s,%s)->%s === %s", at.orig, at.appendix, result, at.result);
+    });
 
     var mySite = new Site(window.location);
     console.log(mySite.currentHref);
