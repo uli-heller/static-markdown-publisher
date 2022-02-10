@@ -14,13 +14,13 @@ Ich möchte, dass in den Unterordnern alle denkbaren Links funktionieren.
 
 Dem ersten Eindruck nach sieht es vorab so aus:
 
-Typ | Beispiel | Status
-----|---|---
-Markdown-Link auf MD-Datei  | `[MD-Datei](markdown.md)` | OK
-Markdown-Link auf Bild      | `![Bild](image.png)`      | OK
-Markdown-Link auf TXT-Datei | `[TXT-Datei](text.txt)`   | KO
-HTML-Link auf MD-Datei      | `<a href="markdown.md">MD-Datei</a>` | KO
-HTML-Link auf Bild          | `<img src="image.png"></img>` | KO
+Typ                        |Beispiel                            |Status
+---------------------------|------------------------------------|------
+Markdown-Link auf MD-Datei |`[MD-Datei](markdown.md)`           |OK    
+Markdown-Link auf Bild     |`![Bild](image.png)`                |OK    
+Markdown-Link auf TXT-Datei|`[TXT-Datei](text.txt)`             |KO    
+HTML-Link auf MD-Datei     |`<a href="markdown.md">MD-Datei</a>`|KO    
+HTML-Link auf Bild         |`<img src="image.png"></img>`       |KO    
 
 Absehbar ist, dass wir Wandelmöglichkeiten brauchen zwischen
 
