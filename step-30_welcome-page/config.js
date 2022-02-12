@@ -11,6 +11,7 @@ const config = {
     multiLanguage: true,
     navbarClass:   'navbar',
     indexHtml:     'index.html',
+    indexMd:       'index.md',
     markdown:      [ '.md',   '.markdown' ],
     html:          [ '.html', '.htm' ],
     text:          [ '.txt' ],

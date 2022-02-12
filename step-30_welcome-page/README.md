@@ -1,70 +1,51 @@
-29 -  Unterordner und Links
-===========================
+30 - Initialseite
+=================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Ich möchte, dass in den Unterordnern alle denkbaren Links funktionieren.
+Ich habe festgestellt, dass es Probleme gibt, wenn wir über URLs wie
 
-- [Markdown-Datei im Unterordner](subfolder/links.md)
-- <a href="index.html#subfolder/links.md">Markdown-Datei im Unterordner (mit index.html)</a>
-- <a href="#subfolder/links.md">Markdown-Datei im Unterordner (ohne index.html)</a>
+- <http://localhost:8000>
+- möglicherweise noch mehr
 
-Außerdem soll die Navigationsleiste funktionieren, auch wenn man im Unterverzeichnis
-die Browser-Seite mittels F5-Refresh komplett neu lädt.
+auf die Seiten zugreifen. Ziel dieses Schrittes ist die Korrektur dieser Probleme.
 
-Dem ersten Eindruck nach sieht es vorab so aus:
+Probleme und Lösungen
+---------------------
 
-Typ                        |Beispiel                            |Status
----------------------------|------------------------------------|------
-Markdown-Link auf MD-Datei |`[MD-Datei](markdown.md)`           |OK    
-Markdown-Link auf Bild     |`![Bild](image.png)`                |OK    
-Markdown-Link auf TXT-Datei|`[TXT-Datei](text.txt)`             |KO    
-HTML-Link auf MD-Datei     |`<a href="markdown.md">MD-Datei</a>`|KO    
-HTML-Link auf Bild         |`<img src="image.png"></img>`       |KO    
+### index.html
 
-Absehbar ist, dass wir Wandelmöglichkeiten brauchen zwischen
+Vorbereitungen:
 
-- Markdown-URLs, bspw. http://mydomain.org/path/index.html#/subfolder/links.md
-- HTML-URLs, bspw. http://mydomain.org/path/subfolder/image.png
+- Starte den Python-Server: `python3 -m http.server 8000 -d step-30_welcome-page/`
+- Greife mittels Browser zu auf <http://localhost:8000>
 
-Diese Funktionen für die Wandlungen haben wir bereits:
+Problem:
 
-- hashToFilename() ...
-- filenameToHash() ...
+- Statt "index.md" wird "index.html" angezeigt
 
-Änderungen
-----------
-
-### Markdown-Link auf TXT-Datei
-
-Der Markdown-Link auf eine Nicht-Markdown-Datei ist schnell korrigiert:
+Lösung:
 
 ```diff
---- a/step-29_subfolders-and-links/index.html
-+++ b/step-29_subfolders-and-links/index.html
-@@ -113,7 +113,7 @@
-             href = location + href;
-             ;
-         } else if (!isMarkdownUrl(href)) {
--            ;
-+            href = newRelativeLink(href);
-         } else {
-             /* isMarkdownUrl */
-             const newFilename = newRelativeLink(href);
+--- a/step-30_welcome-page/index.html
++++ b/step-30_welcome-page/index.html
+@@ -383,6 +383,12 @@
+ 
+     function initPage () {
+         mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
++        //if (mySite.currentUrl.pathname.endsWith('/')) {
++        //    mySite.currentUrl.pathname += mySite.config.indexHtml;
++        //}
++        if (!mySite.currentUrl.hash) {
++            mySite.currentUrl.hash = mySite.config.indexMd;
++        }
+         const base = document.getElementById('base');
+         if (base) {
+             base.href = mySite.currentUrl;
 ```
-
-### HTML-Links
-
-Bei der Arbeit an den HTML-Links habe ich festgestellt, dass ich die Link-Handhabung grundlegend umstellen
-muß, damit das funktionieren kann. Bei den Umstellungen habe ich zusätzlich dafür gesorgt, dass
-
-- HTML-Seiten
-- Text-Seiten
-
-analog zu Markdown-Seiten mit Kopf- und Fußzeilen angezeigt werden.
 
 [MAIN]:  ../README.md
 

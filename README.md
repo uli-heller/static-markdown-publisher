@@ -95,7 +95,7 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 27 - Mehrsprachigkeit](step-27_languages/README.md)
 * [Schritt 28 - Links-Rechts-Menüzeile NG](step-28_left-right-navbar-ng/README.md)
 * [Schritt 29 - Unterordner und Links](step-29_subfolders-and-links/README.md)
-* [Schritt 30 - Initialseite korrigieren](step-30_welcome-page/README.md)
+* [Schritt 30 - Initialseite](step-30_welcome-page/README.md)
 * [Schritt 31 - Mehrsprachigkeit für Markdown, Html und Text](step-31_languages-ng/README.md)
 
 Endergebnis
