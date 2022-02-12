@@ -341,17 +341,6 @@
     }
 
     /*
-     * removeHash
-     * remove the leading hash sign '#'
-     *
-     * #/index.md -> /index.md
-     * #/index#   -> /index#
-     */
-    function removeHash (windowLocationHash) {
-        return windowLocationHash.replace(/^#/, "");
-    }
-
-    /*
      * normalizePath
      * Removes various unwanted parts from a path
      *
