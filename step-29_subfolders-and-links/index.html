@@ -455,29 +455,6 @@
         return result;
     }
 
-    /*
-     * newRelativeLink
-     * Creates a relative link for window.location based on
-     * the current hash and the new link/filename
-     *
-     * Examples:
-     *   hash            | link        -> result
-     *   '#/'            | 'readme.md' -> '/readme.md'
-     *   '#'             | 'readme.md' -> '/readme.md'
-     *   '#/sd/index.md' | 'readme.md' -> '/sd/readme.md'
-     */
-    function newRelativeLink (href) {
-        const oldFilename = hashToFilename(window.location.hash);
-        const newFilename = href;
-        var newHash = newFilename;
-        if (newFilename.startsWith('/')) {
-            newHash = newFilename;
-        } else {
-            newHash = Site.dirname(oldFilename) + '/' + newFilename;
-        }
-        return normalizePath(newHash);
-    }
-
     function loadStylesheet (filename) {
         const id = filenameToId(filename);
         if (! document.getElementById(id)) {
