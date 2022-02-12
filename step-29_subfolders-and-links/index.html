@@ -40,11 +40,13 @@
         constructor(siteLocation) {
             this.location = siteLocation;
             this.href = siteLocation.href;
+            this.url = new URL(this.href); // typically something like http://localhost:3000/index.html#index.md
             this.protocol = siteLocation.protocol;
             this.host = siteLocation.host; // hostname:port
             this.pathname = siteLocation.pathname;
             this.hash = siteLocation.hash;
             this.currentHref = Site.nonHashHref(this.href);
+            this.currentUrl = new URL(this.currentHref); // typically something like http://localhost:3000/index.md
             this.indexHtml = 'index.html';
         }
 
@@ -76,14 +78,7 @@
          * nonHashHref
          * Transforms the hash value to a filename
          *
-         * Examples:
-         *  '/#/index.md'             -> /index.md
-         *  '/smp/#/index.md'          -> /smp/index.md
-         *  '/#index.md'              -> /index.md
-         *  '/'                       -> /
-         *  '/#/page.md'              -> /page.md
-         *  '/#/subfolder/page.md'    -> /subfolder/page.md
-         *  '/smp/#/subfolder/page.md' -> /smp/subfolder/page.md
+         * Examples: See tests below!
          */
         static nonHashHref (thisHref) {
             var nonHashHref = thisHref;
@@ -112,13 +107,7 @@
         /*
          * append
          *
-         * Examples:
-         *  / , README.md           -> /README.md
-         *  / , /README.md          -> /README.md
-         *  /subfolder, README.md   -> /subfolder/README.md
-         *  /subfolder/, README.md  -> /subfolder/README.md
-         *  /subfolder, /README.md  -> /README.md
-         *  /subfolder/, /README.md -> /README.md
+         * Examples: See tests below!
          */
         static append (originalPath, appendix) {
             var result = originalPath;
@@ -154,7 +143,6 @@
         console.assert(result === tt.result, "Site.nonHashHref(%s)->%s === %s", tt.href, result, tt.result);
     });
 
-
     const appendTests = [
         { orig: '/',           appendix: 'README.md',  result: '/README.md' },
         { orig: '/',           appendix: '/README.md', result: '/README.md' },
@@ -169,8 +157,23 @@
         console.assert(result === at.result, "Site.append(%s,%s)->%s === %s", at.orig, at.appendix, result, at.result);
     });
 
+    const hashHrefTests = [
+        //{ indexHref: '', thisHref: '', result: ''},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3000/markdown.md',        result: 'http://localhost:3000/index.html#/markdown.md'},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3000/subdir/markdown.md', result: 'http://localhost:3000/index.html#/subdir/markdown.md'},
+        { indexHref: 'http://localhost:3000/subdir/index.html', thisHref: 'http://localhost:3000/subdir/markdown.md', result: 'http://localhost:3000/subdir/index.html#/markdown.md'},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3001/markdown.md',        result: 'http://localhost:3001/markdown.md'},
+    ];
+
+    hashHrefTests.forEach((hht) => {
+        const result = Site._hashHref(hht.indexHref, 'index.html', hht.thisHref);
+        console.assert(result === hht.result, "Site._hashHref(%s,%s,%s)->%s === %s", hht.indexHref, 'index.html', hht.thisHref, result, hht.result);
+    });
+
     var mySite = new Site(window.location);
     console.log(mySite.currentHref);
+
+    console.log(new URL("a/b/c/../heinz.md", mySite.currentHref).href);
 
     function nodeScriptIs(node) {
        return node.tagName === 'SCRIPT';
