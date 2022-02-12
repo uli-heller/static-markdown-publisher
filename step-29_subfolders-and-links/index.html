@@ -74,6 +74,21 @@
             }
         }
 
+	isMarkdown (url) {
+	    const basename = Site.basename(url);
+	    return this._endsWithAny(this.config.markdown, basename);
+	}
+
+	isHtml (url) {
+	    const basename = Site.basename(url);
+	    return this._endsWithAny(this.config.html, basename);
+	}
+
+	isText (url) {
+	    const basename = Site.basename(url);
+	    return this._endsWithAny(this.config.text, basename);
+	}
+
         static _indexHtmlUrl(thisHref, configIndexHtml) {
             const url = new URL(thisHref);
             if (url.pathname.endsWith('/')) {
@@ -249,16 +264,6 @@
         return href.startsWith('//');
     }
 
-    /*
-     * isMarkdownUrl
-     * Checks if the url points to a markdown file (ending with '.md')
-     * - true ... the url points to a markdown file
-     * - false ... the url doesn't point to a markdown file
-     */
-    function isMarkdownUrl (href) {
-        return href.endsWith('.md');
-    }
-
     const renderer = new marked.Renderer();
     const originalRendererCode = renderer.code.bind(renderer);
     renderer.code = (code, infostring, escaped) => {
@@ -321,18 +326,24 @@
 
     async function load(element, filename, isNavbar) {
         const contentText = await fetchFile(filename);
-        element.innerHTML = marked.parse(contentText, {
-            renderer: renderer,
-            highlight: function(code, lang) {
-                var language = Prism.languages[lang];
-                if (language) {
-                    return Prism.highlight(code, language, lang);
-                } else {
-                    language = hljs.getLanguage(lang) ? lang : 'plaintext';
-                    return hljs.highlight(code, { language }).value;
-                }
-            },
-        });
+	if (mySite.isMarkdown(filename)) {
+            element.innerHTML = marked.parse(contentText, {
+		renderer: renderer,
+		highlight: function(code, lang) {
+                    var language = Prism.languages[lang];
+                    if (language) {
+			return Prism.highlight(code, language, lang);
+                    } else {
+			language = hljs.getLanguage(lang) ? lang : 'plaintext';
+			return hljs.highlight(code, { language }).value;
+                    }
+		},
+            });
+	} else if (mySite.isHtml(filename)) {
+	    element.innerHTML = contentText;
+	} else {
+	    element.innerText = contentText;
+	}
         nodeScriptReplace(element);
         if (isNavbar) {
             handleNavbar(element);
