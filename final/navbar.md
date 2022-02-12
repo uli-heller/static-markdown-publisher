@@ -1,13 +1,13 @@
 - <a href="#" onclick="toggleTop(event);" id="show_hide">&Uarr;</a>
-- [README](README.md)
-- [index](index.md)
-- [Eins](eins.md)
-- [Zwei](zwei.md)
-- [Drei](drei.md)
+- [README](/README.md)
+- [index](/index.md)
+- [Eins](/eins.md)
+- [Zwei](/zwei.md)
+- [Drei](/drei.md)
 
 # Trenner
 
-- [Rechts](rechts.md)
+- [Rechts](/rechts.md)
 
 <script>
  function toggleTop(e) {
