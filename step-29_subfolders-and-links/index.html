@@ -380,32 +380,6 @@
         return next_path;
     }
     
-    /*
-     * hashToFilename
-     * Transforms the hash value to a filename
-     *
-     * Examples:
-     *  '/'     '#/index.md'          -> /index.md
-     *  '/smp'  '#/index.md'          -> /smp/index.md
-     *  '/'     '#index.md'           -> /index.md
-     *  '/'     ''                    -> /index.md
-     *  '/'     '#/page.md'           -> /page.md
-     *  '/'     '#/subfolder/page.md' -> /subfolder/page.md
-     *  '/smp'  '#/subfolder/page.md' -> /smp/subfolder/page.md
-     */
-    function hashToFilename (hash) {
-        var filename = removeHash(hash);
-        if (! filename) {
-            filename = '/index.md';
-        } else if (filename.endsWith('/')) {
-            filename = filename + 'index.md';
-        }
-        if (! filename.startsWith('/')) {
-            filename = '/' + filename;
-        }
-        return normalizePath(Site.dirname(window.location.pathname) + filename);
-    }
-
     function languageFilenames (filename) {
         var result = [];
         if (! config.multiLanguage || ! filename.endsWith('.md')) {
