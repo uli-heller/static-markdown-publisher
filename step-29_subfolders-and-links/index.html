@@ -137,25 +137,6 @@
             return pathname.slice(index+1);
         }
 
-        /*
-         * append
-         *
-         * Examples: See tests below!
-         */
-        static append (originalPath, appendix) {
-            var result = originalPath;
-            if (appendix.startsWith('/')) {
-                result = appendix;
-            } else {
-                if (!originalPath.endsWith('/')) {
-                    if (!appendix.startsWith('/')) {
-                        result += '/';
-                    }
-                }
-                result += appendix;
-            }
-            return result;
-        }
     }
 
     const nonHashUrlTests = [
@@ -190,20 +171,6 @@
     basenameTests.forEach((at) => {
         const result = Site.basename(at.pathOrUrl);
         console.assert(result === at.result, "Site.basename(%s)->%s === %s", at.pathOrUrl, result, at.result);
-    });
-
-    const appendTests = [
-        { orig: '/',           appendix: 'README.md',  result: '/README.md' },
-        { orig: '/',           appendix: '/README.md', result: '/README.md' },
-        { orig: '/subfolder',  appendix: 'README.md',  result: '/subfolder/README.md' },
-        { orig: '/subfolder/', appendix: 'README.md',  result: '/subfolder/README.md' },
-        { orig: '/subfolder',  appendix: '/README.md', result: '/README.md' },
-        { orig: '/subfolder/', appendix: '/README.md', result: '/README.md' },
-    ];
-
-    appendTests.forEach((at) => {
-        const result = Site.append(at.orig, at.appendix);
-        console.assert(result === at.result, "Site.append(%s,%s)->%s === %s", at.orig, at.appendix, result, at.result);
     });
 
     const hashHrefTests = [
