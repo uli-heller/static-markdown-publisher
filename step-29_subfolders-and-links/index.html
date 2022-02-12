@@ -245,16 +245,6 @@
     }
 
     /*
-     * isAbsoluteUrl
-     * Checks if the url contains something like XXX://
-     * - true ... an absolute url containing  XXX://
-     * - false ... not an absolute url
-     */
-    function isAbsoluteUrl (href) {
-        return href.indexOf('://') > 0;
-    }
-
-    /*
      * isProtocolRelativeUrl
      * Checks if we do have a protocol relative url starting with //
      * - true ... we have a protocol relative url starting with //
@@ -276,21 +266,13 @@
     };
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        if (isAbsoluteUrl(href)) {
-            ;
-        } else {
-            href = new URL(href, mySite.currentUrl.href);
-            href = mySite.hashUrl(href);
-        }
+        href = new URL(href, mySite.currentUrl.href);
+        href = mySite.hashUrl(href);
         return originalRendererLink(href, title, text);
     };
     const originalRendererImage = renderer.image.bind(renderer);
     renderer.image = (href, title, text) => {
-        if (isAbsoluteUrl(href)) {
-            ;
-        } else {
-            href = new URL(href, mySite.currentUrl.href);
-        }
+        href = new URL(href, mySite.currentUrl.href);
         return originalRendererImage(href, title, text);
     };
 
