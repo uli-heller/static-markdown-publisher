@@ -12,6 +12,9 @@ Ich möchte, dass in den Unterordnern alle denkbaren Links funktionieren.
 - <a href="index.html#subfolder/links.md">Markdown-Datei im Unterordner (mit index.html)</a>
 - <a href="#subfolder/links.md">Markdown-Datei im Unterordner (ohne index.html)</a>
 
+Außerdem soll die Navigationsleiste funktionieren, auch wenn man im Unterverzeichnis
+die Browser-Seite mittels F5-Refresh komplett neu lädt.
+
 Dem ersten Eindruck nach sieht es vorab so aus:
 
 Typ                        |Beispiel                            |Status
@@ -55,8 +58,13 @@ Der Markdown-Link auf eine Nicht-Markdown-Datei ist schnell korrigiert:
 
 ### HTML-Links
 
-#### Irrweg: base
+Bei der Arbeit an den HTML-Links habe ich festgestellt, dass ich die Link-Handhabung grundlegend umstellen
+muß, damit das funktionieren kann. Bei den Umstellungen habe ich zusätzlich dafür gesorgt, dass
 
+- HTML-Seiten
+- Text-Seiten
+
+analog zu Markdown-Seiten mit Kopf- und Fußzeilen angezeigt werden.
 
 [MAIN]:  ../README.md
 
