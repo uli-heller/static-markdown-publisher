@@ -244,16 +244,6 @@
         return node;
     }
 
-    /*
-     * isProtocolRelativeUrl
-     * Checks if we do have a protocol relative url starting with //
-     * - true ... we have a protocol relative url starting with //
-     * - false ... we don't have a protocol relative url
-     */
-    function isProtocolRelativeUrl (href) {
-        return href.startsWith('//');
-    }
-
     const renderer = new marked.Renderer();
     const originalRendererCode = renderer.code.bind(renderer);
     renderer.code = (code, infostring, escaped) => {
