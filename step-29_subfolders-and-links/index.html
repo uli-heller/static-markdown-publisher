@@ -37,17 +37,19 @@
   <script src="config.js?version=step-27"></script>
   <script>
     class Site {
-        constructor(siteLocation) {
+        constructor(siteLocation, config) {
             this.location = siteLocation;
+	    this.config = config;
             this.href = siteLocation.href;
             this.url = new URL(this.href); // typically something like http://localhost:3000/index.html#index.md
+            this.indexHtmlUrl = Site._indexHtmlUrl(this.href, config.indexHtml);
+            this.indexHtml = Site.basename(this.indexHtmlUrl);
             this.protocol = siteLocation.protocol;
             this.host = siteLocation.host; // hostname:port
             this.pathname = siteLocation.pathname;
             this.hash = siteLocation.hash;
-            this.currentHref = Site.nonHashHref(this.href);
-            this.currentUrl = new URL(this.currentHref); // typically something like http://localhost:3000/index.md
-            this.indexHtml = 'index.html';
+            this.currentUrl = Site.nonHashUrl(this.url); // typically something like http://localhost:3000/index.md
+            this.currentHref = this.currentUrl.href;
         }
 
         buildHref (newHref) {
@@ -56,6 +58,14 @@
 
         hashHref (newHref) {
             return Site._hashHref(this.href, this.indexHtml, newHref);
+        }
+
+        static _indexHtmlUrl(thisHref, configIndexHtml) {
+            const url = new URL(thisHref);
+            if (url.pathname.endsWith('/')) {
+                url.pathname += configIndexHtml;
+            }
+            return url;
         }
 
         static _hashHref(indexHtmlHref, indexHtml, thisHref) {
@@ -74,23 +84,23 @@
             return result;
         }
 
-        /*
-         * nonHashHref
-         * Transforms the hash value to a filename
-         *
-         * Examples: See tests below!
-         */
-        static nonHashHref (thisHref) {
-            var nonHashHref = thisHref;
-            const hashPosition = thisHref.search('#');
-            if (hashPosition >= 0) {
-                const beforeHash = thisHref.slice(0, hashPosition);
-                const afterHash = thisHref.slice(hashPosition+1).replace(/^\//, '');
-                //console.log(`beforeHash=${beforeHash}, afterHash=${afterHash}`);
-                nonHashHref = this.append(this.dirname(beforeHash), afterHash);
+        static nonHashUrl(thisUrl) {
+            const hash = thisUrl.hash;
+            const href = thisUrl.href;
+            var result;
+            if (hash) {
+                const normalizedHash = hash.replace(/^#\/*/, '');
+                result = new URL(normalizedHash, href);
+                result.hash = '';
+            } else {
+                result = new URL(href);
             }
-            return nonHashHref;
+            return result;
         }
+
+	nonHashUrl() {
+	    return Site.nonHashUrl(this.currentUrl);
+	}
 
         /*
          * dirname
@@ -102,6 +112,15 @@
          */
         static dirname (path) {
             return path.replace(/\/[^\/]*$/, '');
+        }
+
+        static basename (pathOrUrl) {
+            var pathname = pathOrUrl;
+            if ('object' === typeof(pathOrUrl)) {
+                pathname = pathOrUrl.pathname;
+            }
+            const index = pathname.lastIndexOf('/');
+            return pathname.slice(index+1);
         }
 
         /*
@@ -125,22 +144,38 @@
         }
     }
 
-    const nonHashHrefsTests = [
-        { href: '/',                        result: '/' },
-        { href: '/hugo',                    result: '/hugo' },
-        { href: '/index.html',              result: '/index.html' },
-        { href: '/index.html#/index.md',    result: '/index.md' },
-        { href: '/index.html#index.md',     result: '/index.md' },
-        { href: '/#index.md',               result: '/index.md' },
-        { href: '/smp/#/index.md',          result: '/smp/index.md' },
-        { href: '/#/page.md',               result: '/page.md'},
-        { href: '/#/subfolder/page.md',     result: '/subfolder/page.md'},
-        { href: '/smp/#/subfolder/page.md', result: '/smp/subfolder/page.md' },
+    const nonHashUrlTests = [
+        { href: 'http://localhost/',                        result: 'http://localhost/' },
+        { href: 'http://localhost',                         result: 'http://localhost/' },
+        { href: 'http://localhost:3000/',                   result: 'http://localhost:3000/' },
+        { href: 'http://localhost:3000',                    result: 'http://localhost:3000/' },
+        { href: 'http://localhost/hugo',                    result: 'http://localhost/hugo' },
+        { href: 'http://localhost/index.html',              result: 'http://localhost/index.html' },
+        { href: 'http://localhost/index.html#/index.md',    result: 'http://localhost/index.md' },
+        { href: 'http://localhost/index.html#index.md',     result: 'http://localhost/index.md' },
+        { href: 'http://localhost/#index.md',               result: 'http://localhost/index.md' },
+        { href: 'http://localhost/smp/#/index.md',          result: 'http://localhost/smp/index.md' },
+        { href: 'http://localhost/#/page.md',               result: 'http://localhost/page.md'},
+        { href: 'http://localhost/#/subfolder/page.md',     result: 'http://localhost/subfolder/page.md'},
+        { href: 'http://localhost/smp/#/subfolder/page.md', result: 'http://localhost/smp/subfolder/page.md' },
     ];
 
-    nonHashHrefsTests.forEach((tt) => {
-        const result = Site.nonHashHref(tt.href);
-        console.assert(result === tt.result, "Site.nonHashHref(%s)->%s === %s", tt.href, result, tt.result);
+    nonHashUrlTests.forEach((tt) => {
+        const result = Site.nonHashUrl(new URL(tt.href)).href;
+        console.assert(result === tt.result, "Site.nonHashUrl(%s)->%s === %s", tt.href, result, tt.result);
+    });
+
+    const basenameTests = [
+        { pathOrUrl: '/',           result: '' },
+        { pathOrUrl: '/README.md',  result: 'README.md' },
+        { pathOrUrl: 'README.md',   result: 'README.md' },
+        { pathOrUrl: 'http://localhost/a/b/README.md',   result: 'README.md' },
+        { pathOrUrl: new URL('http://localhost/a/b/README.md'),   result: 'README.md' },
+    ];
+
+    basenameTests.forEach((at) => {
+        const result = Site.basename(at.pathOrUrl);
+        console.assert(result === at.result, "Site.basename(%s)->%s === %s", at.pathOrUrl, result, at.result);
     });
 
     const appendTests = [
@@ -169,11 +204,6 @@
         const result = Site._hashHref(hht.indexHref, 'index.html', hht.thisHref);
         console.assert(result === hht.result, "Site._hashHref(%s,%s,%s)->%s === %s", hht.indexHref, 'index.html', hht.thisHref, result, hht.result);
     });
-
-    var mySite = new Site(window.location);
-    console.log(mySite.currentHref);
-
-    console.log(new URL("a/b/c/../heinz.md", mySite.currentHref).href);
 
     function nodeScriptIs(node) {
        return node.tagName === 'SCRIPT';
@@ -502,11 +532,11 @@
     }
 
     function initPage () {
+	const mySite = new Site(window.location, config);
         const middle = document.getElementById('middle');
         if (middle) {
-            var filename=hashToFilename(window.location.hash);
-            window.location.hash = filenameToHash(filename);
-            load(middle, filename, false);
+	    const nonHashUrl = mySite.nonHashUrl();
+            load(middle, nonHashUrl.href, false);
         }
         config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.insertBeforeElementId);

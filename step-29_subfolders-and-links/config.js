@@ -9,5 +9,9 @@ const config = {
 	"stuttgart.css",
     ],
     multiLanguage: true,
-    navbarClass:   "navbar",
+    navbarClass:   'navbar',
+    indexHtml:     'index.html',
+    markdown:      [ '.md',   '.markdown' ],
+    html:          [ '.html', '.htm' ],
+    text:          [ '.txt' ],
 }
