@@ -60,7 +60,6 @@
         }
 
         hashUrl (url) {
-            alert(url);
             const pathname = url.pathname;
             if (this._endsWithAny([].concat(this.config.markdown,this.config.html,this.config.text), pathname)) {
                 return new URL(Site._hashHref(this.baseUrl.href, this.indexHtml, url.href));
@@ -543,6 +542,7 @@
     const mySite = new Site(window.location, config);
 
     function initPage () {
+        mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
         const middle = document.getElementById('middle');
         if (middle) {
             const nonHashUrl = mySite.nonHashUrl();
