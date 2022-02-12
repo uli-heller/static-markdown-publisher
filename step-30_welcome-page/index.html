@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="prism-1.26.0.css">
   <script src="prism-1.26.0.js"></script>
 
-  <script src="config.js?version=step-29"></script>
+  <script src="config.js?version=step-30"></script>
   <script>
     class Site {
         constructor(siteLocation, myConfig) {
@@ -323,6 +323,11 @@
         mermaid.init(undefined, ".mermaid");
     }
 
+    function loadConfigJs(element, filename, isNavbar) {
+	const url = new URL(filename, mySite.indexHtmlUrl);
+	load(element, url.href, isNavbar);
+    }
+
     function languageFilenames (filename) {
         var result = [];
         if (! config.multiLanguage || ! filename.endsWith('.md')) {
@@ -361,15 +366,16 @@
         return result;
     }
 
-    function loadStylesheet (filename) {
+    function loadConfigJsStylesheet (filename) {
         const id = Site.elementId(filename);
+	const url = new URL(filename, mySite.indexHtmlUrl);
         if (! document.getElementById(id)) {
             const head = document.getElementsByTagName('head')[0];
             const link = document.createElement('link');
             link.id = id;
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = filename; // + "?timestamp=" + new Date();
+            link.href = url.href;
             link.media = 'all';
             head.appendChild(link);
         }
@@ -406,12 +412,12 @@
                     const newElement = document.createElement('div');
                     newElement.id = id;
                     element.parentNode.insertBefore(newElement, element)
-                    load(newElement, ae.filename, ae.isNavbar);
+                    loadConfigJs(newElement, ae.filename, ae.isNavbar);
                 }
             }
         });
         config.stylesheets.forEach((s) => {
-            loadStylesheet(s);
+            loadConfigJsStylesheet(s);
         });
     }
   </script>
