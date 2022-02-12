@@ -44,7 +44,7 @@
             this.url = new URL(this.href);                                          // typically something like http://localhost:3000/index.html#index.md
             this.indexHtmlUrl = Site._indexHtmlUrl(this.href, myConfig.indexHtml);
             this.indexHtml = Site.basename(this.indexHtmlUrl);
-            this.baseUrl = this._baseUrl(this.indexHtmlUrl);                        // typically something like http://localhost:3000/
+            this.baseUrl = this._baseUrl(this.indexHtmlUrl);                        // typically something like http://localhost:3000 - used to transform regular urls to hash_urls/
             this.protocol = siteLocation.protocol;
             this.host = siteLocation.host; // hostname:port
             this.pathname = siteLocation.pathname;
@@ -72,10 +72,6 @@
                     return true;
                 }
             }
-        }
-
-        hashHref (newHref) {
-            return Site._hashHref(this.href, this.indexHtml, newHref);
         }
 
         static _indexHtmlUrl(thisHref, configIndexHtml) {
