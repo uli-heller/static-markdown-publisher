@@ -340,35 +340,6 @@
         mermaid.init(undefined, ".mermaid");
     }
 
-    /*
-     * normalizePath
-     * Removes various unwanted parts from a path
-     *
-     * Examples
-     *  x//y   -> x/y
-     *  /a/../ -> /
-     *  /a/..  -> /
-     *  /../   -> /
-     *  /..    -> /
-     *  //a/b  -> /a/b
-     */
-    function normalizePath (path) {
-        var this_path = '';
-        var next_path = path;
-        while (this_path != next_path) {
-            this_path = next_path;
-            next_path = next_path.replace('//', '/');
-            next_path = next_path.replace('/./', '/');
-            next_path = next_path.replace(/\/[^\/]+\/\.\.\//, '/');
-            next_path = next_path.replace(/\/[^\/]+\/\.\.$/, '/');
-            next_path = next_path.replace('/../', '/');
-            next_path = next_path.replace('/..', '/');
-            next_path = next_path.replace('../', '/');
-            next_path = next_path.replace('..', '/');
-        }
-        return next_path;
-    }
-    
     function languageFilenames (filename) {
         var result = [];
         if (! config.multiLanguage || ! filename.endsWith('.md')) {
