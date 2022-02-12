@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <!--<base href="http://localhost:8000/subfolder/">-->
+    <base id="base" />
   </head>
   <body onload="initPage();" onhashchange="hashChanged();">
     <div id="topid"></div>
@@ -543,6 +543,10 @@
 
     function initPage () {
         mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
+        const base = document.getElementById('base');
+        if (base) {
+            base.href = mySite.currentUrl;
+        }
         const middle = document.getElementById('middle');
         if (middle) {
             const nonHashUrl = mySite.nonHashUrl();
