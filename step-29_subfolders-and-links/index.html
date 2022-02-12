@@ -116,6 +116,17 @@
             return Site.nonHashUrl(this.currentUrl);
         }
 
+	/*
+	 * elementId
+	 * Transforms a filename into a valid id of an html element
+	 *
+	 * Example:
+	 *   http://localhost/header-02.md -> header02md
+	 */
+	static elementId (url) {
+	    return Site.basename(url).replaceAll(/[.-]/g, '');
+	}
+	
         /*
          * dirname
          * Asuming a filename produce the name of the
@@ -341,17 +352,6 @@
     }
 
     /*
-     * filenameToId
-     * Transforms a filename into a valid id of an html element
-     *
-     * Example:
-     *   header-02.md -> header02md
-     */
-    function filenameToId (filename) {
-        return filename.replaceAll(/[.-]/g, '');
-    }
-
-    /*
      * normalizePath
      * Removes various unwanted parts from a path
      *
@@ -419,7 +419,7 @@
     }
 
     function loadStylesheet (filename) {
-        const id = filenameToId(filename);
+        const id = Site.elementId(filename);
         if (! document.getElementById(id)) {
             const head = document.getElementsByTagName('head')[0];
             const link = document.createElement('link');
@@ -452,7 +452,7 @@
         config.additionalElements.forEach((ae) => {
             const element = document.getElementById(ae.insertBeforeElementId);
             if (element) {
-                const id = ae.elementId || filenameToId(ae.filename);
+                const id = ae.elementId || Site.elementId(ae.filename);
                 if (! document.getElementById(id)) {
                     const newElement = document.createElement('div');
                     newElement.id = id;
