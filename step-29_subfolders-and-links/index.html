@@ -34,26 +34,45 @@
   <link rel="stylesheet" href="prism-1.26.0.css">
   <script src="prism-1.26.0.js"></script>
 
-  <script src="config.js?version=step-27"></script>
+  <script src="config.js?version=step-28"></script>
   <script>
     class Site {
-        constructor(siteLocation, config) {
+        constructor(siteLocation, myConfig) {
             this.location = siteLocation;
-	    this.config = config;
+            this.config = myConfig;
             this.href = siteLocation.href;
-            this.url = new URL(this.href); // typically something like http://localhost:3000/index.html#index.md
-            this.indexHtmlUrl = Site._indexHtmlUrl(this.href, config.indexHtml);
+            this.url = new URL(this.href);                                          // typically something like http://localhost:3000/index.html#index.md
+            this.indexHtmlUrl = Site._indexHtmlUrl(this.href, myConfig.indexHtml);
             this.indexHtml = Site.basename(this.indexHtmlUrl);
+            this.baseUrl = this._baseUrl(this.indexHtmlUrl);                        // typically something like http://localhost:3000/
             this.protocol = siteLocation.protocol;
             this.host = siteLocation.host; // hostname:port
             this.pathname = siteLocation.pathname;
             this.hash = siteLocation.hash;
-            this.currentUrl = Site.nonHashUrl(this.url); // typically something like http://localhost:3000/index.md
+            this.currentUrl = Site.nonHashUrl(this.url);                            // typically something like http://localhost:3000/index.md
             this.currentHref = this.currentUrl.href;
         }
 
-        buildHref (newHref) {
-            return newHref;
+        _baseUrl (indexHtmlUrl) {
+            var baseUrl = new URL('..', indexHtmlUrl);
+            baseUrl.hash='';
+            return baseUrl;
+        }
+
+        hashUrl (url) {
+            alert(url);
+            const pathname = url.pathname;
+            if (this._endsWithAny([].concat(this.config.markdown,this.config.html,this.config.text), pathname)) {
+                return new URL(Site._hashHref(this.baseUrl.href, this.indexHtml, url.href));
+            }
+        }
+
+        _endsWithAny(suffixes, string) {
+            for (let suffix of suffixes) {
+                if (string.endsWith(suffix)) {
+                    return true;
+                }
+            }
         }
 
         hashHref (newHref) {
@@ -98,9 +117,9 @@
             return result;
         }
 
-	nonHashUrl() {
-	    return Site.nonHashUrl(this.currentUrl);
-	}
+        nonHashUrl() {
+            return Site.nonHashUrl(this.currentUrl);
+        }
 
         /*
          * dirname
@@ -275,19 +294,9 @@
     renderer.link = (href, title, text) => {
         if (isAbsoluteUrl(href)) {
             ;
-        } else if (isProtocolRelativeUrl(href)) {
-            const pathname = window.location.pathname;
-            var location = window.location.href;
-            location = location.replace(/#.*$/, '');
-            location = location.slice(0, -pathname.length);
-            href = location + href;
-            ;
-        } else if (!isMarkdownUrl(href)) {
-            href = newRelativeLink(href);
         } else {
-            /* isMarkdownUrl */
-            const newFilename = newRelativeLink(href);
-            href = filenameToHash(newFilename);
+            href = new URL(href, mySite.currentUrl.href);
+            href = mySite.hashUrl(href);
         }
         return originalRendererLink(href, title, text);
     };
@@ -296,7 +305,7 @@
         if (isAbsoluteUrl(href)) {
             ;
         } else {
-            href = newRelativeLink(href);
+            href = new URL(href, mySite.currentUrl.href);
         }
         return originalRendererImage(href, title, text);
     };
@@ -531,11 +540,12 @@
         initPage();
     }
 
+    const mySite = new Site(window.location, config);
+
     function initPage () {
-	const mySite = new Site(window.location, config);
         const middle = document.getElementById('middle');
         if (middle) {
-	    const nonHashUrl = mySite.nonHashUrl();
+            const nonHashUrl = mySite.nonHashUrl();
             load(middle, nonHashUrl.href, false);
         }
         config.additionalElements.forEach((ae) => {
