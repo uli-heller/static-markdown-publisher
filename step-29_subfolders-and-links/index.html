@@ -124,8 +124,14 @@
          * /subfolder/index.md -> /subfolder
          * /subfolder/         -> /subfolder (OK?)
          */
-        static dirname (path) {
-            return path.replace(/\/[^\/]*$/, '');
+        static dirname (pathOrUrl) {
+            var pathname = pathOrUrl;
+            if ('object' === typeof(pathOrUrl)) {
+		const url = new URL(pathOrUrl);
+		url.hash ='';
+                pathname = url.href;
+            }
+            return pathname.replace(/\/[^\/]*$/, '');
         }
 
         static basename (pathOrUrl) {
@@ -346,18 +352,6 @@
     }
 
     /*
-     * dirname
-     * Asuming a filename produce the name of the
-     * parent directory
-     *
-     * /subfolder/index.md -> /subfolder
-     * /subfolder/         -> /subfolder (OK?)
-     */
-    function dirname (path) {
-        return path.replace(/\/[^\/]*$/, '');
-    }
-
-    /*
      * normalizePath
      * Removes various unwanted parts from a path
      *
@@ -409,7 +403,7 @@
         if (! filename.startsWith('/')) {
             filename = '/' + filename;
         }
-        return normalizePath(dirname(window.location.pathname) + filename);
+        return normalizePath(Site.dirname(window.location.pathname) + filename);
     }
 
     /*
@@ -418,7 +412,7 @@
      *
      */
     function filenameToHash (filename) {
-        var nPathname = normalizePath(dirname(window.location.pathname));
+        var nPathname = normalizePath(Site.dirname(window.location.pathname));
         var nFilename = normalizePath(filename);
         return '#'+filename.replace(nPathname, '');
     }
@@ -479,7 +473,7 @@
         if (newFilename.startsWith('/')) {
             newHash = newFilename;
         } else {
-            newHash = dirname(oldFilename) + '/' + newFilename;
+            newHash = Site.dirname(oldFilename) + '/' + newFilename;
         }
         return normalizePath(newHash);
     }
