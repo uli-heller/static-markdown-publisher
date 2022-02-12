@@ -406,17 +406,6 @@
         return normalizePath(Site.dirname(window.location.pathname) + filename);
     }
 
-    /*
-     * filenameToHash
-     * Transforms a filename to the hash value
-     *
-     */
-    function filenameToHash (filename) {
-        var nPathname = normalizePath(Site.dirname(window.location.pathname));
-        var nFilename = normalizePath(filename);
-        return '#'+filename.replace(nPathname, '');
-    }
-
     function languageFilenames (filename) {
         var result = [];
         if (! config.multiLanguage || ! filename.endsWith('.md')) {
