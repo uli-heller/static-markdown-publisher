@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="prism-1.26.0.css">
   <script src="prism-1.26.0.js"></script>
 
-  <script id="configjs" src="config.js?timestamp=20220214080000"></script>
+  <script id="configjs" src="config.js?timestamp=20220214170000"></script>
 
   <script>
     class Site {
@@ -375,14 +375,14 @@
 
     function loadConfigJsStylesheet (filename) {
         const id = Site.elementId(filename);
-        const url = new URL(filename, mySite.indexHtmlUrl);
+        const url = new URL(filename+"?timestamp=202202141700", mySite.indexHtmlUrl);
         if (! document.getElementById(id)) {
             const head = document.getElementsByTagName('head')[0];
             const link = document.createElement('link');
             link.id = id;
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = url.href+"?timestamp=20220214080000";
+            link.href = url.href;
             link.media = 'all';
             head.appendChild(link);
         }

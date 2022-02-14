@@ -19,6 +19,16 @@ In diesem Schritt möchte ich erreichen, dass die Datei
 möglichst überhaupt nicht mehr im Browser-Cache
 zwischengespeichert wird.
 
+Nebeneffekt
+-----------
+
+Mir ist aufgefallen, dass auf meinem FireTablet manchmal
+die Markdown-Seiten ineinander vermischt angezeigt werden, also:
+
+- ich schaue mir Seite A an - alles OK
+- ich wechsle auf Seite B - scheinbar auch OK
+- ich blättere nach unten - Teile von Seite A erscheinen - KO
+
 Änderungen
 ----------
 
