@@ -1,17 +1,23 @@
-30 - Initialseite
-=================
+31 - Aktualisierungen bei der Konfigurationsdatei
+=================================================
 
 [Zurück zur Übersicht][MAIN]
 
 Ziel
 ----
 
-Ich habe festgestellt, dass es Probleme gibt, wenn wir über URLs wie
+Bislang laden wir die Konfigurationsdatei "config.js"
+statisch über ein `<script>`-Element in der "index.html".
+Dies führt dazu, dass
 
-- <http://localhost:8000>
-- möglicherweise noch mehr
+- die Datei relativ selten geladen wird
+- die Datei relativ aggressive zwischengespeichert wird im Browser-Cache
+- Aktualisierungen an der Datei teilweise auch nach einem Browser-Neustart
+  nicht greifen
 
-auf die Seiten zugreifen. Ziel dieses Schrittes ist die Korrektur dieser Probleme.
+In diesem Schritt möchte ich erreichen, dass die Datei
+möglichst überhaupt nicht mehr im Browser-Cache
+zwischengespeichert wird.
 
 Probleme und Lösungen
 ---------------------

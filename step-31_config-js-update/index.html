@@ -34,10 +34,12 @@
   <link rel="stylesheet" href="prism-1.26.0.css">
   <script src="prism-1.26.0.js"></script>
 
-  <script src="config.js?version=step-31"></script>
+  <script id="configjs" src="config.js?timestamp=20220214080000"></script>
+
   <script>
     class Site {
         constructor(siteLocation, myConfig) {
+            this.initInProgress = false;
             this.location = siteLocation;
             this.config = myConfig;
             this.href = siteLocation.href;
@@ -376,19 +378,19 @@
             link.id = id;
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = url.href;
+            link.href = url.href+"?timestamp=20220214080000";
             link.media = 'all';
             head.appendChild(link);
         }
     }
 
-    function hashChanged () {
-        initPage();
-    }
-
     const mySite = new Site(window.location, config);
 
-    function initPage () {
+    async function initPageAsync () {
+        if (mySite.initInProgress) {
+            return false;
+        }
+        mySite.initInProgress = true;
         mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
         //if (mySite.currentUrl.pathname.endsWith('/')) {
         //    mySite.currentUrl.pathname += mySite.config.indexHtml;
@@ -420,6 +422,16 @@
         config.stylesheets.forEach((s) => {
             loadConfigJsStylesheet(s);
         });
+        mySite.initInProgress = false;
     }
+
+    function hashChanged () {
+        initPage();
+    }
+
+    function initPage () {
+        initPageAsync();
+    }
+
   </script>
 </html>
