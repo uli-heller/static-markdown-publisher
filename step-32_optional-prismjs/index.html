@@ -299,12 +299,12 @@
                 renderer: renderer,
                 highlight: function(code, lang) {
                     var language;
-		    if (typeof Prism !== 'undefined') {
-			language = Prism.languages[lang];
-			if (language) {
+                    if (typeof Prism !== 'undefined') {
+                        language = Prism.languages[lang];
+                        if (language) {
                             return Prism.highlight(code, language, lang);
-			}
-		    }
+                        }
+                    }
                     language = hljs.getLanguage(lang) ? lang : 'plaintext';
                     return hljs.highlight(code, { language }).value;
                 },
@@ -388,28 +388,28 @@
             return false;
         }
         mySite.initInProgress = true;
-	//
-	// Load all javascript files multiple times,
-	// since there could be a change in 'config.js'
-	// that adds another javascript file
-	//
-	const loadedJavascripts = {};
-	var loadCount = -1;
-	while (loadCount != 0) {
-	    loadCount = 0;
-	    const javascripts = config.javascripts.slice();
-	    javascripts.unshift('config.js');
+        //
+        // Load all javascript files multiple times,
+        // since there could be a change in 'config.js'
+        // that adds another javascript file
+        //
+        const loadedJavascripts = {};
+        var loadCount = -1;
+        while (loadCount != 0) {
+            loadCount = 0;
+            const javascripts = config.javascripts.slice();
+            javascripts.unshift('config.js');
             for (var js of javascripts) {
-		if (! loadedJavascripts[js]) {
-		    loadedJavascripts[js] = true;
-		    ++loadCount;
-		    const url = new URL(js,  mySite.indexHtmlUrl);
-		    const text = await fetchFile(url.href);
-		    eval(text);
-		}
-	    }
-	    mySite.config = config;
-	}
+                if (! loadedJavascripts[js]) {
+                    loadedJavascripts[js] = true;
+                    ++loadCount;
+                    const url = new URL(js,  mySite.indexHtmlUrl);
+                    const text = await fetchFile(url.href);
+                    eval(text);
+                }
+            }
+            mySite.config = config;
+        }
 
         mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
         if (!window.location.hash) {
