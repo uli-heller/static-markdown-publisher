@@ -1,8 +1,21 @@
-# 29 -  Unterordner und Links
+# 32 - Prism.js
 
-Dies ist eine Markdown-Datei.
-Die Änderungen in diesem Schritt
-betreffen den oberen Teil der Seite.
-Ganz links sieht man nun eine Art "Pfeil nach oben".
-Damit läßt sich der obere Teil der Kopfzeilen
-ausblenden!
+Dies ist eine Markdown-Datei
+mit einem Block für Syntaxhervorhebungen:
+
+```shell
+#!/bin/bash
+LOG=y
+
+log () {
+  test -n "${LOG}" && echo "$(date +%Y-%m-%s_%H:%M:%S) - " "$@"
+}
+```
+
+Hier noch eine CSV-"Datei":
+
+```csv
+name,alter,groesse
+uli,56,178
+ernie,65,32
+```
