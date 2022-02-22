@@ -400,17 +400,12 @@
         //
         const configJsUrl = new URL('config.js', mySite.indexHtmlUrl);
         const configJsText = await fetchFile(configJsUrl.href);
-        //console.log(configJsText);
         {
-            eval(configJsText); // eval is evil
+            eval(configJsText); // eval is evil, but we need it here
             mySite.config = config;
         }
-        //console.log(mySite);
 
         mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
-        //if (mySite.currentUrl.pathname.endsWith('/')) {
-        //    mySite.currentUrl.pathname += mySite.config.indexHtml;
-        //}
         if (!window.location.hash) {
             mySite.currentUrl.hash = mySite.config.indexMd;
         }
