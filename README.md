@@ -98,7 +98,8 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 30 - Initialseite](step-30_welcome-page/README.md)
 * [Schritt 31 - Aktualisierungen bei der Konfigurationsdatei](step-31_config-js-update/README.md)
 * [Schritt 32 - Optionale Syntaxhervorhebung mit "prism.js"](step-32_optional-prismjs/README.md)
-* [Schritt 33 - Mehrsprachigkeit für Markdown, Html und Text](step-33_languages-ng/README.md)
+* [Schritt 33 - Graphiken mit "chart.js"](step-33_chartjs/README.md)
+* [Schritt 34 - Mehrsprachigkeit für Markdown, Html und Text](step-34_languages-ng/README.md)
 
 Endergebnis
 -----------
