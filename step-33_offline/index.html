@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <base id="base" />
+  </head>
+  <body onload="initPage();" onhashchange="hashChanged();">
+    <div id="topid"></div>
+    <div id="middle"></div>
+    <div id="bottomid"></div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <!-- and it's easy to individually load additional languages -->
+  <!--<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"></script>-->
+
+  <!-- diff2html files -->
+  <!--
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/dist/diff2html.min.js"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js"></script>
+
+  <!-- mermaid.js -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+  <script id="configjs" src="config.js?timestamp=20220222070000"></script>
+
+  <script>
+    class Site {
+        constructor(siteLocation, myConfig) {
+            this.initInProgress = false;
+            this.promises       = [];
+            this.location = siteLocation;
+            this.config = myConfig;
+            this.href = siteLocation.href;
+            this.url = new URL(this.href);                                          // typically something like http://localhost:3000/index.html#index.md
+            this.indexHtmlUrl = Site._indexHtmlUrl(this.href, myConfig.indexHtml);
+            this.indexHtml = Site.basename(this.indexHtmlUrl);
+            this.baseUrl = this._baseUrl(this.indexHtmlUrl);                        // typically something like http://localhost:3000 - used to transform regular urls to hash_urls/
+            this.protocol = siteLocation.protocol;
+            this.host = siteLocation.host; // hostname:port
+            this.pathname = siteLocation.pathname;
+            this.hash = siteLocation.hash;
+            this.currentUrl = Site.nonHashUrl(this.url);                            // typically something like http://localhost:3000/index.md
+            this.currentHref = this.currentUrl.href;
+        }
+
+        _baseUrl (indexHtmlUrl) {
+            var baseUrl = new URL('..', indexHtmlUrl);
+            baseUrl.hash='';
+            return baseUrl;
+        }
+
+        hashUrl (url) {
+            const pathname = url.pathname;
+            if (this._endsWithAny([].concat(this.config.markdown,this.config.html,this.config.text), pathname)) {
+                return new URL(Site._hashHref(this.baseUrl.href, this.indexHtml, url.href));
+            }
+            return(url);
+        }
+
+        _endsWithAny(suffixes, string) {
+            for (let suffix of suffixes) {
+                if (string.endsWith(suffix)) {
+                    return true;
+                }
+            }
+        }
+
+        isMarkdown (url) {
+            const basename = Site.basename(url);
+            return this._endsWithAny(this.config.markdown, basename);
+        }
+
+        isHtml (url) {
+            const basename = Site.basename(url);
+            return this._endsWithAny(this.config.html, basename);
+        }
+
+        isText (url) {
+            const basename = Site.basename(url);
+            return this._endsWithAny(this.config.text, basename);
+        }
+
+        static _indexHtmlUrl(thisHref, configIndexHtml) {
+            const url = new URL(thisHref);
+            if (url.pathname.endsWith('/')) {
+                url.pathname += configIndexHtml;
+            }
+            return url;
+        }
+
+        static _hashHref(indexHtmlHref, indexHtml, thisHref) {
+            var result=thisHref;
+            var withoutIndexHtml = indexHtmlHref;
+            if (withoutIndexHtml.endsWith(indexHtml)) {
+                withoutIndexHtml = withoutIndexHtml.slice(0, -indexHtml.length);
+            }
+            if (withoutIndexHtml.endsWith('/')) {
+                withoutIndexHtml = withoutIndexHtml.slice(0, -1);
+            }
+            if (thisHref.startsWith(withoutIndexHtml)) {
+                const withoutLeadingPath=thisHref.slice(withoutIndexHtml.length);
+                result = withoutIndexHtml+'/'+indexHtml+'#'+withoutLeadingPath;
+            }
+            return result;
+        }
+
+        static nonHashUrl(thisUrl) {
+            const hash = thisUrl.hash;
+            const href = thisUrl.href;
+            var result;
+            if (hash) {
+                const normalizedHash = hash.replace(/^#\/*/, '');
+                result = new URL(normalizedHash, href);
+                result.hash = '';
+            } else {
+                result = new URL(href);
+            }
+            return result;
+        }
+
+        nonHashUrl() {
+            return Site.nonHashUrl(this.currentUrl);
+        }
+
+        /*
+         * elementId
+         * Transforms a filename into a valid id of an html element
+         *
+         * Example:
+         *   http://localhost/header-02.md -> header02md
+         */
+        static elementId (url) {
+            return Site.basename(url).replaceAll(/[.-]/g, '');
+        }
+
+        /*
+         * dirname
+         * Asuming a filename produce the name of the
+         * parent directory
+         *
+         * /subfolder/index.md -> /subfolder
+         * /subfolder/         -> /subfolder (OK?)
+         */
+        static dirname (pathOrUrl) {
+            var pathname = pathOrUrl;
+            if ('object' === typeof(pathOrUrl)) {
+                const url = new URL(pathOrUrl);
+                url.hash ='';
+                pathname = url.href;
+            }
+            return pathname.replace(/\/[^\/]*$/, '');
+        }
+
+        static basename (pathOrUrl) {
+            var pathname = pathOrUrl;
+            if ('object' === typeof(pathOrUrl)) {
+                pathname = pathOrUrl.pathname;
+            }
+            const index = pathname.lastIndexOf('/');
+            return pathname.slice(index+1);
+        }
+
+    }
+
+    const nonHashUrlTests = [
+        { href: 'http://localhost/',                        result: 'http://localhost/' },
+        { href: 'http://localhost',                         result: 'http://localhost/' },
+        { href: 'http://localhost:3000/',                   result: 'http://localhost:3000/' },
+        { href: 'http://localhost:3000',                    result: 'http://localhost:3000/' },
+        { href: 'http://localhost/hugo',                    result: 'http://localhost/hugo' },
+        { href: 'http://localhost/index.html',              result: 'http://localhost/index.html' },
+        { href: 'http://localhost/index.html#/index.md',    result: 'http://localhost/index.md' },
+        { href: 'http://localhost/index.html#index.md',     result: 'http://localhost/index.md' },
+        { href: 'http://localhost/#index.md',               result: 'http://localhost/index.md' },
+        { href: 'http://localhost/smp/#/index.md',          result: 'http://localhost/smp/index.md' },
+        { href: 'http://localhost/#/page.md',               result: 'http://localhost/page.md'},
+        { href: 'http://localhost/#/subfolder/page.md',     result: 'http://localhost/subfolder/page.md'},
+        { href: 'http://localhost/smp/#/subfolder/page.md', result: 'http://localhost/smp/subfolder/page.md' },
+    ];
+
+    nonHashUrlTests.forEach((tt) => {
+        const result = Site.nonHashUrl(new URL(tt.href)).href;
+        console.assert(result === tt.result, "Site.nonHashUrl(%s)->%s === %s", tt.href, result, tt.result);
+    });
+
+    const basenameTests = [
+        { pathOrUrl: '/',           result: '' },
+        { pathOrUrl: '/README.md',  result: 'README.md' },
+        { pathOrUrl: 'README.md',   result: 'README.md' },
+        { pathOrUrl: 'http://localhost/a/b/README.md',   result: 'README.md' },
+        { pathOrUrl: new URL('http://localhost/a/b/README.md'),   result: 'README.md' },
+    ];
+
+    basenameTests.forEach((at) => {
+        const result = Site.basename(at.pathOrUrl);
+        console.assert(result === at.result, "Site.basename(%s)->%s === %s", at.pathOrUrl, result, at.result);
+    });
+
+    const hashHrefTests = [
+        //{ indexHref: '', thisHref: '', result: ''},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3000/markdown.md',        result: 'http://localhost:3000/index.html#/markdown.md'},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3000/subdir/markdown.md', result: 'http://localhost:3000/index.html#/subdir/markdown.md'},
+        { indexHref: 'http://localhost:3000/subdir/index.html', thisHref: 'http://localhost:3000/subdir/markdown.md', result: 'http://localhost:3000/subdir/index.html#/markdown.md'},
+        { indexHref: 'http://localhost:3000/index.html',        thisHref: 'http://localhost:3001/markdown.md',        result: 'http://localhost:3001/markdown.md'},
+    ];
+
+    hashHrefTests.forEach((hht) => {
+        const result = Site._hashHref(hht.indexHref, 'index.html', hht.thisHref);
+        console.assert(result === hht.result, "Site._hashHref(%s,%s,%s)->%s === %s", hht.indexHref, 'index.html', hht.thisHref, result, hht.result);
+    });
+
+    function nodeScriptIs(node) {
+       return node.tagName === 'SCRIPT';
+    }
+
+    function nodeScriptClone(node) {
+        var script  = document.createElement("script");
+        script.text = node.innerHTML;
+        var i = -1, attrs = node.attributes, attr;
+        while ( ++i < attrs.length ) {
+            script.setAttribute( (attr = attrs[i]).name, attr.value );
+        }
+        return script;
+    }
+
+    function nodeScriptReplace(node) {
+        if ( nodeScriptIs(node) === true ) {
+            node.parentNode.replaceChild( nodeScriptClone(node) , node );
+        } else {
+            var i = -1, children = node.childNodes;
+            while ( ++i < children.length ) {
+                nodeScriptReplace( children[i] );
+            }
+        }
+        return node;
+    }
+
+    const renderer = new marked.Renderer();
+    const originalRendererCode = renderer.code.bind(renderer);
+    renderer.code = (code, infostring, escaped) => {
+        if (infostring === 'diff') {
+            return Diff2Html.html(code);
+        } else if (infostring === 'mermaid') {
+            return '<div class="mermaid">' + code + '</div>';
+        }
+        return originalRendererCode(code, infostring, escaped);
+    };
+    const originalRendererLink = renderer.link.bind(renderer);
+    renderer.link = (href, title, text) => {
+        const url = new URL(href, mySite.currentUrl.href);
+        href = mySite.hashUrl(url).href;
+        return originalRendererLink(href, title, text);
+    };
+    const originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+        const url = new URL(href, mySite.currentUrl.href);
+        return originalRendererImage(url.href, title, text);
+    };
+
+    function handleNavbar (navbarElement) {
+        if (!navbarElement.classList.contains(config.navbarClass)) {
+            navbarElement.classList.add(config.navbarClass);
+        }
+        // Make sure the navbar contains two lists
+        var navbar_uls = navbarElement.querySelectorAll("ul");
+        while (navbar_uls.length < 2) {
+            const ul = document.createElement('ul');
+            navbarElement.appendChild(ul);
+            navbar_uls = navbarElement.querySelectorAll("ul");
+        }
+
+        const navbar_clear = navbarElement.getElementsByClassName("clear");
+        if (navbar_clear.length <= 0) {
+            const clear = document.createElement('div')
+            clear.classList.add("clear");
+            navbarElement.appendChild(clear);
+        }
+    }
+
+    async function fetchFile(filename) {
+        var contentFetcher;
+        for (const newFilename of languageFilenames(filename)) {
+            contentFetcher = await fetch(newFilename, {cache: "no-store"});
+            if (contentFetcher.ok) {
+                return contentFetcher.text();
+            }
+        }
+    }
+
+    async function load(element, filename, isNavbar) {
+        const contentText = await fetchFile(filename);
+        if (mySite.isMarkdown(filename)) {
+            element.innerHTML = '';
+            element.innerHTML = marked.parse(contentText, {
+                renderer: renderer,
+                highlight: function(code, lang) {
+                    var language;
+                    if (typeof Prism !== 'undefined') {
+                        language = Prism.languages[lang];
+                        if (language) {
+                            return Prism.highlight(code, language, lang);
+                        }
+                    }
+                    language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { language }).value;
+                },
+            });
+        } else if (mySite.isHtml(filename)) {
+            element.innerHTML = '';
+            element.innerHTML = contentText;
+        } else {
+            element.innerText = '';
+            element.innerText = contentText;
+        }
+        nodeScriptReplace(element);
+        if (isNavbar) {
+            handleNavbar(element);
+        }
+        mermaid.init(undefined, ".mermaid");
+    }
+
+    async function loadConfigJs(element, filename, isNavbar) {
+        const url = new URL(filename, mySite.indexHtmlUrl);
+        return load(element, url.href, isNavbar);
+    }
+
+    function languageFilenames (filename) {
+        var result = [];
+        if (! config.multiLanguage || ! filename.endsWith('.md')) {
+            result.push(filename);
+        } else {
+            const navigatorLanguageRegion = navigator.language;
+            const navigatorLanguage = navigatorLanguageRegion.slice(0,2);
+            var basename = filename.slice(0, -3);
+            const languageRegions = basename.match(/_[a-z][a-z]-[A-Z][A-Z]$/);
+            if (languageRegions) {
+                const languageRegion = languageRegions[0];
+                basename = basename.slice(0, -languageRegion.length);
+                result.push(filename);
+                //result.push(basename + languageRegion + '.md');
+                result.push(basename + languageRegion.slice(0,3) + '.md');
+                result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                result.push(basename + '_' + navigatorLanguage  + '.md');
+                result.push(basename + '.md');
+            } else {
+                const languages = basename.match(/_[a-z][a-z]$/);
+                if (languages) {
+                    const language = languages[0];
+                    basename = basename.slice(0, -language.length);
+                    result.push(filename);
+                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                    result.push(basename + '_' + navigatorLanguage  + '.md');
+                    result.push(basename + '.md');
+                } else {
+                    result.push(basename + '_' + navigatorLanguageRegion  + '.md');
+                    result.push(basename + '_' + navigatorLanguage  + '.md');
+                    //result.push(basename + '.md');
+                    result.push(filename);
+                }
+            }
+        }
+        return result;
+    }
+
+    function loadConfigJsStylesheet (filename) {
+        const id = Site.elementId(filename);
+        const url = new URL(filename+"?timestamp=202202141700", mySite.indexHtmlUrl);
+        if (! document.getElementById(id)) {
+            const head = document.getElementsByTagName('head')[0];
+            const link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = url.href;
+            link.media = 'all';
+            head.appendChild(link);
+        }
+    }
+
+    const mySite = new Site(window.location, config);
+
+    async function initPageAsync () {
+        if (mySite.initInProgress) {
+            return false;
+        }
+        mySite.initInProgress = true;
+        //
+        // Load all javascript files multiple times,
+        // since there could be a change in 'config.js'
+        // that adds another javascript file
+        //
+        const loadedJavascripts = {};
+        var loadCount = -1;
+        while (loadCount != 0) {
+            loadCount = 0;
+            const javascripts = config.javascripts.slice();
+            javascripts.unshift('config.js');
+            for (var js of javascripts) {
+                if (! loadedJavascripts[js]) {
+                    loadedJavascripts[js] = true;
+                    ++loadCount;
+                    const url = new URL(js,  mySite.indexHtmlUrl);
+                    const text = await fetchFile(url.href);
+                    eval(text);
+                }
+            }
+            mySite.config = config;
+        }
+
+        mySite.currentUrl = Site.nonHashUrl(new URL(window.location));
+        if (!window.location.hash) {
+            mySite.currentUrl.hash = mySite.config.indexMd;
+        }
+        const base = document.getElementById('base');
+        if (base) {
+            base.href = mySite.currentUrl;
+        }
+        const middle = document.getElementById('middle');
+        if (middle) {
+            const nonHashUrl = mySite.nonHashUrl();
+            mySite.promises.push(load(middle, nonHashUrl.href, false));
+        }
+        config.additionalElements.forEach((ae) => {
+            const element = document.getElementById(ae.insertBeforeElementId);
+            if (element) {
+                const id = ae.elementId || Site.elementId(ae.filename);
+                if (! document.getElementById(id)) {
+                    const newElement = document.createElement('div');
+                    newElement.id = id;
+                    element.parentNode.insertBefore(newElement, element)
+                    mySite.promises.push(loadConfigJs(newElement, ae.filename, ae.isNavbar));
+                }
+            }
+        });
+        config.stylesheets.forEach((s) => {
+            loadConfigJsStylesheet(s);
+        });
+        Promise.all(mySite.promises);
+        mySite.promises = [];
+        mySite.initInProgress = false;
+    }
+
+    function hashChanged () {
+        initPage();
+    }
+
+    function initPage () {
+        initPageAsync();
+    }
+
+  </script>
+</html>
