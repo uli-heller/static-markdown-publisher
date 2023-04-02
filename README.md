@@ -100,6 +100,8 @@ Implementierungs- und Aufbau-Schritte
 * [Schritt 32 - Optionale Syntaxhervorhebung mit "prism.js"](step-32_optional-prismjs/README.md)
 * [Schritt 33 - Graphiken mit "chart.js"](step-33_chartjs/README.md)
 * [Schritt 34 - Mehrsprachigkeit für Markdown, Html und Text](step-34_languages-ng/README.md)
+* [Schritt 33 - Offline-Darstellung](step-33_offline/README.md)
+* [Schritt 50 - Mehrsprachigkeit für Markdown, Html und Text](step-50_languages-ng/README.md)
 
 Endergebnis
 -----------
