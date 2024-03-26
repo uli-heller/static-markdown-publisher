@@ -46,7 +46,7 @@
         }
 
         _baseUrl (indexHtmlUrl) {
-            var baseUrl = new URL('..', indexHtmlUrl);
+            var baseUrl = new URL('.', indexHtmlUrl);
             baseUrl.hash='';
             return baseUrl;
         }
