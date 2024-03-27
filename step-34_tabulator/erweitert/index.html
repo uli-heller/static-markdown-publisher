@@ -454,11 +454,10 @@
         config.stylesheets.forEach((s) => {
             loadConfigJsStylesheet(s);
         });
-	//document.getElementsByClassName("markdown-table").forEach((mt) => {
-	//    new Tabulator(mt, {});
-	//});
-        Promise.allSettled(mySite.promises).then((values) => {});
-	new Tabulator(".markdown-table", {});
+        //document.getElementsByClassName("markdown-table").forEach((mt) => {
+        //    new Tabulator(mt, {});
+        //});
+        Promise.allSettled(mySite.promises).then((values) => { console.log(values);     new Tabulator(".markdown-table", {}); });
         mySite.promises = [];
         mySite.initInProgress = false;
     } // initPageAsync
