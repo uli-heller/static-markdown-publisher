@@ -5,9 +5,9 @@ Name                      | Datum      | Version | Lizenz            | Bemerkung
 --------------------------|------------|---------|-------------------|---------------------------------
 [PRISM.JS][PRISM]         | 2022-01-27 | 1.26.0  | [MIT][PRISML]     | Syntaxhervorhebung
 [MERMAID.JS][MERMAID]     | 2022-01-27 | 8.13.10 | [MIT][MERMAIDL]   | Diverse Graphiken
-[DIFF2HTML.JS][DIFF2HTM]  | 2022-01-26 | 3.4.14  | [MIT][DIFF2HTMLL] | Aufbereitung von Dateiänderungen
+[DIFF2HTML.JS][DIFF2HTML] | 2022-01-26 | 3.4.14  | [MIT][DIFF2HTMLL] | Aufbereitung von Dateiänderungen
 [HIGHLIGHT.JS][HIGHLIGHT] | 2022-01-19 | 11.4.0  | [BSD][HIGHLIGHTL] | Syntaxhervorhebung
-[MARKED.JS}[MARKED]       | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
+[MARKED.JS][MARKED]       | 2022-01-16 | 4.0.10  | [MIT][MARKEDL]    | Umformung von Markdown nach HTML
 [STUTTGART][STGT]         | 2022-01-17 | -       | [PD][STGTL]       | Bildchen zur Demo
 [BOY][BOY]                | 2022-01-17 | -       | [PD][BOYL]        | Bildchen zur Demo
 [MDWIKI][MDWIKI]          | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
