@@ -9,3 +9,6 @@ Notizen
   : (navigator.language || navigator.userLanguage)
 - Directory listings - ohne index.md
   http://localhost:8000/index.html#subfolder/
+- https://www.npmjs.com/package/marked-extended-tables ... mehrzeilige Header und mehrspaltige Felder
+- https://github.com/markedjs/marked/issues/545 ... Inhaltsverzeichnis
+- https://www.azureblue.io/how-to-properly-style-a-markdown-table/ ... Renderer für Tabellen
