@@ -20,5 +20,17 @@ const config = {
     markdown:      [ '.md',   '.markdown' ],
     html:          [ '.html', '.htm' ],
     text:          [ '.txt' ],
-    timestamp:     '2024-03-29 07:00:01',
+    timestamp:     '2024-03-29 07:00:02',
+
+    tabulatorOptions: {
+	//height: "500px",         // Scrollbalken und "stehender" Tabellenkopf
+	layout: "fitDataStretch",  // Vermeidung von Leerspalte rechts
+	columnDefaults: {
+	    formatter:    "html",  // funktionierende HTML-Links
+	    headerFilter: "input", // Filterzeile
+	},
+	movableColumns: true,      // Sortierung der Spalten änderbar
+	movableRows: true,         // Sortierung der Zeilen änderbar
+	//spreadsheet: true,
+    },
 }

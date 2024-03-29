@@ -458,17 +458,7 @@
         });
         if (typeof Tabulator !== 'undefined') {
             Promise.allSettled(mySite.promises).then((values) => {
-		new Tabulator(".markdown-table", {
-		    height: "500px",
-		    layout: "fitDataStretch",
-		    columnDefaults: {
-			formatter:    "html",
-			headerFilter: "input",
-		    },
-		    movableColumns: true,
-		    movableRows: true,
-		    //spreadsheet: true,
-		});
+		new Tabulator(".markdown-table", config.tabulatorOptions,);
 	    });
 	}
         mySite.promises = [];
