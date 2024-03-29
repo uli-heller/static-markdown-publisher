@@ -6,10 +6,12 @@ const config = {
     ],
     javascripts: [
         "prism-1.26.0.js",
+        "tabulator-6.1.min.js",    // Auskommentieren für HTML-Tabellen
     ],
     stylesheets: [
         "stuttgart.css",
         "prism-1.26.0.css",
+        "tabulator-6.1.min.css",   // Auskommentieren für HTML-Tabellen
     ],
     multiLanguage: false,
     navbarClass:   'navbar',
@@ -18,5 +20,17 @@ const config = {
     markdown:      [ '.md',   '.markdown' ],
     html:          [ '.html', '.htm' ],
     text:          [ '.txt' ],
-    timestamp:     '2022-02-22 07:00:01',
+    timestamp:     '2024-03-29 07:00:02',
+
+    tabulatorOptions: {
+	//height: "500px",         // Scrollbalken und "stehender" Tabellenkopf
+	layout: "fitDataStretch",  // Vermeidung von Leerspalte rechts
+	columnDefaults: {
+	    formatter:    "html",  // funktionierende HTML-Links
+	    headerFilter: "input", // Filterzeile
+	},
+	movableColumns: true,      // Sortierung der Spalten änderbar
+	movableRows: true,         // Sortierung der Zeilen änderbar
+	//spreadsheet: true,
+    },
 }
