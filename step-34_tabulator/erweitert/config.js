@@ -6,12 +6,12 @@ const config = {
     ],
     javascripts: [
         "prism-1.26.0.js",
-        "tabulator-6.1.min.js",
+        "tabulator-6.1.min.js",    // Auskommentieren für HTML-Tabellen
     ],
     stylesheets: [
         "stuttgart.css",
         "prism-1.26.0.css",
-        "tabulator-6.1.min.css",
+        "tabulator-6.1.min.css",   // Auskommentieren für HTML-Tabellen
     ],
     multiLanguage: false,
     navbarClass:   'navbar',

@@ -32,6 +32,12 @@ wget https://unpkg.com/tabulator-tables@6.1.0/dist/css/tabulator.min.css
 wget https://unpkg.com/tabulator-tables@6.1.0/dist/js/tabulator.min.js
 ```
 
+Umbenennen nach
+
+- tabulator-6.1.min.css
+- tabulator-6.1.min.js
+
+
 ## Links
 
 - [Tabulator - Optionen beim Anlegen](https://tabulator.info/docs/6.1/options)

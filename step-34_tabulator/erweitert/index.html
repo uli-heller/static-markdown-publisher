@@ -456,11 +456,16 @@
         config.stylesheets.forEach((s) => {
             loadConfigJsStylesheet(s);
         });
-        if (typeof Tabulator !== 'undefined') {
-            Promise.allSettled(mySite.promises).then((values) => {
-		new Tabulator(".markdown-table", config.tabulatorOptions,);
-	    });
-	}
+        Promise.allSettled(mySite.promises).then((values) => {
+            if (typeof Tabulator !== 'undefined') {
+		const tables = document.getElementsByClassName("markdown-table");
+		var n=0;
+		while (n < tables.length) {
+		    new Tabulator(tables[n], config.tabulatorOptions,);
+		    ++n;
+		}
+	    }
+	});
         mySite.promises = [];
         mySite.initInProgress = false;
     } // initPageAsync

@@ -34,3 +34,4 @@ Schritt 25|Syntaxhervorhebung mit "prism.js" |[Testdokument mit diversen CodeBl√
 Schritt 26|Haupt-Kopf aufblenden             |Siehe diese Seite!
 Schritt 27|Mehrsprachigkeit                  |Aktuell abgeklemmt!
 Schritt 28|Links-Rechts-Men√ºzeile NG         |Siehe diese Seite!
+Schritt 34|Tabelle mit Sortierung            |[Testdokument mit mehreren Tabellen](tabulator.md)
