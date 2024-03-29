@@ -3,6 +3,7 @@ LIZENZEN von Drittsoftware
 
 Name                      | Datum      | Version | Lizenz            | Bemerkung
 --------------------------|------------|---------|-------------------|---------------------------------
+[TABULATOR][TABULATOR]    | 2024-03-29 | 6.1     | [MIT][TABULATORL] | Tabellendarstellung und -handhabung
 [PRISM.JS][PRISM]         | 2022-01-27 | 1.26.0  | [MIT][PRISML]     | Syntaxhervorhebung
 [MERMAID.JS][MERMAID]     | 2022-01-27 | 8.13.10 | [MIT][MERMAIDL]   | Diverse Graphiken
 [DIFF2HTML.JS][DIFF2HTML] | 2022-01-26 | 3.4.14  | [MIT][DIFF2HTMLL] | Aufbereitung von Dateiänderungen
@@ -13,6 +14,8 @@ Name                      | Datum      | Version | Lizenz            | Bemerkung
 [MDWIKI][MDWIKI]          | 2022-01-15 | 0.6.2   | [AGPLv3][MDWIKIL] | Keinerlei Inhalte übernommen
 [RAITO][RAITO]            | 2022-01-16 | -       | [MIT][RAITOL]     | Keinerlei Inhalte übernommen
 
+[TABULATOR]:  https://tabulator.info
+[TABULATORL]: https://tabulator.info/docs/6.1/license
 [PRISM]:      https://prismjs.com
 [PRISML]:     https://github.com/PrismJS/prism/blob/master/LICENSE
 [MERMAID]:    https://github.com/mermaid-js/mermaid
