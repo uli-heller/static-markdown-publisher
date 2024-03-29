@@ -12,3 +12,6 @@ Notizen
 - https://www.npmjs.com/package/marked-extended-tables ... mehrzeilige Header und mehrspaltige Felder
 - https://github.com/markedjs/marked/issues/545 ... Inhaltsverzeichnis
 - https://www.azureblue.io/how-to-properly-style-a-markdown-table/ ... Renderer für Tabellen
+- Vereinheitlichung der Renderer
+  - async function load
+  - weiter "oben" gibt es nochmal Renderer
