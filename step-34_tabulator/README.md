@@ -31,3 +31,7 @@ abgespeichert unter [original](original).
 wget https://unpkg.com/tabulator-tables@6.1.0/dist/css/tabulator.min.css
 wget https://unpkg.com/tabulator-tables@6.1.0/dist/js/tabulator.min.js
 ```
+
+## Links
+
+- [Tabulator - Optionen beim Anlegen](https://tabulator.info/docs/6.1/options)

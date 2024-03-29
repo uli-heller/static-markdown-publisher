@@ -457,7 +457,19 @@
             loadConfigJsStylesheet(s);
         });
         if (typeof Tabulator !== 'undefined') {
-            Promise.allSettled(mySite.promises).then((values) => { console.log(values);     new Tabulator(".markdown-table", { layout: "fitDataStretch", columnDefaults: { formatter: "html", }, }); });
+            Promise.allSettled(mySite.promises).then((values) => {
+		new Tabulator(".markdown-table", {
+		    height: "500px",
+		    layout: "fitDataStretch",
+		    columnDefaults: {
+			formatter:    "html",
+			headerFilter: "input",
+		    },
+		    movableColumns: true,
+		    movableRows: true,
+		    //spreadsheet: true,
+		});
+	    });
 	}
         mySite.promises = [];
         mySite.initInProgress = false;
