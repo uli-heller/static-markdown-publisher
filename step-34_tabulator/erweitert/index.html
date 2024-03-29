@@ -26,8 +26,10 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
   <!-- tabulator -->
+  <!--
   <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
   <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+  -->
 
   <script id="configjs" src="config.js?timestamp=20220222070000"></script>
 
@@ -454,10 +456,9 @@
         config.stylesheets.forEach((s) => {
             loadConfigJsStylesheet(s);
         });
-        //document.getElementsByClassName("markdown-table").forEach((mt) => {
-        //    new Tabulator(mt, {});
-        //});
-        Promise.allSettled(mySite.promises).then((values) => { console.log(values);     new Tabulator(".markdown-table", {}); });
+        if (typeof Tabulator !== 'undefined') {
+            Promise.allSettled(mySite.promises).then((values) => { console.log(values);     new Tabulator(".markdown-table", { layout: "fitDataStretch", }); });
+	}
         mySite.promises = [];
         mySite.initInProgress = false;
     } // initPageAsync

@@ -6,10 +6,12 @@ const config = {
     ],
     javascripts: [
         "prism-1.26.0.js",
+        "tabulator-6.1.min.js",
     ],
     stylesheets: [
         "stuttgart.css",
         "prism-1.26.0.css",
+        "tabulator-6.1.min.css",
     ],
     multiLanguage: false,
     navbarClass:   'navbar',
@@ -18,5 +20,5 @@ const config = {
     markdown:      [ '.md',   '.markdown' ],
     html:          [ '.html', '.htm' ],
     text:          [ '.txt' ],
-    timestamp:     '2022-02-22 07:00:01',
+    timestamp:     '2024-03-29 07:00:01',
 }
