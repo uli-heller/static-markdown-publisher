@@ -64,3 +64,4 @@ Wie es aussieht, klappt die Syntax-Hervorhebung überhaupt nicht:
 
 - "diff" geht - [diff.md](diff.md)
 - Testdokument [code-blocks.md](code-blocks.md) enthält keine Hervorhebungen!
+- Sichtung via [Schritt 25 - Syntaxhervorhebung mit "prism.js"](../step-25_prismjs/README.md): Dort klappt es auch nicht!

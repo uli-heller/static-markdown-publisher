@@ -15,3 +15,5 @@ Notizen
 - Vereinheitlichung der Renderer
   - async function load
   - weiter "oben" gibt es nochmal Renderer
+- Beschreibung von '25 - Syntaxhervorhebungen mit "prism.js"' korrigieren
+  - Fehlerkorrektur "oben" einarbeiten!
