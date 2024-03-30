@@ -1,0 +1,81 @@
+diff -wur original/config.js erweitert/config.js
+--- original/config.js	2024-03-29 10:52:49.327284029 +0100
++++ erweitert/config.js	2024-03-30 07:17:06.609444326 +0100
+@@ -5,12 +5,12 @@
+         { filename: "footer.md", elementId: "footermd", insertBeforeElementId: "bottomid", isNavbar: true },
+     ],
+     javascripts: [
+-        "prism-1.26.0.js",
++        "prism-1.29.0.js",
+         "tabulator-6.1.min.js",    // Auskommentieren für HTML-Tabellen
+     ],
+     stylesheets: [
+         "stuttgart.css",
+-        "prism-1.26.0.css",
++        "prism-1.29.0.css",
+         "tabulator-6.1.min.css",   // Auskommentieren für HTML-Tabellen
+     ],
+     multiLanguage: false,
+diff -wur original/index.html erweitert/index.html
+--- original/index.html	2024-03-29 10:53:40.751498781 +0100
++++ erweitert/index.html	2024-03-30 08:55:18.730306157 +0100
+@@ -247,11 +247,21 @@
+ 
+     const renderer = new marked.Renderer();
+     const originalRendererCode = renderer.code.bind(renderer);
++    var hljsLanguageRendererCalled = false; // set to true when language rendering via highlight.js is detected
+     renderer.code = (code, infostring, escaped) => {
+         if (infostring === 'diff') {
+             return Diff2Html.html(code);
+         } else if (infostring === 'mermaid') {
+             return '<div class="mermaid">' + code + '</div>';
++        } else if (Prism.languages[infostring]) {
++            const newCode = Prism.highlight(code, Prism.languages[infostring]);
++            const langClass = `language-${infostring}`
++            return `<pre class="${langClass}"><code class="${langClass}">${newCode}</code></pre>`
++        } else if (hljs.getLanguage(infostring)) {
++            hljsLanguageRendererCalled = true;
++            const language = hljs.getLanguage(infostring) ? infostring : 'plaintext';
++            const newCode = hljs.highlight(code, { language }).value;
++            return `<pre><code>${newCode}</pre></code>`
+         }
+         return originalRendererCode(code, infostring, escaped);
+     };
+@@ -314,17 +324,6 @@
+             element.innerHTML = '';
+             element.innerHTML = marked.parse(contentText, {
+                 renderer: renderer,
+-                highlight: function(code, lang) {
+-                    var language;
+-                    if (typeof Prism !== 'undefined') {
+-                        language = Prism.languages[lang];
+-                        if (language) {
+-                            return Prism.highlight(code, language, lang);
+-                        }
+-                    }
+-                    language = hljs.getLanguage(lang) ? lang : 'plaintext';
+-                    return hljs.highlight(code, { language }).value;
+-                },
+             });
+         } else if (mySite.isHtml(filename)) {
+             element.innerHTML = '';
+@@ -336,8 +335,14 @@
+         nodeScriptReplace(element);
+         if (isNavbar) {
+             handleNavbar(element);
+-        }
++        } else {
+         mermaid.init(undefined, ".mermaid");
++            if (hljsLanguageRendererCalled) {
++                alert("h-a");
++                hljsLanguageRendererCalled = false;
++                hljs.highlightAll();
++            }
++        }
+     }
+ 
+     async function loadConfigJs(element, filename, isNavbar) {
+Nur in original: prism-1.26.0.css.
+Nur in original: prism-1.26.0.js.
+Nur in erweitert: prism-1.29.0.css.
+Nur in erweitert: prism-1.29.0.js.
