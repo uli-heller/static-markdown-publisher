@@ -6,8 +6,8 @@ Komponenten
 
 Diese Dateien sind notwendig, damit der SMP funktioniert:
 
-- index.html
-- config.js
+- index.html ... enthält die Implementierng vom SMP
+- config.js ... Konfigurationsdatei für den SMP
 
 Notwendige Dateien, die umbenannt werden können:
 
