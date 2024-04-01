@@ -148,6 +148,12 @@ Nur in erweitert: prism-1.29.0.js.
 Probleme - Stand 2024-03-30
 --------
 
+### Offene Probleme
+
+Keine
+
+### Gelöste Probleme
+
 Wie es aussieht, klappt die Syntax-Hervorhebung überhaupt nicht:
 
 - "diff" geht - [diff.md](diff.md)
