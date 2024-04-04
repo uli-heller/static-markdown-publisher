@@ -17,3 +17,7 @@ Notizen
   - weiter "oben" gibt es nochmal Renderer
 - Beschreibung von '25 - Syntaxhervorhebungen mit "prism.js"' korrigieren
   - Fehlerkorrektur "oben" einarbeiten!
+- Markdown innerhalb von HTML: https://github.com/markedjs/marked/discussions/1723
+
+Erledigt
+--------
