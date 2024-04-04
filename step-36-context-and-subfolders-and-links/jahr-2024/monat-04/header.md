@@ -1,10 +1,1 @@
-<table>
-  <tr>
-    <td>
-      <img src="/stuttgart.svg" width="70" />
-    </td>
-    <td>
-      <div id="header">Stuttgart CMS</div>
-    </td>
-  </tr>
-</table>
+![stuttgart](stuttgart-70.svg) <div id="header">Stuttgart CMS</div>

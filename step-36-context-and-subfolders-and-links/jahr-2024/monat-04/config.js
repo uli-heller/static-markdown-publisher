@@ -28,7 +28,7 @@ const config = {
     markdown:      [ '.md',   '.markdown' ],
     html:          [ '.html', '.htm' ],
     text:          [ '.txt' ],
-    timestamp:     '2024-03-29 07:00:02',
+    timestamp:     '2024-03-29 07:00:03',
 
     tabulatorOptions: {
         //height: "500px",         // Scrollbalken und "stehender" Tabellenkopf
