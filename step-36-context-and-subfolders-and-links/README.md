@@ -21,11 +21,12 @@ Browser:
 Probleme bei der Original-Version
 ---------------------------------
 
-- Bild "Stuttgart" oben links wird nicht angezeigt - HTML-Link <img src="/stuttgart.svg">
-- README.md unterhalb vom Bild "Stuttgart" wird nicht angezeigt
-  ** Markdown-Link auf /README.md
-  ** Übersetzt nach http://localhost:8000/README.md
-  ** Besser wäre http://localhost:8000/jahr-2024/monat-04/README.md
+- Kopfzeile - Bild "Stuttgart" oben links wird nicht angezeigt - HTML-Link <img src="/stuttgart.svg">
+- Für die Navigationsleiste verwende ich absolute Links wie "/README.md", damit sie auch in Unterverzeichnissen
+  funktionieren, also bspw. für [diesen Link](TBD)
+  - Leider funktionieren sie dann nicht mehr beim Ansehen im Gitea/Github/Gitlab-Repo
+  - Besser wäre generell die Verwendung von relativen Links ("/README.md" -> "README.md")
+  - Für Navbar-Elemente sollten diese dann immer relativ zum Navbar-MD aufgelöst werden
 - ...
 
 Kopfzeile - Bild "Stuttgart"
