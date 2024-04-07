@@ -4,6 +4,25 @@
 [Zurück zur Übersicht][MAIN]
 
 Dies ist eine Erweiterung von [29 -  Unterordner und Links](../step-29_subfolders-and-links/README.md).
+Die grundlegende Fragestellung lautet: Wie sollen die Markdown-Links für "unsere" Dokumente funktionieren?
+
+Zielsetzung:
+
+- Links funkionieren im SMP
+- Links funktionieren im Quellrepo (Github, Gitea, Gitlab)
+
+Damit "beide" funktionieren, dürfen wir nur relative Links verwenden!
+Sobald absolute Links in's Spiel kommen, funktioniert "irgendwas" nicht mehr!
+Klar: Links in HTML-Dateien (oder HTML-Fragmenten in MD-Dateien) sind "speziell".
+Sie sollten vermieden werden!
+
+Grob muß gelten:
+
+- "Alle" MD-Dateien verwenden "relative" Links
+- Auch "navbar.md" und "footer.md" verwenden relative Links
+- Bei der Anzeige eines Dokumentes innerhalb vom SMP
+  - Links im Bereich des Hauptdokumentes werden relativ zum Hauptdokument "aufgelöst"
+  - Links im Bereich von "navbar.md" und "footer.md" werden relativ zu ihrem Dateinamen "aufgelöst"
 
 Test
 ----

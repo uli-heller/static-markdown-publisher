@@ -265,7 +265,9 @@
     };
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
-        const url = new URL(href, mySite.currentUrl.href);
+        const url1 = new URL(href, mySite.smpHref);        // FIXME step-36
+        const url = new URL(href, mySite.currentUrl.href); // FIXME step-36
+        const href1 = mySite.hashUrl(url1).href;
         href = mySite.hashUrl(url).href;
         return originalRendererLink(href, title, text);
     };
@@ -316,9 +318,21 @@
         }
     }
 
+    //
+    // filename                                           | isNavbar  | mySite.baseUrl                            | mySite.indexHtmlUrl
+    // http://localhost:8000/jahr-2024/monat-04/index.md  | false     | http://localhost:8000/jahr-2024/monat-04/ | http://localhost:8000/jahr-2024/monat-04/index.html
+    // http://localhost:8000/jahr-2024/monat-04/header.md | undefined | http://localhost:8000/jahr-2024/monat-04/ | http://localhost:8000/jahr-2024/monat-04/index.html
+    // http://localhost:8000/jahr-2024/monat-04/navbar.md | true      | http://localhost:8000/jahr-2024/monat-04/ | http://localhost:8000/jahr-2024/monat-04/index.html
+    // http://localhost:8000/jahr-2024/monat-04/footer.md | true      | http://localhost:8000/jahr-2024/monat-04/ | http://localhost:8000/jahr-2024/monat-04/index.html
+    //
+    // marked-base-url ???
+    // renderer.link   ???
+    //
     async function load(element, filename, isNavbar) {
         const contentText = await fetchFile(filename);
         if (mySite.isMarkdown(filename)) {
+            //mySite.smpHref = Site.dirname(filename); // FIXME step-36
+            mySite.smpHref = filename;   // FIXME step-36
             element.innerHTML = '';
             element.innerHTML = marked.parse(contentText, {
                 renderer: renderer,

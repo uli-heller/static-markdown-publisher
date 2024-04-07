@@ -1,8 +1,8 @@
 const config = {
     additionalElements: [
-        { filename: "header.md", elementId: "headermd", insertBeforeElementId: "topid" },
-        { filename: "navbar.md", elementId: "navbarmd", insertBeforeElementId: "topid",    isNavbar: true },
-        { filename: "footer.md", elementId: "footermd", insertBeforeElementId: "bottomid", isNavbar: true },
+        { filename: "menu/header.md", elementId: "headermd", insertBeforeElementId: "topid" },
+        { filename: "menu/navbar.md", elementId: "navbarmd", insertBeforeElementId: "topid",    isNavbar: true },
+        { filename: "menu/footer.md", elementId: "footermd", insertBeforeElementId: "bottomid", isNavbar: true },
     ],
     javascripts: [
         "prism-1.29.0.js", // prism.js kann nicht von unpkg heruntergeladen werden wegen Plugins
