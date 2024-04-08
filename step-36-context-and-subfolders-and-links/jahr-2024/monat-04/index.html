@@ -266,15 +266,18 @@
     const originalRendererLink = renderer.link.bind(renderer);
     renderer.link = (href, title, text) => {
         const url1 = new URL(href, mySite.smpHref);        // FIXME step-36
-        const url = new URL(href, mySite.currentUrl.href); // FIXME step-36
+        //const url = new URL(href, mySite.currentUrl.href); // FIXME step-36
         const href1 = mySite.hashUrl(url1).href;
-        href = mySite.hashUrl(url).href;
-        return originalRendererLink(href, title, text);
+        //href = mySite.hashUrl(url).href;
+        return originalRendererLink(href1, title, text);
     };
     const originalRendererImage = renderer.image.bind(renderer);
     renderer.image = (href, title, text) => {
-        const url = new URL(href, mySite.currentUrl.href);
-        return originalRendererImage(url.href, title, text);
+        const url1 = new URL(href, mySite.smpHref);        // FIXME step-36
+        //const url = new URL(href, mySite.currentUrl.href);
+        //href = url.href;
+        const href1 = url1.href;
+        return originalRendererImage(href1, title, text);
     };
     //const originalRendererTable = renderer.table.bind(renderer);
     renderer.table = (header, body) => {
